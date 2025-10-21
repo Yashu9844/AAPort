@@ -1,5 +1,33 @@
 @import "tailwindcss";
 
+@font-face {
+  font-family: 'Primary';
+  src: url('/fonts/BF2rLmMMdnmJvQgPDxZZli7N1A.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Secondary';
+  src: url('/fonts/riYFo6KdNry0HjMReE39GewelM.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Accent';
+  src: url('/fonts/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa1ZL7.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Light';
+  src: url('/fonts/pxiByp8kv8JHgFVrLCz7Z1xlFQ.ttf') format('truetype');
+  font-weight: 300;
+  font-style: normal;
+}
+
 :root {
   --background: #ffffff;
   --foreground: #171717;
@@ -23,4 +51,22 @@ body {
   background: var(--background);
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+.font-primary {
+  font-family: 'Primary', sans-serif;
+}
+
+.font-secondary {
+  font-family: 'Secondary', sans-serif;
+}
+
+.font-accent {
+  font-family: 'Accent', sans-serif;
+}
+
+.font-light {
+  font-family: 'Light', sans-serif;
 }
