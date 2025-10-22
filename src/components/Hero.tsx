@@ -20,26 +20,30 @@ export default function Hero() {
       
       {/* Content */}
       <div className="relative z-10 h-full flex items-center">
-        <div className="max-w-7xl mx-auto px-6 sm:px-8 w-full">
-          <div className="max-w-3xl">
+        <div className="w-full pl-6 sm:pl-8 md:pl-12 lg:pl-16">
+          <div className="max-w-none">
             {/* Main Content */}
-            <div className="space-y-6">
-              <h1 className="text-6xl md:text-8xl font-primary text-white font-bold leading-tight">
-                Zubair
-                <br />
-                <span className="text-white/80">Mallik</span>
+            <div className="space-y-4 sm:space-y-6 md:space-y-8">
+              <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl 2xl:text-9xl font-accent text-white font-bold leading-none">
+                Zubair Mallik
               </h1>
               
-              <p className="text-xl md:text-2xl text-white/90 font-light tracking-wide">
-                Full Stack Developer
-              </p>
+              <div className="space-y-3 sm:space-y-4">
+                <p className="text-base sm:text-lg md:text-xl lg:text-2xl xl:text-3xl text-white/80 font-light font-normal tracking-wide">
+                  Full Stack Developer
+                </p>
+                
+                <p className="text-sm sm:text-base md:text-lg lg:text-xl text-white/60 font-light tracking-wide max-w-2xl">
+                  Create solutions and code that work in real world
+                </p>
+              </div>
               
-              <div className="pt-8">
-                <button className="group bg-white/10 hover:bg-white/20 text-white font-light px-8 py-4 rounded-full border border-white/20 backdrop-blur-sm transition-all duration-300 hover:scale-105">
-                  <span className="flex items-center space-x-2">
-                    <span>View My Work</span>
+              <div className="pt-3 sm:pt-4 md:pt-6">
+                <button className="group bg-black/20 backdrop-blur-md text-white font-light px-5 sm:px-6 md:px-8 py-2.5 sm:py-3 md:py-4 rounded-full border border-white/10 transition-all duration-300 hover:bg-black/30 shadow-xl">
+                  <span className="flex items-center space-x-2 sm:space-x-3">
+                    <span className="text-xs sm:text-sm md:text-base font-medium">View My Work</span>
                     <svg 
-                      className="w-5 h-5 transform group-hover:translate-x-1 transition-transform" 
+                      className="w-3 sm:w-4 md:w-5 h-3 sm:h-4 md:h-5 transform group-hover:translate-x-1 transition-transform" 
                       fill="none" 
                       stroke="currentColor" 
                       viewBox="0 0 24 24"

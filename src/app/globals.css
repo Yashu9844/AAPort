@@ -70,3 +70,18 @@ body {
 .font-light {
   font-family: 'Light', sans-serif;
 }
+
+/* Custom Scrollbar Styles - Invisible */
+.scrollbar-hidden {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.scrollbar-hidden::-webkit-scrollbar {
+  display: none;
+}
+
+/* Smooth scrolling */
+.smooth-scroll {
+  scroll-behavior: smooth;
+}
