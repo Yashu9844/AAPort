@@ -1,4 +1,4 @@
-const ArrowUpRight = (props) => (
+const ArrowUpRight = (props:any) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     viewBox="0 0 24 24"
@@ -23,11 +23,25 @@ const Page2 = () => {
       image: '/image1pro.png', // ✅ use public folder image like this
       link: '#',
     },
+   {
+      type: 'SNAPSHOT',
+      title: 'Robinhood Onboarding',
+      subtitle: 'Brand Experience Design',
+      image: '/image1pro.png', // ✅ use public folder image like this
+      link: '#',
+    },
     {
-      type: 'CASE STUDY',
-      title: 'Mixpanel Rebrand',
-      subtitle: 'Brand Design',
-      image: 'https://images.unsplash.com/photo-1634942537034-2531766767d1?w=1200&q=80',
+      type: 'SNAPSHOT',
+      title: 'Robinhood Onboarding',
+      subtitle: 'Brand Experience Design',
+      image: '/image1pro.png', // ✅ use public folder image like this
+      link: '#',
+    },
+    {
+      type: 'SNAPSHOT',
+      title: 'Robinhood Onboarding',
+      subtitle: 'Brand Experience Design',
+      image: '/image1pro.png', // ✅ use public folder image like this
       link: '#',
     },
   ];
