@@ -51,11 +51,11 @@ export default function EyeFollower() {
           key={index}
           ref={index === 0 ? eyeRef : null}
           style={{
-            width: '16px',
+            width: '12px',
             height: '16px',
-            minWidth: '16px',
+            minWidth: '12px',
             minHeight: '16px',
-            maxWidth: '16px',
+            maxWidth: '12px',
             maxHeight: '16px',
             backgroundColor: 'rgb(255, 255, 255)',
             borderRadius: '50%',
@@ -72,8 +72,8 @@ export default function EyeFollower() {
         >
           <div
             style={{
-              width: '7px',
-              height: '7px',
+              width: '6px',
+              height: '6px',
               borderRadius: '50%',
               position: 'absolute',
               backgroundColor: 'rgb(0, 0, 0)',

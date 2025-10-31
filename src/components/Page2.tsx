@@ -1,3 +1,5 @@
+import Link from 'next/link';
+
 const ArrowUpRight = (props:any) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
@@ -20,28 +22,28 @@ const Page2 = () => {
       type: 'SNAPSHOT',
       title: 'Robinhood Onboarding',
       subtitle: 'Brand Experience Design',
-      image: '/image1pro.png', // ✅ use public folder image like this
-      link: '#',
+      image: '/image1pro.png',
+      link: '/case-study-1',
     },
    {
       type: 'SNAPSHOT',
-      title: 'Robinhood Onboarding',
-      subtitle: 'Brand Experience Design',
-      image: '/image1pro.png', // ✅ use public folder image like this
-      link: '#',
+      title: 'Mixpanel Rebrand',
+      subtitle: 'Brand Identity & Design System',
+      image: '/image1pro.png',
+      link: '/case-study-2',
     },
     {
       type: 'SNAPSHOT',
-      title: 'Robinhood Onboarding',
-      subtitle: 'Brand Experience Design',
-      image: '/image1pro.png', // ✅ use public folder image like this
-      link: '#',
+      title: 'Meta System Iconography',
+      subtitle: 'Icon Design & Visual Language',
+      image: '/image1pro.png',
+      link: '/case-study-3',
     },
     {
       type: 'SNAPSHOT',
-      title: 'Robinhood Onboarding',
-      subtitle: 'Brand Experience Design',
-      image: '/image1pro.png', // ✅ use public folder image like this
+      title: 'Product Development',
+      subtitle: 'Full Stack Application',
+      image: '/image1pro.png',
       link: '#',
     },
   ];
@@ -53,7 +55,7 @@ const Page2 = () => {
 
       <div className="w-[95%] grid grid-cols-1 md:grid-cols-2 gap-6 py-10">
         {projects.map((project, index) => (
-          <div key={index} className="group cursor-pointer">
+          <Link key={index} href={project.link} className="group cursor-pointer">
             {/* Header */}
             <div className="mb-4">
               <p className="uppercase text-xs tracking-widest text-gray-400 mb-2">
@@ -79,7 +81,7 @@ const Page2 = () => {
                 className="w-full h-[480px] object-cover hover:scale-105 transition-transform duration-500"
               />
             </div>
-          </div>
+          </Link>
         ))}
       </div>
     </div>
