@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import EyeFollower from './EyeFollower';
 
 export default function Navigation() {
   const [isMenuHovered, setIsMenuHovered] = useState(false);
@@ -18,11 +19,16 @@ export default function Navigation() {
           <div className="bg-black/30 backdrop-blur-md rounded-full border border-white/10 px-4 sm:px-6 md:px-8 lg:px-10 py-2 sm:py-2.5 md:py-3 flex items-center justify-between w-[70vw] sm:w-[60vw] md:w-[50vw] lg:w-[40vw] max-w-xl">
             <span className="text-white text-sm sm:text-base md:text-lg font-light tracking-wider">MENU</span>
             
-            {/* Hamburger Icon */}
-            <div className="flex flex-col space-y-1 sm:space-y-1.5">
-              <div className="w-5 sm:w-6 md:w-6 h-0.5 bg-white rounded-full"></div>
-              <div className="w-5 sm:w-6 md:w-6 h-0.5 bg-white rounded-full"></div>
-              <div className="w-5 sm:w-6 md:w-6 h-0.5 bg-white rounded-full"></div>
+            <div className="flex items-center gap-4 sm:gap-6">
+              {/* Eye Follower */}
+              <EyeFollower />
+              
+              {/* Hamburger Icon */}
+              <div className="flex flex-col space-y-1 sm:space-y-1.5 pointer-events-auto">
+                <div className="w-5 sm:w-6 md:w-6 h-0.5 bg-white rounded-full"></div>
+                <div className="w-5 sm:w-6 md:w-6 h-0.5 bg-white rounded-full"></div>
+                <div className="w-5 sm:w-6 md:w-6 h-0.5 bg-white rounded-full"></div>
+              </div>
             </div>
           </div>
           

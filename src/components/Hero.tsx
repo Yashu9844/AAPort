@@ -17,6 +17,9 @@ export default function Hero() {
       
       {/* Dark Overlay */}
       <div className="absolute top-0 left-0 w-full h-full bg-black/40"></div>
+
+      {/* Bottom Gradient Fade to blend into next section */}
+      <div className="absolute inset-x-0 bottom-0 h-28 sm:h-40 md:h-56 lg:h-64 bg-gradient-to-b from-transparent to-black pointer-events-none"></div>
       
       {/* Content */}
       <div className="relative z-10 h-full flex items-center">
