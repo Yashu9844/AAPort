@@ -30,7 +30,7 @@ const Projects = () => {
 
 
   return (
-    <div className='p-2 sm:p-3 lg:p-4 mb-[50vh] sm:mb-[75vh] lg:mb-[100vh]'>
+    <div className='p-2 sm:p-3 lg:p-4 mb-[10vh] sm:mb-[15vh] lg:mb-[20vh]'>
       <div className='pt-[20vh] sm:pt-[30vh] md:pt-[35vh] lg:pt-[42vh]'>
         <h2 className='font-secondary text-5xl sm:text-6xl md:text-7xl lg:text-[12vw] uppercase'>Projects</h2>
       </div>
