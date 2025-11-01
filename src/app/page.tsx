@@ -9,6 +9,7 @@ export default function Home() {
       <Navigation />
       <Hero />
       <Page2 />
+       <div className="w-full h-[1px] bg-gray-800 mb-4"></div>
       <Projects />
       <FeaturedPage />
     </div>
