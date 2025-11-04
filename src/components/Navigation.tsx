@@ -16,7 +16,7 @@ export default function Navigation() {
           onMouseLeave={() => setIsMenuHovered(false)}
         >
           {/* Main Menu Strip */}
-          <div className="bg-black/30 backdrop-blur-md rounded-full border border-white/10 px-4 sm:px-6 md:px-8 lg:px-10 py-2 sm:py-2.5 md:py-3 flex items-center justify-between w-[70vw] sm:w-[60vw] md:w-[50vw] lg:w-[40vw] max-w-xl">
+          <div className="bg-black/30 backdrop-blur-md rounded-[0.5vw] border border-white/10 px-4 sm:px-6 md:px-8 lg:px-10 py-2 sm:py-2.5 md:py-3 flex items-center justify-between w-[70vw] sm:w-[60vw] md:w-[50vw] lg:w-[40vw] max-w-xl">
             <span className="text-white text-sm sm:text-base md:text-lg font-light tracking-wider">MENU</span>
             
             <div className="flex items-center gap-4 sm:gap-6">
@@ -38,7 +38,7 @@ export default function Navigation() {
               ? 'opacity-100 scale-100 translate-y-0' 
               : 'opacity-0 scale-95 -translate-y-6 pointer-events-none'
           }`}>
-            <div className="bg-black/50 backdrop-blur-2xl rounded-2xl sm:rounded-3xl border border-white/20 shadow-2xl w-[70vw] sm:w-[60vw] md:w-[50vw] lg:w-[40vw] max-w-xl max-h-[60vh] overflow-y-auto scrollbar-hidden smooth-scroll">
+            <div className="bg-black/50 backdrop-blur-2xl rounded-2xl sm:rounded-[0.5vw] border border-white/20 shadow-2xl w-[70vw] sm:w-[60vw] md:w-[50vw] lg:w-[40vw] max-w-xl max-h-[60vh] overflow-y-auto scrollbar-hidden smooth-scroll">
               <div className="p-4 sm:p-6 md:p-8 lg:p-10">
                 {/* Projects Section */}
                 <div className="mb-10">
@@ -171,7 +171,7 @@ export default function Navigation() {
       
       {/* Download Resume Button - Top Right */}
       <div className="fixed top-8 right-8 z-50">
-        <button className="bg-black/30 backdrop-blur-md text-white px-4 py-2 rounded-full border border-white/10 transition-all duration-300 hover:bg-black/40">
+        <button className="bg-black/30 backdrop-blur-md text-white px-4 py-3 rounded-[0.5vw] border border-white/10 transition-all duration-300 hover:bg-black/40">
           <span className="text-sm font-light tracking-wider">Download Resume</span>
         </button>
       </div>
