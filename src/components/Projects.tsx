@@ -12,19 +12,26 @@ const Projects = () => {
 
   gsap.registerPlugin(ScrollTrigger)
   useGSAP(function () {
-    gsap.from('.hero', {
-      height: '100px',
-      stagger: {
-        amount: 0.5,
+    gsap.fromTo('.hero', 
+      {
+        height: '100px',
+        opacity: 0.3
       },
-      scrollTrigger: {
-        trigger: '.lol',
-        markers: false,
-        start: 'top 100%',
-        end: 'top -150%',
-        scrub: true
+      {
+        height: 'auto',
+        opacity: 1,
+        stagger: {
+          amount: 0.5,
+        },
+        scrollTrigger: {
+          trigger: '.lol',
+          markers: false,
+          start: 'top 80%',
+          end: 'top -100%',
+          scrub: 1
+        }
       }
-    })
+    )
   })
 
 
