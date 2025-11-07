@@ -5,6 +5,7 @@ import Projects from "@/components/Projects";
 import CircleCarousel from "@/components/CircleCarousel";
 import FeaturedPage from "@/components/Features";
 import Footer from "@/components/Footer";
+import About from "@/components/About";
 
 export default function Home() {
   return (
@@ -15,7 +16,11 @@ export default function Home() {
        <div className="w-full h-[1px] bg-gray-800 mb-4"></div>
       <Projects />
       <CircleCarousel />
+      <div className="w-full h-[1px] bg-gray-800 mb-4"></div>
       <FeaturedPage />
+      <div className="w-full h-[1px] bg-gray-800 my-8"></div>
+      <About />
+      <div className="w-full h-[1px] bg-gray-800 mt-8"></div>
       <Footer />
     </div>
   );
