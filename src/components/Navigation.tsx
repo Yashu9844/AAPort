@@ -24,10 +24,16 @@ export default function Navigation() {
               <EyeFollower />
               
               {/* Hamburger Icon */}
-              <div className="flex flex-col space-y-1 sm:space-y-1.5 pointer-events-auto">
-                <div className="w-5 sm:w-6 md:w-6 h-0.5 bg-white rounded-full"></div>
-                <div className="w-5 sm:w-6 md:w-6 h-0.5 bg-white rounded-full"></div>
-                <div className="w-5 sm:w-6 md:w-6 h-0.5 bg-white rounded-full"></div>
+              <div className={`relative h-4 w-6 pointer-events-auto flex flex-col justify-center gap-1.5 transition-all duration-300 ${isMenuHovered ? 'rotate-90' : 'rotate-0'}`}>
+                <span className={`w-6 h-0.5 bg-white rounded-full transition-all duration-300 ease-out absolute top-0 left-0 ${
+                  isMenuHovered ? 'translate-y-[7px] rotate-45' : 'translate-y-0 rotate-0'
+                }`}></span>
+                <span className={`w-6 h-0.5 bg-white rounded-full transition-all duration-300 ease-out ${
+                  isMenuHovered ? 'opacity-0 scale-x-50' : 'opacity-100 scale-x-100'
+                }`}></span>
+                <span className={`w-6 h-0.5 bg-white rounded-full transition-all duration-300 ease-out absolute bottom-0 left-0 ${
+                  isMenuHovered ? '-translate-y-[7px] -rotate-45' : 'translate-y-0 rotate-0'
+                }`}></span>
               </div>
             </div>
           </div>
