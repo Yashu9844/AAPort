@@ -9,43 +9,69 @@ export default function Navigation() {
   return (
     <>
       {/* Center Menu Strip */}
-      <nav className="fixed top-6 sm:top-8 left-1/2 transform -translate-x-1/2 z-50">
+      <nav className="fixed top-4 sm:top-6 md:top-8 left-1/2 transform -translate-x-1/2 z-50">
         <div 
           className="relative"
           onMouseEnter={() => setIsMenuHovered(true)}
           onMouseLeave={() => setIsMenuHovered(false)}
         >
           {/* Main Menu Strip */}
-          <div className="bg-black/30 backdrop-blur-md rounded-[0.5vw] border border-white/10 px-4 sm:px-6 md:px-8 lg:px-10 py-2 sm:py-2.5 md:py-3 flex items-center justify-between w-[70vw] sm:w-[60vw] md:w-[50vw] lg:w-[40vw] max-w-xl">
-            <span className="text-white text-sm sm:text-base md:text-lg font-light tracking-wider">MENU</span>
+          <div className="bg-black/30 backdrop-blur-md rounded-lg sm:rounded-[0.5vw] border border-white/10 px-3 sm:px-6 md:px-8  py-2 sm:py-2.5 flex items-center justify-between w-[85vw] sm:w-[60vw] md:w-[50vw] lg:w-[40vw] max-w-xl">
+            <span className="text-white text-xs sm:text-sm md:text-base lg:text-lg font-light tracking-wider">MENU</span>
             
-            <div className="flex items-center gap-4 sm:gap-6">
-              {/* Eye Follower */}
-              <EyeFollower />
+            <div className="flex items-center gap-3 sm:gap-4 md:gap-6">
+              {/* Eye Follower - Hidden on mobile */}
+              <div className="hidden sm:block">
+                <EyeFollower />
+              </div>
               
               {/* Hamburger Icon */}
-              <div className={`relative h-4 w-6 pointer-events-auto flex flex-col justify-center gap-1.5 transition-all duration-300 ${isMenuHovered ? 'rotate-90' : 'rotate-0'}`}>
-                <span className={`w-6 h-0.5 bg-white rounded-full transition-all duration-300 ease-out absolute top-0 left-0 ${
-                  isMenuHovered ? 'translate-y-[7px] rotate-45' : 'translate-y-0 rotate-0'
+              <div className={`relative h-3.5 sm:h-4 w-5 sm:w-6 pointer-events-auto flex flex-col justify-center gap-1.5 transition-all duration-300 ${isMenuHovered ? 'rotate-90' : 'rotate-0'}`}>
+                <span className={`w-5 sm:w-6 h-0.5 bg-white rounded-full transition-all duration-300 ease-out absolute top-0 left-0 ${
+                  isMenuHovered ? 'translate-y-[6px] sm:translate-y-[7px] rotate-45' : 'translate-y-0 rotate-0'
                 }`}></span>
-                <span className={`w-6 h-0.5 bg-white rounded-full transition-all duration-300 ease-out ${
+                <span className={`w-5 sm:w-6 h-0.5 bg-white rounded-full transition-all duration-300 ease-out ${
                   isMenuHovered ? 'opacity-0 scale-x-50' : 'opacity-100 scale-x-100'
                 }`}></span>
-                <span className={`w-6 h-0.5 bg-white rounded-full transition-all duration-300 ease-out absolute bottom-0 left-0 ${
-                  isMenuHovered ? '-translate-y-[7px] -rotate-45' : 'translate-y-0 rotate-0'
+                <span className={`w-5 sm:w-6 h-0.5 bg-white rounded-full transition-all duration-300 ease-out absolute bottom-0 left-0 ${
+                  isMenuHovered ? '-translate-y-[6px] sm:-translate-y-[7px] -rotate-45' : 'translate-y-0 rotate-0'
                 }`}></span>
               </div>
             </div>
           </div>
           
           {/* Dropdown Menu - Extended hover area */}
-          <div className={`absolute top-0 left-1/2 transform -translate-x-1/2 pt-12 sm:pt-14 transition-all duration-500 ease-out origin-top z-40 ${
+          <div className={`absolute top-0 left-1/2 transform -translate-x-1/2 pt-10 sm:pt-12 md:pt-14 transition-all duration-500 ease-out origin-top z-40 ${
             isMenuHovered 
               ? 'opacity-100 scale-100 translate-y-0' 
               : 'opacity-0 scale-95 -translate-y-6 pointer-events-none'
           }`}>
-            <div className="bg-black/50 backdrop-blur-2xl rounded-2xl sm:rounded-[0.5vw] border border-white/20 shadow-2xl w-[70vw] sm:w-[60vw] md:w-[50vw] lg:w-[40vw] max-w-xl max-h-[60vh] overflow-y-auto scrollbar-hidden smooth-scroll">
+            <div className="bg-black/50 backdrop-blur-2xl rounded-xl sm:rounded-2xl md:rounded-[0.5vw] border border-white/20 shadow-2xl w-[85vw] sm:w-[60vw] md:w-[50vw] lg:w-[40vw] max-w-xl max-h-[70vh] sm:max-h-[60vh] overflow-y-auto scrollbar-hidden smooth-scroll">
               <div className="p-4 sm:p-6 md:p-8 lg:p-10">
+                {/* Download Resume Button - Mobile Only */}
+                <button className={`sm:hidden w-full bg-white/15 backdrop-blur-sm text-white py-3 rounded-full border border-white/30 text-sm font-accent transition-all duration-200 mb-8 flex items-center justify-center gap-2 ${
+                  isMenuHovered 
+                    ? 'opacity-100 translate-y-0 delay-[100ms]' 
+                    : 'opacity-0 translate-y-6'
+                }`}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.transform = 'scale(1.02)';
+                  e.currentTarget.style.backgroundColor = 'rgba(255, 255, 255, 0.25)';
+                  e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.5)';
+                  e.currentTarget.style.transition = 'all 0.15s ease-out';
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.transform = 'scale(1)';
+                  e.currentTarget.style.backgroundColor = 'rgba(255, 255, 255, 0.15)';
+                  e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.3)';
+                  e.currentTarget.style.transition = 'all 0.15s ease-out';
+                }}>
+                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                  </svg>
+                  <span className="tracking-wider">DOWNLOAD RESUME</span>
+                </button>
+                
                 {/* Projects Section */}
                 <div className="mb-10">
                   <h3 className={`text-white/70 text-sm font-secondary tracking-wider mb-6 transition-all duration-400 ${
@@ -175,10 +201,14 @@ export default function Navigation() {
         </div>
       </nav>
       
-      {/* Download Resume Button - Top Right */}
-      <div className="fixed top-8 right-8 z-50">
-        <button className="bg-black/30 backdrop-blur-md text-white px-4 py-3 rounded-[0.5vw] border border-white/10 transition-all duration-300 hover:bg-black/40">
-          <span className="text-sm font-light tracking-wider">Download Resume</span>
+      {/* Download Resume Button - Desktop Only */}
+      <div className="hidden sm:block fixed top-6 md:top-8 right-6 md:right-8 z-50">
+        <button className="bg-black/30 backdrop-blur-md text-white px-4 py-3 rounded-lg md:rounded-[0.5vw] border border-white/10 transition-all duration-300 hover:bg-black/40 flex items-center gap-2">
+          {/* Download Icon */}
+          <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+          </svg>
+          <span className="text-xs sm:text-sm font-light tracking-wider whitespace-nowrap">Download Resume</span>
         </button>
       </div>
     </>
