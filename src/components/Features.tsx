@@ -81,6 +81,7 @@ const featuredItems = [
 
 export default function FeaturedPage() {
   const swiperRef = useRef<HTMLDivElement>(null);
+  const tweenRef = useRef<gsap.core.Tween | null>(null);
 
   useEffect(() => {
     if (!swiperRef.current) return;
@@ -96,7 +97,7 @@ export default function FeaturedPage() {
       const totalWidth = cardWidth * featuredItems.length;
 
       // Infinite scroll animation
-      gsap.to(swiperRef.current, {
+      tweenRef.current = gsap.to(swiperRef.current, {
         x: -totalWidth,
         duration: 40,
         ease: "none",
@@ -104,11 +105,18 @@ export default function FeaturedPage() {
       });
     }, 100);
 
-    return () => clearTimeout(timer);
+    return () => {
+      clearTimeout(timer);
+      tweenRef.current?.kill();
+      tweenRef.current = null;
+    };
   }, []);
 
+  const handleEnter = () => tweenRef.current?.pause();
+  const handleLeave = () => (tweenRef.current as any)?.resume?.() ?? tweenRef.current?.play();
+
   return (
-    <main className="min-h-screen bg-black text-white pt-8 pb-16 w-full flex justify-center">
+    <main className=" bg-black text-white pt-8 pb-16 w-full flex justify-center">
       <div className="w-[95%]">
         {/* Horizontal line above Featured */}
         <div className="w-full h-[1px] bg-gray-800 mb-8"></div>
@@ -117,7 +125,7 @@ export default function FeaturedPage() {
           Featured <span className="text-gray-500">↘</span>
         </h1>
 
-        <div className="relative overflow-hidden">
+        <div className="relative overflow-hidden" onMouseEnter={handleEnter} onMouseLeave={handleLeave}>
           {/* Gradient mask on right edge only */}
           <div className="absolute right-0 top-0 bottom-0 w-32  from-black to-transparent z-10 pointer-events-none"></div>
           
@@ -127,6 +135,8 @@ export default function FeaturedPage() {
               <div
                 key={idx}
                 className="group cursor-pointer flex-shrink-0 w-[300px] md:w-[350px]"
+                onMouseEnter={handleEnter}
+                onMouseLeave={handleLeave}
               >
                 <div
                   className={`${item.bg} flex items-center justify-center h-80 mb-4 overflow-hidden transition-transform duration-300 group-hover:scale-[1.02]`}
