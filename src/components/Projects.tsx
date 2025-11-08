@@ -32,7 +32,7 @@ const Projects = () => {
   return (
     <div className='p-2 sm:p-3 lg:p-4 mb-[10vh] sm:mb-[15vh] lg:mb-[20vh]'>
       <div className='pt-[6vh] sm:pt-[8vh] md:pt-[10vh] lg:pt-[12vh]'>
-        <h2 className='font-secondary text-5xl sm:text-6xl md:text-7xl lg:text-[12vw] uppercase'>Projects</h2>
+        <h2 className='font-secondary text-white text-5xl sm:text-6xl md:text-7xl lg:text-[12vw] uppercase'>Projects</h2>
       </div>
       <div className='mt-8 sm:mt-12 md:mt-16 lg:mt-20 lol'>
         {projects.map(function (elem, idx) {
