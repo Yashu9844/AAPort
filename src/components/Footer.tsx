@@ -39,59 +39,30 @@ const Footer = () => {
 
     if (!footer || !content || !background) return;
 
-    // Create GSAP timeline
+    gsap.registerPlugin(ScrollTrigger);
+
+    // Initial state
+    gsap.set(footer, { minHeight: "100vh" });
+    gsap.set(content, { scale: 1.15, opacity: 0.4, y: 80 });
+    gsap.set(background, { opacity: 1 });
+
+    // Scroll-driven animation: BIG (full) → SMALL (compact)
     const tl = gsap.timeline({
       scrollTrigger: {
         trigger: footer,
-        start: "top bottom", // When footer top hits viewport bottom
-        end: "bottom bottom", // When footer bottom hits viewport bottom
-        scrub: 1, // Smooth scrubbing effect
-        // markers: true, // Uncomment for debugging
+        start: "top bottom",
+        end: "center center",
+        scrub: 1,
       },
     });
 
-    // Initial state: Full-screen immersive footer
-    gsap.set(footer, {
-      minHeight: "100vh",
-    });
+    tl.to(footer, { minHeight: "auto" })
+      .to(content, { scale: 1, opacity: 1, y: 0 }, 0)
+      .to(background, { opacity: 0.6 }, 0);
 
-    gsap.set(content, {
-      scale: 0.85,
-      opacity: 0.6,
-      y: 100,
-    });
-
-    // Animation: Shrink from full-screen to compact
-    tl.to(footer, {
-      minHeight: "auto",
-      duration: 1,
-      ease: "power2.inOut",
-    })
-      .to(
-        content,
-        {
-          scale: 1,
-          opacity: 1,
-          y: 0,
-          duration: 1,
-          ease: "power2.out",
-        },
-        "<" // Start at the same time as previous animation
-      )
-      .to(
-        background,
-        {
-          opacity: 0.8,
-          duration: 1,
-          ease: "power2.inOut",
-        },
-        "<"
-      );
-
-    // Cleanup function
     return () => {
       tl.kill();
-      ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
+      ScrollTrigger.getAll().forEach((t) => t.kill());
     };
   }, []);
 
@@ -165,7 +136,7 @@ const Footer = () => {
   };
 
   return (
-    <footer ref={footerRef} className="relative bg-black text-gray-200 overflow-hidden">
+    <footer ref={footerRef} className="relative bg-black text-gray-200 overflow-hidden min-h-screen">
       {/* Background media with dark overlay */}
       <div ref={backgroundRef} className="absolute inset-0 w-full h-full">
         <video 
