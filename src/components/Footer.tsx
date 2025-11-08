@@ -180,7 +180,7 @@ const Footer = () => {
                   whileHover="hover"
                   whileTap="tap"
                 >
-                  How To Ride
+                  About Me
                   <span className="ml-2">›</span>
                 </motion.a>
                 <motion.a
@@ -190,7 +190,7 @@ const Footer = () => {
                   whileHover="hover"
                   whileTap="tap"
                 >
-                  Where to Ride
+                  Featured Work
                   <span className="ml-2">›</span>
                 </motion.a>
                 <motion.a
@@ -200,7 +200,7 @@ const Footer = () => {
                   whileHover="hover"
                   whileTap="tap"
                 >
-                  Know Your Ride
+                  Case Studies
                   <span className="ml-2">›</span>
                 </motion.a>
                 <motion.a
@@ -210,7 +210,7 @@ const Footer = () => {
                   whileHover="hover"
                   whileTap="tap"
                 >
-                  Support
+                  Contact
                   <span className="ml-2">›</span>
                 </motion.a>
               </nav>
@@ -220,7 +220,7 @@ const Footer = () => {
             <motion.div variants={sectionVariants}>
               <motion.div variants={headingVariants}>
                 <h3 className="text-sm font-semibold mb-6 tracking-wide uppercase text-white">
-                  Where to Ride
+                  Technologies
                 </h3>
               </motion.div>
               <nav className="space-y-3">
@@ -231,7 +231,7 @@ const Footer = () => {
                   whileHover="hover"
                   whileTap="tap"
                 >
-                  Las Vegas
+                  Next.js Stack
                   <span className="ml-2">›</span>
                 </motion.a>
                 <motion.a
@@ -241,20 +241,20 @@ const Footer = () => {
                   whileHover="hover"
                   whileTap="tap"
                 >
-                  San Francisco
+                  Laravel Stack
                   <span className="ml-2">›</span>
                 </motion.a>
                 <motion.p 
                   className="text-base text-gray-400"
                   variants={itemVariants}
                 >
-                  Austin (Coming Soon)
+                  AI & ML Tools
                 </motion.p>
                 <motion.p 
                   className="text-base text-gray-400"
                   variants={itemVariants}
                 >
-                  Miami (Coming Soon)
+                  Cloud & DevOps
                 </motion.p>
               </nav>
             </motion.div>
@@ -266,14 +266,14 @@ const Footer = () => {
             >
               <motion.div variants={headingVariants}>
                 <h3 className="text-sm font-semibold mb-6 tracking-wide uppercase text-white">
-                  Get Up to Speed
+                  Stay Connected
                 </h3>
               </motion.div>
               <motion.p 
                 className="text-sm mb-4 max-w-md text-gray-300"
                 variants={itemVariants}
               >
-                Sign up for our newsletter to see where we're headed next.
+                Subscribe to get updates on new projects and articles I publish.
               </motion.p>
               <motion.form 
                 onSubmit={handleNewsletterSubmit} 
@@ -294,7 +294,7 @@ const Footer = () => {
                   <motion.div variants={formItemVariants}>
                     <Input
                       type="text"
-                      placeholder="Zip Code *"
+                      placeholder="Full Name *"
                       value={zipCode}
                       onChange={(e) => setZipCode(e.target.value)}
                       required
@@ -307,7 +307,7 @@ const Footer = () => {
                     type="submit"
                     className="w-full sm:w-auto rounded-full px-8 h-12 font-medium uppercase text-sm tracking-wide bg-white text-black hover:bg-gray-200 transition-colors"
                   >
-                    Join the Newsletter
+                    Subscribe Now
                     <span className="ml-2">›</span>
                   </Button>
                 </motion.div>
@@ -316,9 +316,9 @@ const Footer = () => {
                 className="text-xs mt-4 text-gray-400 max-w-md"
                 variants={itemVariants}
               >
-                By submitting, you give Zoox permission to store and process your
-                personal information so we can provide you with the content you've
-                requested. For more information, please see our{" "}
+                By submitting, you give me permission to store and process your
+                personal information so I can provide you with the content you've
+                requested. For more information, please see my{" "}
                 <a href="#" className="underline hover:text-white transition-colors">
                   privacy policy
                 </a>
@@ -351,7 +351,7 @@ const Footer = () => {
                 whileHover="hover"
                 whileTap="tap"
               >
-                Supply Chain Standards
+                Code of Conduct
                 <span className="ml-2">›</span>
               </motion.a>
               <motion.a 

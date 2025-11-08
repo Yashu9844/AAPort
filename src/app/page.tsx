@@ -17,7 +17,7 @@ export default function Home() {
        <div className="w-full h-[1px] bg-gray-800 mb-4"></div>
       <Projects />
       <CircleCarousel />
-      <div className="w-full h-[1px] bg-gray-800 mb-4"></div>
+   
       <FeaturedPage />
       <div className="w-full h-[1px] bg-gray-800 my-8"></div>
       <About />

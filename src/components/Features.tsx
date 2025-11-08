@@ -25,56 +25,56 @@ const featuredItems = [
     title: "Framer",
     description:
       "JonHowell.com was featured on the Framer Gallery, a collection of the best website design on the Framer platform",
-    image: "/featured/framer.png",
+    image: "/images/pimg1.jpg",
     bg: "bg-gradient-to-br from-purple-500 via-pink-500 to-blue-500",
   },
   {
     title: "SiteInspire",
     description:
       "JonHowell.com was featured on Siteinspire, a long-standing showcase of exceptional web and interactive design.",
-    image: "/featured/siteinspire.png",
+    image: "/images/pimg2.jpg",
     bg: "bg-white",
   },
   {
     title: "A1 Gallery",
     description:
       "JonHowell.com was featured on A1.gallery, a curated collection showcasing the best websites on the web.",
-    image: "/featured/a1.png",
+    image: "/images/pimg3.jpg",
     bg: "bg-[#1a1a1a]",
   },
   {
     title: "LogoLounge 15",
     description:
       "Three logos Jon designed were selected for LogoLounge Book 15, showcasing identity work from around the world",
-    image: "/featured/logolounge.png",
+    image: "/images/pimg4.jpg",
     bg: "bg-orange-500",
   },
   {
     title: "Awwwards",
     description:
       "JonHowell.com received recognition on Awwwards, the awards that recognize talent and effort of web designers.",
-    image: "/featured/framer.png",
+    image: "/images/pimg5.jpg",
     bg: "bg-gradient-to-br from-green-500 via-teal-500 to-cyan-500",
   },
   {
     title: "CSS Design Awards",
     description:
       "Featured on CSS Design Awards, honoring web designers, developers and agencies for their outstanding work.",
-    image: "/featured/siteinspire.png",
+    image: "/images/pimg6.jpg",
     bg: "bg-gradient-to-br from-red-500 via-orange-500 to-yellow-500",
   },
   {
     title: "Behance",
     description:
       "Featured project on Behance, the world's largest creative network for showcasing and discovering creative work.",
-    image: "/featured/a1.png",
+    image: "/images/pimg7.jpg",
     bg: "bg-blue-600",
   },
   {
     title: "Dribbble",
     description:
       "Featured shot on Dribbble, where designers gain inspiration, feedback, community, and jobs worldwide.",
-    image: "/featured/logolounge.png",
+    image: "/images/pimg8.jpg",
     bg: "bg-pink-500",
   },
 ];
@@ -138,16 +138,14 @@ export default function FeaturedPage() {
                 onMouseEnter={handleEnter}
                 onMouseLeave={handleLeave}
               >
-                <div
-                  className={`${item.bg} flex items-center justify-center h-80 mb-4 overflow-hidden transition-transform duration-300 group-hover:scale-[1.02]`}
-                >
-                  <Image
-                    src={item.image}
-                    alt={item.title}
-                    width={400}
-                    height={320}
-                    className="object-contain p-8"
-                  />
+          <div className={`${item.bg} relative flex items-center justify-center h-80 mb-4 overflow-hidden`}>
+        <Image
+  src={item.image}
+  alt={item.title}
+  fill
+  className="object-cover"
+/>
+
                 </div>
                 <div className="flex items-center gap-2">
                   <h2 className="text-xl font-primary mb-2 relative transition-all duration-300">
