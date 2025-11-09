@@ -302,17 +302,27 @@ const Projects = () => {
               <motion.div 
                 layoutId={`project-${idx * 2}`}
                 onClick={() => setSelectedProject(idx * 2)}
-                className='w-full lg:w-1/2 h-full overflow-hidden cursor-pointer'
+                className='w-full lg:w-1/2 h-full overflow-hidden cursor-pointer group relative'
               >
-                <img src={projects[idx * 2]?.image || elem.image} alt='' className='w-full h-full object-cover' />
+                <img src={projects[idx * 2]?.image || elem.image} alt='' className='w-full h-full object-cover group-hover:scale-110 transition-transform duration-500' />
+                <div className='absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center'>
+                  <button className='px-8 sm:px-12 py-3 sm:py-4 border border-white text-white text-lg sm:text-2xl font-light rounded-full hover:bg-white hover:text-black transition-all duration-300'>
+                    View Project
+                  </button>
+                </div>
               </motion.div>
               {projects[idx * 2 + 1] && (
                 <motion.div 
                   layoutId={`project-${idx * 2 + 1}`}
                   onClick={() => setSelectedProject(idx * 2 + 1)}
-                  className='w-full lg:w-1/2 h-full overflow-hidden cursor-pointer'
+                  className='w-full lg:w-1/2 h-full overflow-hidden cursor-pointer group relative'
                 >
-                  <img src={projects[idx * 2 + 1].image} alt='' className='w-full h-full object-cover' />
+                  <img src={projects[idx * 2 + 1].image} alt='' className='w-full h-full object-cover group-hover:scale-110 transition-transform duration-500' />
+                  <div className='absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center'>
+                    <button className='px-8 sm:px-12 py-3 sm:py-4 border border-white text-white text-lg sm:text-2xl font-light rounded-full hover:bg-white hover:text-black transition-all duration-300'>
+                      View Project
+                    </button>
+                  </div>
                 </motion.div>
               )}
             </div>
