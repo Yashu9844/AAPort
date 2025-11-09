@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import ClickSparkles from "@/components/ClickSparkles";
 import Preloader from "@/components/Preloader";
+import SheryScripts from "@/components/SheryScripts";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -33,6 +34,7 @@ export default function RootLayout({
         {/* Note: server renders it visible; it unmounts itself after 3s + reveal */}
         {/* @ts-expect-error Server Component importing client child */}
         <Preloader />
+        <SheryScripts />
         {children}
         <ClickSparkles />
       </body>
