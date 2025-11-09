@@ -54,10 +54,7 @@ const Page2 = () => {
       <div className="pointer-events-none absolute -top-16 left-0 right-0 h-16 bg-gradient-to-t from-black to-transparent" />
 
       <div className="w-[95%] py-10">
-        {/* Work Heading */}
-        <div className="mb-16">
-          <h2 className="font-secondary text-white text-5xl sm:text-6xl md:text-7xl lg:text-[10vw] uppercase">Work</h2>
-        </div>
+        
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         {projects.map((project, index) => (
