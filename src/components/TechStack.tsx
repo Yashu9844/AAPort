@@ -25,9 +25,9 @@ const techStack = [
 
 const TechStack = () => {
   return (
-    <div className="w-full bg-black overflow-hidden">
+    <div className="w-full bg-transparent overflow-hidden">
       <div className="w-full h-[2px] bg-gray-600"></div>
-      <div className="py-8">
+      <div className="py-2 sm:py-3 md:py-3">
         <div className="relative">
           {/* Gradient masks */}
           <div className="absolute left-0 top-0 bottom-0 w-20 bg-gradient-to-r from-black to-transparent z-10" />
@@ -44,9 +44,9 @@ const TechStack = () => {
                   <img
                     src={tech.logo}
                     alt={tech.name}
-                    className="w-8 h-8 object-contain filter brightness-0 invert opacity-40 group-hover:opacity-100 transition-opacity duration-300"
+                    className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6 object-contain filter brightness-0 invert opacity-40 group-hover:opacity-100 transition-opacity duration-300"
                   />
-                  <span className="text-white/40 text-sm font-light tracking-wide group-hover:text-white/80 transition-colors duration-300 whitespace-nowrap">
+                  <span className="text-white/40 text-xs sm:text-sm font-light tracking-wide group-hover:text-white/80 transition-colors duration-300 whitespace-nowrap">
                     {tech.name}
                   </span>
                 </div>
@@ -62,9 +62,9 @@ const TechStack = () => {
                   <img
                     src={tech.logo}
                     alt={tech.name}
-                    className="w-8 h-8 object-contain filter brightness-0 invert opacity-40 group-hover:opacity-100 transition-opacity duration-300"
+                    className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6 object-contain filter brightness-0 invert opacity-40 group-hover:opacity-100 transition-opacity duration-300"
                   />
-                  <span className="text-white/40 text-sm font-light tracking-wide group-hover:text-white/80 transition-colors duration-300 whitespace-nowrap">
+                  <span className="text-white/40 text-xs sm:text-sm font-light tracking-wide group-hover:text-white/80 transition-colors duration-300 whitespace-nowrap">
                     {tech.name}
                   </span>
                 </div>
@@ -78,7 +78,7 @@ const TechStack = () => {
       <style jsx global>{`
         .marquee {
           display: flex;
-          gap: 4rem;
+          gap: 2rem;
           user-select: none;
         }
         
@@ -87,8 +87,18 @@ const TechStack = () => {
           flex-shrink: 0;
           justify-content: space-around;
           min-width: 100%;
-          gap: 4rem;
+          gap: 2rem;
           animation: scroll 80s linear infinite;
+        }
+        
+        @media (min-width: 640px) {
+          .marquee { gap: 3rem; }
+          .marquee__content { gap: 3rem; }
+        }
+        
+        @media (min-width: 768px) {
+          .marquee { gap: 4rem; }
+          .marquee__content { gap: 4rem; }
         }
         
         @keyframes scroll {
@@ -96,7 +106,7 @@ const TechStack = () => {
             transform: translateX(0%);
           }
           100% {
-            transform: translateX(calc(-100% - 4rem));
+            transform: translateX(calc(-100% - 2rem));
           }
         }
       `}</style>
