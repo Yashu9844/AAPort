@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import ClickSparkles from "@/components/ClickSparkles";
+import Preloader from "@/components/Preloader";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -28,6 +29,10 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
+        {/* Preloader overlay */}
+        {/* Note: server renders it visible; it unmounts itself after 3s + reveal */}
+        {/* @ts-expect-error Server Component importing client child */}
+        <Preloader />
         {children}
         <ClickSparkles />
       </body>

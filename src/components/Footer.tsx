@@ -53,11 +53,8 @@ const Footer = () => {
         start: "top bottom",
         end: "center center",
         scrub: 1,
-        snap: {
-          snapTo: [0, 1],
-          duration: { min: 0.2, max: 0.6 },
-          ease: "power2.inOut",
-        },
+        // Remove snapping to prevent auto-scrolling to the end
+        // snap: false,
       },
     });
 
