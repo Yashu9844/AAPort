@@ -56,7 +56,7 @@ export default function Feature2() {
               {features.map((feature, index) => (
                 <div
                   key={index}
-                  className={`absolute inset-0 transition-opacity duration-700 ${
+                  className={`absolute inset-0 transition-opacity duration-200 ${
                     activeIndex === index ? 'opacity-100' : 'opacity-0'
                   }`}
                 >

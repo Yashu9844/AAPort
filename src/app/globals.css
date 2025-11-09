@@ -118,6 +118,87 @@ body {
   scroll-behavior: smooth;
 }
 
+/* Custom thin scrollbar for body */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #000000;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.3);
+}
+
+/* Firefox scrollbar */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 255, 255, 0.2) #000000;
+}
+
+/* Navigation menu scrollbar */
+.nav-menu-scroll::-webkit-scrollbar {
+  width: 6px;
+}
+
+.nav-menu-scroll::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.3);
+  border-radius: 3px;
+}
+
+.nav-menu-scroll::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 3px;
+}
+
+.nav-menu-scroll::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.5);
+}
+
+.nav-menu-scroll {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 255, 255, 0.3) rgba(0, 0, 0, 0.3);
+}
+
+/* TechStack marquee (moved from styled-jsx to prevent refresh flicker) */
+.marquee {
+  display: flex;
+  gap: 2rem;
+  user-select: none;
+}
+.marquee__content {
+  display: flex;
+  flex-shrink: 0;
+  justify-content: space-around;
+  min-width: 100%;
+  gap: 2rem;
+  animation: marquee-scroll 80s linear infinite;
+  will-change: transform;
+}
+@media (min-width: 640px) {
+  .marquee { gap: 3rem; }
+  .marquee__content { gap: 3rem; }
+}
+@media (min-width: 768px) {
+  .marquee { gap: 4rem; }
+  .marquee__content { gap: 4rem; }
+}
+@keyframes marquee-scroll {
+  0% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(calc(-100% - 2rem));
+  }
+}
+
+
 /* Click sparkle effect */
 .click-sparkles {
   position: fixed;

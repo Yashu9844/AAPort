@@ -43,7 +43,7 @@ const Footer = () => {
 
     // Initial state
     gsap.set(footer, { minHeight: "100vh" });
-    gsap.set(content, { scale: 1.15, opacity: 0.4, y: 80 });
+    gsap.set(content, { scale: 1.15, opacity: 0.4, y: 80, paddingTop: 0 });
     gsap.set(background, { opacity: 1 });
 
     // Scroll-driven animation: BIG (full) → SMALL (compact)
@@ -53,11 +53,13 @@ const Footer = () => {
         start: "top bottom",
         end: "center center",
         scrub: 1,
+        // Remove snapping to prevent auto-scrolling to the end
+        // snap: false,
       },
     });
 
     tl.to(footer, { minHeight: "auto" })
-      .to(content, { scale: 1, opacity: 1, y: 0 }, 0)
+      .to(content, { scale: 1, opacity: 1, y: 0, paddingTop: "5rem" }, 0)
       .to(background, { opacity: 0.6 }, 0);
 
     return () => {
@@ -157,7 +159,7 @@ const Footer = () => {
       <motion.div
         ref={contentRef}
         className="relative z-10 max-w-[1920px] w-[calc(100%-1rem)] md:w-[calc(100%-2rem)] lg:w-[calc(100%-2.5rem)] xl:w-[calc(100%-3rem)] 2xl:w-[calc(100%-4rem)] mx-auto rounded-b-3xl bg-gradient-to-b from-black/40 via-black/80 to-black/95 backdrop-blur-[3px] border border-white/15 shadow-[0_0_25px_rgba(255,255,255,0.05)] py-20"
-        initial="hidden"
+        initial={false}
         whileInView="visible"
         viewport={{ once: true, amount: 0.2 }}
         variants={containerVariants}

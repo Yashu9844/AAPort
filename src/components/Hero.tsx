@@ -1,5 +1,7 @@
 'use client';
 
+import TechStack from './TechStack';
+
 export default function Hero() {
   return (
     <section id="home" className="relative h-screen w-full overflow-hidden bg-black">
@@ -61,8 +63,13 @@ export default function Hero() {
         </div>
       </div>
       
+      {/* Tech Stack at bottom */}
+      <div className="absolute bottom-0 left-0 right-0 z-20">
+        <TechStack />
+      </div>
+      
       {/* Scroll Indicator */}
-      <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 z-20">
+      {/* <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 z-30">
         <div className="animate-bounce">
           <svg 
             className="w-6 h-6 text-white/60" 
@@ -73,7 +80,7 @@ export default function Hero() {
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
           </svg>
         </div>
-      </div>
+      </div> */}
     </section>
   );
 }
