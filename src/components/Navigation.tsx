@@ -5,6 +5,9 @@ import EyeFollower from './EyeFollower';
 
 export default function Navigation() {
   const [isMenuHovered, setIsMenuHovered] = useState(false);
+  // Minimal fix: allow click on X to close while hovered until mouse leaves
+  const [forceClosed, setForceClosed] = useState(false);
+  const isOpen = isMenuHovered && !forceClosed;
 
   return (
     <>
@@ -13,7 +16,7 @@ export default function Navigation() {
         <div 
           className="relative"
           onMouseEnter={() => setIsMenuHovered(true)}
-          onMouseLeave={() => setIsMenuHovered(false)}
+          onMouseLeave={() => { setIsMenuHovered(false); setForceClosed(false); }}
         >
           {/* Main Menu Strip */}
           <div className="bg-black/30 backdrop-blur-md rounded-lg sm:rounded-[0.5vw] border border-white/10 px-3 sm:px-6 md:px-8  py-2 sm:py-2.5 flex items-center justify-between w-[85vw] sm:w-[60vw] md:w-[50vw] lg:w-[40vw] max-w-xl">
@@ -26,24 +29,42 @@ export default function Navigation() {
               </div>
               
               {/* Hamburger Icon */}
-              <div className={`relative h-3.5 sm:h-4 w-5 sm:w-6 pointer-events-auto flex flex-col justify-center gap-1.5 transition-all duration-300 ${isMenuHovered ? 'rotate-90' : 'rotate-0'}`}>
-                <span className={`w-5 sm:w-6 h-0.5 bg-white rounded-full transition-all duration-300 ease-out absolute top-0 left-0 ${
-                  isMenuHovered ? 'translate-y-[6px] sm:translate-y-[7px] rotate-45' : 'translate-y-0 rotate-0'
+              <div className={`relative h-3.5 sm:h-4 w-5 sm:w-6 pointer-events-auto flex flex-col justify-center gap-1.5 transition-all duration-300 z-50 ${isOpen ? 'rotate-90' : 'rotate-0'}`}>
+                <span className={`pointer-events-none w-5 sm:w-6 h-0.5 bg-white rounded-full transition-all duration-300 ease-out absolute top-0 left-0 ${
+                  isOpen ? 'translate-y-[6px] sm:translate-y-[7px] rotate-45' : 'translate-y-0 rotate-0'
                 }`}></span>
-                <span className={`w-5 sm:w-6 h-0.5 bg-white rounded-full transition-all duration-300 ease-out ${
-                  isMenuHovered ? 'opacity-0 scale-x-50' : 'opacity-100 scale-x-100'
+                <span className={`pointer-events-none w-5 sm:w-6 h-0.5 bg-white rounded-full transition-all duration-300 ease-out ${
+                  isOpen ? 'opacity-0 scale-x-50' : 'opacity-100 scale-x-100'
                 }`}></span>
-                <span className={`w-5 sm:w-6 h-0.5 bg-white rounded-full transition-all duration-300 ease-out absolute bottom-0 left-0 ${
-                  isMenuHovered ? '-translate-y-[6px] sm:-translate-y-[7px] -rotate-45' : 'translate-y-0 rotate-0'
+                <span className={`pointer-events-none w-5 sm:w-6 h-0.5 bg-white rounded-full transition-all duration-300 ease-out absolute bottom-0 left-0 ${
+                  isOpen ? '-translate-y-[6px] sm:-translate-y-[7px] -rotate-45' : 'translate-y-0 rotate-0'
                 }`}></span>
+                {/* Invisible hit area to capture clicks on hamburger/X */}
+                <button
+                  aria-label="toggle menu"
+                  className="absolute -inset-2"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    if (isOpen) {
+                      // Close while hovering; keep closed until mouse leaves
+                      setForceClosed(true);
+                      setIsMenuHovered(false);
+                    } else {
+                      // Click to open: allow hover again and mark hovered so it opens
+                      setForceClosed(false);
+                      setIsMenuHovered(true);
+                    }
+                  }}
+                  style={{ background: 'transparent' }}
+                />
               </div>
             </div>
           </div>
           
           {/* Dropdown Menu - Extended hover area */}
-          <div className={`absolute top-0 left-1/2 transform -translate-x-1/2 pt-10 sm:pt-12 md:pt-14 transition-all duration-500 ease-out origin-top z-40 ${
-            isMenuHovered 
-              ? 'opacity-100 scale-100 translate-y-0' 
+          <div className={`absolute top-full left-1/2 transform -translate-x-1/2 mt-2 sm:mt-3 transition-all duration-500 ease-out origin-top z-40 ${
+            isOpen 
+              ? 'opacity-100 scale-100 translate-y-0 pointer-events-auto' 
               : 'opacity-0 scale-95 -translate-y-6 pointer-events-none'
           }`}>
             <div className="nav-menu-scroll bg-black/50 backdrop-blur-2xl rounded-xl sm:rounded-2xl md:rounded-[0.5vw] border border-white/20 shadow-2xl w-[85vw] sm:w-[60vw] md:w-[50vw] lg:w-[40vw] max-w-xl max-h-[70vh] sm:max-h-[60vh] overflow-y-scroll" style={{ scrollBehavior: 'smooth', overscrollBehavior: 'contain' }} onWheel={(e) => e.stopPropagation()} onScroll={(e) => e.stopPropagation()}>
