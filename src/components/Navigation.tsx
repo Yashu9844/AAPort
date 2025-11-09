@@ -46,10 +46,10 @@ export default function Navigation() {
               ? 'opacity-100 scale-100 translate-y-0' 
               : 'opacity-0 scale-95 -translate-y-6 pointer-events-none'
           }`}>
-            <div className="bg-black/50 backdrop-blur-2xl rounded-xl sm:rounded-2xl md:rounded-[0.5vw] border border-white/20 shadow-2xl w-[85vw] sm:w-[60vw] md:w-[50vw] lg:w-[40vw] max-w-xl max-h-[70vh] sm:max-h-[60vh] overflow-y-auto scrollbar-hidden smooth-scroll">
+            <div className="nav-menu-scroll bg-black/50 backdrop-blur-2xl rounded-xl sm:rounded-2xl md:rounded-[0.5vw] border border-white/20 shadow-2xl w-[85vw] sm:w-[60vw] md:w-[50vw] lg:w-[40vw] max-w-xl max-h-[70vh] sm:max-h-[60vh] overflow-y-scroll" style={{ scrollBehavior: 'smooth', overscrollBehavior: 'contain' }} onWheel={(e) => e.stopPropagation()} onScroll={(e) => e.stopPropagation()}>
               <div className="p-4 sm:p-6 md:p-8 lg:p-10">
                 {/* Download Resume Button - Mobile Only */}
-                <button className={`sm:hidden w-full bg-white/15 backdrop-blur-sm text-white py-3 rounded-full border border-white/30 text-sm font-accent transition-all duration-200 mb-8 flex items-center justify-center gap-2 ${
+                <button className={`sm:hidden w-full bg-white/15 backdrop-blur-sm text-white py-2 rounded-full border border-white/30 text-xs font-accent transition-all duration-200 mb-6 flex items-center justify-center gap-1.5 ${
                   isMenuHovered 
                     ? 'opacity-100 translate-y-0 delay-[100ms]' 
                     : 'opacity-0 translate-y-6'
@@ -66,10 +66,10 @@ export default function Navigation() {
                   e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.3)';
                   e.currentTarget.style.transition = 'all 0.15s ease-out';
                 }}>
-                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
                   </svg>
-                  <span className="tracking-wider">DOWNLOAD RESUME</span>
+                  <span className="tracking-wider text-[10px]">DOWNLOAD</span>
                 </button>
                 
                 {/* Projects Section */}
@@ -163,38 +163,6 @@ export default function Navigation() {
                   </div>
                 </div>
                 
-                {/* Contact Button */}
-                <button className={`group w-full bg-white/15 backdrop-blur-sm text-white py-2 sm:py-3 rounded-full border border-white/30 text-xs sm:text-sm md:text-base font-accent transition-all duration-200 ${
-                  isMenuHovered 
-                    ? 'opacity-100 translate-y-0 delay-[1050ms]' 
-                    : 'opacity-0 translate-y-6'
-                }`}
-                onMouseEnter={(e) => {
-                  e.target.style.transform = 'scale(1.05)';
-                  e.target.style.backgroundColor = 'rgba(255, 255, 255, 0.25)';
-                  e.target.style.borderColor = 'rgba(255, 255, 255, 0.5)';
-                  e.target.style.boxShadow = '0 25px 50px -12px rgba(0, 0, 0, 0.5)';
-                  e.target.style.transition = 'all 0.15s ease-out';
-                  const span = e.target.querySelector('span');
-                  if (span) {
-                    span.style.letterSpacing = '0.2em';
-                    span.style.transition = 'letter-spacing 0.15s ease-out';
-                  }
-                }}
-                onMouseLeave={(e) => {
-                  e.target.style.transform = 'scale(1)';
-                  e.target.style.backgroundColor = 'rgba(255, 255, 255, 0.15)';
-                  e.target.style.borderColor = 'rgba(255, 255, 255, 0.3)';
-                  e.target.style.boxShadow = 'none';
-                  e.target.style.transition = 'all 0.15s ease-out';
-                  const span = e.target.querySelector('span');
-                  if (span) {
-                    span.style.letterSpacing = '0.1em';
-                    span.style.transition = 'letter-spacing 0.15s ease-out';
-                  }
-                }}>
-                  <span className="tracking-wider">CONTACT</span>
-                </button>
               </div>
             </div>
           </div>
