@@ -59,114 +59,74 @@ const Page2 = () => {
   ];
 
   useEffect(() => {
+    let mounted = true;
+    
     const initShery = () => {
-      // Check if all dependencies are loaded
-      if (typeof window === "undefined") {
-        setTimeout(initShery, 100);
-        return;
-      }
+      if (!mounted || typeof window === "undefined") return;
 
       const hasGSAP = !!(window as any).gsap;
       const hasThree = !!(window as any).THREE;
       const hasShery = !!(window as any).Shery;
 
-      console.log('📦 Dependencies:', { hasGSAP, hasThree, hasShery });
-
       if (!hasGSAP || !hasThree || !hasShery) {
-        setTimeout(initShery, 100);
+        setTimeout(initShery, 50);
         return;
       }
 
       const Shery = (window as any).Shery;
-      
-      // Wait for images to load
       const images = document.querySelectorAll('.image-div img');
+      
       if (images.length === 0) {
-        setTimeout(initShery, 100);
+        setTimeout(initShery, 50);
         return;
       }
 
-      const allLoaded = Array.from(images).every((img: any) => {
-        return img.complete && img.naturalHeight !== 0;
-      });
+      const allLoaded = Array.from(images).every((img: any) => 
+        img.complete && img.naturalHeight !== 0
+      );
 
       if (!allLoaded) {
-        setTimeout(initShery, 100);
+        setTimeout(initShery, 50);
         return;
       }
 
-      // Initialize the effect
-      setTimeout(() => {
-        try {
-          console.log('🔍 Initializing Shery on elements:', document.querySelectorAll('.image-div'));
-          console.log('🖼️ Images found:', images.length);
-          console.log('🤖 Shery methods:', Object.keys(Shery));
-          
-          const result = Shery.imageEffect(".image-div", {
+      // Initialize immediately when ready
+      try {
+        Shery.imageEffect(".image-div", {
             style: 5,
             gooey: true,
             config: {
-              a: { value: 2, range: [0, 30] },
-              b: { value: 0.75, range: [-1, 1] },
-              zindex: { value: -9996999, range: [-9999999, 9999999] },
-              aspect: { value: 0.7241195453907675 },
+              a: { value: 2 },
+              b: { value: 0.75 },
+              aspect: { value: 0.72 },
               gooey: { value: true },
               infiniteGooey: { value: false },
-              growSize: { value: 4, range: [1, 15] },
-              durationOut: { value: 1, range: [0.1, 5] },
-              durationIn: { value: 1.5, range: [0.1, 5] },
+              growSize: { value: 4 },
+              durationOut: { value: 0.8 },
+              durationIn: { value: 1.2 },
               displaceAmount: { value: 0.5 },
               masker: { value: true },
-              maskVal: { value: 1.23, range: [1, 5] },
-              scrollType: { value: 0 },
-              geoVertex: { range: [1, 64], value: 1 },
+              maskVal: { value: 1.2 },
               noEffectGooey: { value: false },
               onMouse: { value: 1 },
-              noise_speed: { value: 0.5, range: [0, 10] },
-              metaball: { value: 0.33, range: [0, 2] },
-              discard_threshold: { value: 0.5, range: [0, 1] },
-              antialias_threshold: { value: 0.01, range: [0, 0.1] },
-              noise_height: { value: 0.5, range: [0, 2] },
-              noise_scale: { value: 10, range: [0, 100] },
+              noise_speed: { value: 0.5 },
+              metaball: { value: 0.3 },
+              discard_threshold: { value: 0.5 },
+              noise_height: { value: 0.5 },
+              noise_scale: { value: 10 },
             },
           });
-          console.log('✅ Shery.js effect initialized, result:', result);
-          
-          // Check what Shery did to the elements
-          setTimeout(() => {
-            const divs = document.querySelectorAll('.image-div');
-            console.log('📍 Image divs after Shery:', divs.length);
-            divs.forEach((div: any, i) => {
-              console.log(`Div ${i}:`, {
-                opacity: window.getComputedStyle(div).opacity,
-                display: window.getComputedStyle(div).display,
-                hasCanvas: !!div.querySelector('canvas'),
-                childrenCount: div.children.length,
-                html: div.innerHTML.substring(0, 200)
-              });
-            });
-            
-            // Check for Shery effect containers
-            const sheryContainers = document.querySelectorAll('[class*="_canvas"], canvas');
-            console.log('🎪 Shery/Canvas containers in DOM:', sheryContainers.length);
-            sheryContainers.forEach((container: any) => {
-              console.log('Container:', {
-                className: container.className,
-                id: container.id,
-                width: container.width || container.offsetWidth,
-                height: container.height || container.offsetHeight,
-                parent: container.parentElement?.className
-              });
-            });
-          }, 500);
-        } catch (error) {
-          console.error('❌ Shery error:', error);
-        }
-      }, 200);
+      } catch (error) {
+        console.error('Shery initialization error:', error);
+      }
     };
 
-    // Start checking after a delay
-    setTimeout(initShery, 1000);
+    // Start checking immediately
+    initShery();
+    
+    return () => {
+      mounted = false;
+    };
   }, []);
 
   return (
@@ -191,12 +151,14 @@ const Page2 = () => {
               </div>
             </Link>
 
-            {/* Image - NOT wrapped in Link */}
+            {/* Image */}
             {project.hasGooey ? (
-              <div className="image-div">
-                <img src={project.image} alt="" />
-                <img src={project.image2} alt="" />
-              </div>
+              <Link href={project.link}>
+                <div className="image-div">
+                  <img src={project.image} alt="" />
+                  <img src={project.image2} alt="" />
+                </div>
+              </Link>
             ) : (
               <Link href={project.link}>
                 <div className="overflow-hidden">
