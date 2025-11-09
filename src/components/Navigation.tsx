@@ -1,12 +1,15 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import EyeFollower from './EyeFollower';
 
 export default function Navigation() {
   const [isMenuHovered, setIsMenuHovered] = useState(false);
   // Minimal fix: allow click on X to close while hovered until mouse leaves
   const [forceClosed, setForceClosed] = useState(false);
+  // Fast reopen when user has scrolled inside menu
+  const [fastOpen, setFastOpen] = useState(false);
+  const listRef = useRef<HTMLDivElement | null>(null);
   const isOpen = isMenuHovered && !forceClosed;
 
   return (
@@ -14,9 +17,13 @@ export default function Navigation() {
       {/* Center Menu Strip */}
       <nav className="fixed top-4 sm:top-6 md:top-8 left-1/2 transform -translate-x-1/2 z-50">
         <div 
-          className="relative"
-          onMouseEnter={() => setIsMenuHovered(true)}
-          onMouseLeave={() => { setIsMenuHovered(false); setForceClosed(false); }}
+          className="relative pb-2 sm:pb-3"
+onMouseEnter={() => {
+            setIsMenuHovered(true);
+            // if user previously scrolled, open almost instantly
+            if (listRef.current && listRef.current.scrollTop > 0) setFastOpen(true);
+          }}
+          onMouseLeave={() => { setIsMenuHovered(false); setForceClosed(false); setFastOpen(false); }}
         >
           {/* Main Menu Strip */}
           <div className="bg-black/30 backdrop-blur-md rounded-lg sm:rounded-[0.5vw] border border-white/10 px-3 sm:px-6 md:px-8  py-2 sm:py-2.5 flex items-center justify-between w-[85vw] sm:w-[60vw] md:w-[50vw] lg:w-[40vw] max-w-xl">
@@ -40,7 +47,7 @@ export default function Navigation() {
                   isOpen ? '-translate-y-[6px] sm:-translate-y-[7px] -rotate-45' : 'translate-y-0 rotate-0'
                 }`}></span>
                 {/* Invisible hit area to capture clicks on hamburger/X */}
-                <button
+<button
                   aria-label="toggle menu"
                   className="absolute -inset-2"
                   onClick={(e) => {
@@ -49,10 +56,12 @@ export default function Navigation() {
                       // Close while hovering; keep closed until mouse leaves
                       setForceClosed(true);
                       setIsMenuHovered(false);
+                      setFastOpen(false);
                     } else {
                       // Click to open: allow hover again and mark hovered so it opens
                       setForceClosed(false);
                       setIsMenuHovered(true);
+                      if (listRef.current && listRef.current.scrollTop > 0) setFastOpen(true);
                     }
                   }}
                   style={{ background: 'transparent' }}
@@ -62,31 +71,25 @@ export default function Navigation() {
           </div>
           
           {/* Dropdown Menu - Extended hover area */}
-          <div className={`absolute top-full left-1/2 transform -translate-x-1/2 mt-2 sm:mt-3 transition-all duration-500 ease-out origin-top z-40 ${
+<div className={`absolute top-full left-1/2 transform -translate-x-1/2 ${fastOpen ? 'transition-none' : 'transition-transform duration-500 ease-out'} origin-top z-40 ${
             isOpen 
-              ? 'opacity-100 scale-100 translate-y-0 pointer-events-auto' 
-              : 'opacity-0 scale-95 -translate-y-6 pointer-events-none'
+              ? 'visible scale-100 translate-y-0 pointer-events-auto' 
+              : 'invisible scale-95 -translate-y-6 pointer-events-none'
           }`}>
-            <div className="nav-menu-scroll bg-black/50 backdrop-blur-2xl rounded-xl sm:rounded-2xl md:rounded-[0.5vw] border border-white/20 shadow-2xl w-[85vw] sm:w-[60vw] md:w-[50vw] lg:w-[40vw] max-w-xl max-h-[70vh] sm:max-h-[60vh] overflow-y-scroll" style={{ scrollBehavior: 'smooth', overscrollBehavior: 'contain' }} onWheel={(e) => e.stopPropagation()} onScroll={(e) => e.stopPropagation()}>
+<div
+              ref={listRef}
+              className={`nav-menu-scroll rounded-xl sm:rounded-2xl md:rounded-[0.5vw] border border-white/20 shadow-2xl w-[85vw] sm:w-[60vw] md:w-[50vw] lg:w-[40vw] max-w-xl max-h-[70vh] sm:max-h-[60vh] overflow-y-scroll bg-black/50 backdrop-blur-2xl`}
+              style={{ scrollBehavior: 'smooth', overscrollBehavior: 'contain', willChange: 'transform, backdrop-filter' }}
+              onWheel={(e) => e.stopPropagation()}
+              onScroll={(e) => e.stopPropagation()}
+            >
               <div className="p-4 sm:p-6 md:p-8 lg:p-10">
                 {/* Download Resume Button - Mobile Only */}
-                <button className={`sm:hidden w-full bg-white/15 backdrop-blur-sm text-white py-2 rounded-full border border-white/30 text-xs font-accent transition-all duration-200 mb-6 flex items-center justify-center gap-1.5 ${
+                <button className={`lg:hidden w-full bg-white/15 backdrop-blur-sm text-white py-2 rounded-full border border-white/30 text-xs font-accent transition-all duration-200 mb-6 flex items-center justify-center gap-1.5 ${
                   isMenuHovered 
                     ? 'opacity-100 translate-y-0 delay-[100ms]' 
                     : 'opacity-0 translate-y-6'
-                }`}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.transform = 'scale(1.02)';
-                  e.currentTarget.style.backgroundColor = 'rgba(255, 255, 255, 0.25)';
-                  e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.5)';
-                  e.currentTarget.style.transition = 'all 0.15s ease-out';
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.transform = 'scale(1)';
-                  e.currentTarget.style.backgroundColor = 'rgba(255, 255, 255, 0.15)';
-                  e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.3)';
-                  e.currentTarget.style.transition = 'all 0.15s ease-out';
-                }}>
+                }`}>
                   <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
                   </svg>
@@ -95,8 +98,8 @@ export default function Navigation() {
                 
                 {/* Projects Section */}
                 <div className="mb-10">
-                  <h3 className={`text-white/70 text-sm font-secondary tracking-wider mb-6 transition-all duration-400 ${
-                    isMenuHovered ? 'opacity-100 translate-y-0 delay-[100ms]' : 'opacity-0 translate-y-4'
+                  <h3 className={`text-white/70 text-sm font-secondary tracking-wider mb-6 ${fastOpen ? 'transition-none' : 'transition-all duration-400'} ${
+                    isMenuHovered ? (fastOpen ? 'opacity-100 translate-y-0' : 'opacity-100 translate-y-0 delay-[100ms]') : 'opacity-0 translate-y-4'
                   }`}>PROJECTS</h3>
                   <div className="space-y-3">
                     {[
@@ -114,13 +117,13 @@ export default function Navigation() {
                       <a 
                         key={project}
                         href="#" 
-                        className={`block text-white text-base sm:text-lg font-primary py-1.5 transition-colors duration-100 hover:text-white/80 ${
+                        className={`block text-white text-base sm:text-lg font-primary py-1.5 ${fastOpen ? 'transition-none' : 'transition-colors duration-100'} hover:text-white/80 ${
                           isMenuHovered 
                             ? 'opacity-100 translate-y-0' 
                             : 'opacity-0 translate-y-6'
                         }`}
                         style={{ 
-                          transitionDelay: isMenuHovered ? `${150 + (index * 50)}ms` : '0ms',
+                          transitionDelay: fastOpen ? '0ms' : (isMenuHovered ? `${150 + (index * 50)}ms` : '0ms'),
                           transitionProperty: isMenuHovered ? 'opacity, transform' : 'opacity, transform, color'
                         }}
                         onMouseEnter={(e) => {
@@ -139,14 +142,14 @@ export default function Navigation() {
                 </div>
                 
                 {/* Divider */}
-                <div className={`border-t border-white/20 mb-6 transition-all duration-400 ${
-                  isMenuHovered ? 'opacity-100 delay-[650ms]' : 'opacity-0'
+                <div className={`border-t border-white/20 mb-6 ${fastOpen ? 'transition-none' : 'transition-all duration-400'} ${
+                  isMenuHovered ? (fastOpen ? 'opacity-100' : 'opacity-100 delay-[650ms]') : 'opacity-0'
                 }`}></div>
                 
                 {/* More Section */}
                 <div className="mb-10">
-                  <h3 className={`text-white/70 text-sm font-secondary tracking-wider mb-6 transition-all duration-400 ${
-                    isMenuHovered ? 'opacity-100 translate-y-0 delay-[700ms]' : 'opacity-0 translate-y-4'
+                  <h3 className={`text-white/70 text-sm font-secondary tracking-wider mb-6 ${fastOpen ? 'transition-none' : 'transition-all duration-400'} ${
+                    isMenuHovered ? (fastOpen ? 'opacity-100 translate-y-0' : 'opacity-100 translate-y-0 delay-[700ms]') : 'opacity-0 translate-y-4'
                   }`}>MORE</h3>
                   <div className="space-y-3">
                     {[
@@ -160,13 +163,13 @@ export default function Navigation() {
                       <a 
                         key={item}
                         href="#" 
-                        className={`block text-white text-base sm:text-lg font-primary py-1.5 transition-colors duration-100 hover:text-white/80 ${
+                        className={`block text-white text-base sm:text-lg font-primary py-1.5 ${fastOpen ? 'transition-none' : 'transition-colors duration-100'} hover:text-white/80 ${
                           isMenuHovered 
                             ? 'opacity-100 translate-y-0' 
                             : 'opacity-0 translate-y-6'
                         }`}
                         style={{ 
-                          transitionDelay: isMenuHovered ? `${750 + (index * 50)}ms` : '0ms',
+                          transitionDelay: fastOpen ? '0ms' : (isMenuHovered ? `${750 + (index * 50)}ms` : '0ms'),
                           transitionProperty: isMenuHovered ? 'opacity, transform' : 'opacity, transform, color'
                         }}
                         onMouseEnter={(e) => {
@@ -191,7 +194,7 @@ export default function Navigation() {
       </nav>
       
       {/* Download Resume Button - Desktop Only */}
-      <div className="hidden sm:block fixed top-6 md:top-8 right-6 md:right-8 z-50">
+      <div className="hidden lg:block fixed top-6 md:top-8 right-6 md:right-8 z-50">
         <button className="bg-black/30 backdrop-blur-md text-white px-4 py-3 rounded-lg md:rounded-[0.5vw] border border-white/10 transition-all duration-300 hover:bg-black/40 flex items-center gap-2">
           {/* Download Icon */}
           <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
