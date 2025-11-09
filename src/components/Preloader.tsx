@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState, useRef, useLayoutEffect } from "react";
 import { motion, useMotionValue, useSpring, animate } from "framer-motion";
 
 // A full-screen preloader with a mouse-following progress pill and
@@ -11,12 +11,18 @@ export default function Preloader({ durationMs = 3000 }: { durationMs?: number }
   const [reveal, setReveal] = useState(false);
   const [done, setDone] = useState(false);
   const [stage, setStage] = useState(0); // 0 idle, 1 bottom cut, 2 middle cut, 3 top cut
+  const [isClient, setIsClient] = useState(false);
 
   // Mouse-follow physics
   const mx = useMotionValue(typeof window !== "undefined" ? window.innerWidth / 2 : 0);
   const my = useMotionValue(typeof window !== "undefined" ? window.innerHeight / 2 : 0);
-  const x = useSpring(mx, { stiffness: 900, damping: 35, mass: 0.4 });
-  const y = useSpring(my, { stiffness: 900, damping: 35, mass: 0.4 });
+  const x = useSpring(mx, { stiffness: 2400, damping: 45, mass: 0.15 });
+  const y = useSpring(my, { stiffness: 2400, damping: 45, mass: 0.15 });
+
+  // Detect client-side hydration complete
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
   // Liquid "energy" from cursor movement to drive blob wobble
   const ampRef = useRef(0);
   const phaseRef = useRef(0);
@@ -194,7 +200,7 @@ export default function Preloader({ durationMs = 3000 }: { durationMs?: number }
 
       {/* Progress pill following mouse */}
       <motion.div
-        style={{ x, y }}
+        style={isClient ? { x, y, left: 'auto', top: 'auto' } : { left: '50%', top: '50%' }}
         className="pointer-events-none absolute z-20 -translate-x-1/2 -translate-y-1/2"
         animate={reveal ? { opacity: 0, scale: 0.95 } : { opacity: 1, scale: 1 }}
         transition={{ duration: 0.2, ease: [0.22, 1, 0.36, 1] }}
