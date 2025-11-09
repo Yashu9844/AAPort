@@ -35,7 +35,23 @@ const Projects = () => {
         { role: 'Lead Developer', name: 'Zubair Mallik' },
         { role: 'UI/UX Design', name: 'Design Team' },
         { role: 'Backend Support', name: 'Dev Team' }
-      ]
+      ],
+      mediaSections: [
+        {
+          items: [
+            { type: 'image', url: '/images/pimg2.jpg' },
+            { type: 'image', url: '/images/pimg3.jpg' }
+          ],
+          layout: 'grid-2'
+        },
+        {
+          items: [
+            { type: 'image', url: '/images/pimg4.jpg' }
+          ],
+          layout: 'single'
+        }
+      ],
+      relatedProjects: [1, 2]
     },
     { 
       image: '/images/pimg2.jpg',
@@ -60,7 +76,18 @@ const Projects = () => {
       credits: [
         { role: 'Design & Development', name: 'Zubair Mallik' },
         { role: '3D Assets', name: 'Creative Team' }
-      ]
+      ],
+      mediaSections: [
+        {
+          items: [
+            { type: 'image', url: '/images/pimg1.jpg' },
+            { type: 'image', url: '/images/pimg3.jpg' },
+            { type: 'image', url: '/images/pimg4.jpg' }
+          ],
+          layout: 'grid-3'
+        }
+      ],
+      relatedProjects: [0, 2]
     },
     { 
       image: '/images/pimg3.jpg',
@@ -75,7 +102,25 @@ const Projects = () => {
       ],
       tech: ['React', 'Firebase', 'Node.js', 'MongoDB'],
       role: 'Lead Developer',
-      duration: '4 months'
+      duration: '4 months',
+      informationParagraphs: [
+        'This task management system was designed to streamline team collaboration and project tracking.',
+        'Built with modern technologies to ensure scalability and reliability.'
+      ],
+      credits: [
+        { role: 'Lead Developer', name: 'Zubair Mallik' },
+        { role: 'UI Design', name: 'Design Team' }
+      ],
+      mediaSections: [
+        {
+          items: [
+            { type: 'image', url: '/images/pimg5.jpg' },
+            { type: 'image', url: '/images/pimg6.jpg' }
+          ],
+          layout: 'grid-2'
+        }
+      ],
+      relatedProjects: [0, 1]
     },
     { 
       image: '/images/pimg4.jpg',
@@ -202,10 +247,14 @@ const Projects = () => {
     
     if (selectedProject !== null) {
       window.addEventListener('keydown', handleEsc)
+      document.body.style.overflow = 'hidden'
+    } else {
+      document.body.style.overflow = ''
     }
     
     return () => {
       window.removeEventListener('keydown', handleEsc)
+      document.body.style.overflow = ''
     }
   }, [selectedProject])
 
@@ -356,63 +405,145 @@ const Projects = () => {
                       <p key={i} className='text-lg leading-relaxed text-white font-normal'>{para}</p>
                     ))}
                   </div>
+                </motion.div>
+              </div>
 
-                  {/* Divider */}
-                  <div className='w-full border-t border-white/10'></div>
+              {/* Full Width Sections */}
+              <div className='mt-16 space-y-16'>
+                <div className='w-full border-t border-white/10'></div>
 
-                  {/* Information Section */}
-                  {selectedProj.informationParagraphs && (
-                    <div className='grid grid-cols-1 lg:grid-cols-12 gap-6'>
-                      <div className='lg:col-span-3'>
-                        <h3 className='text-lg font-normal text-white'>Information</h3>
-                      </div>
-                      <div className='lg:col-span-9 space-y-5'>
+                {/* Information Section */}
+                {selectedProj.informationParagraphs && (
+                  <div className='grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-12'>
+                    <div className='lg:col-span-2'>
+                      <h2 className='text-lg font-normal text-white'>Information</h2>
+                    </div>
+                    <div className='lg:col-span-10'>
+                      <div className='space-y-5'>
                         {selectedProj.informationParagraphs.map((para, i) => (
                           <p key={i} className='text-lg leading-relaxed text-white font-normal'>{para}</p>
                         ))}
                       </div>
                     </div>
-                  )}
+                  </div>
+                )}
 
-                  {/* Divider */}
-                  <div className='w-full border-t border-white/10'></div>
+                <div className='w-full border-t border-white/10'></div>
 
-                  {/* Technologies */}
-                  <div className='grid grid-cols-1 lg:grid-cols-12 gap-6'>
-                    <div className='lg:col-span-3'>
-                      <h3 className='text-lg font-normal text-white'>Technologies</h3>
+                {/* Technologies */}
+                <div className='grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-12'>
+                  <div className='lg:col-span-2'>
+                    <h2 className='text-lg font-normal text-white'>Technologies</h2>
+                  </div>
+                  <div className='lg:col-span-10'>
+                    <div className='flex flex-wrap gap-2'>
+                      {selectedProj.tech.map((t, i) => (
+                        <span key={i} className='px-4 py-2 bg-white/10 border border-white/20 rounded text-sm text-white font-light'>
+                          {t}
+                        </span>
+                      ))}
                     </div>
-                    <div className='lg:col-span-9'>
-                      <div className='flex flex-wrap gap-2'>
-                        {selectedProj.tech.map((t, i) => (
-                          <span key={i} className='px-4 py-2 bg-white/10 border border-white/20 rounded-md text-sm text-white'>
-                            {t}
-                          </span>
+                  </div>
+                </div>
+              </div>
+
+              <div className='w-full border-t border-white/10 mt-16'></div>
+
+              {/* Media Sections */}
+              {selectedProj.mediaSections && selectedProj.mediaSections.length > 0 && (
+                <div className='space-y-1'>
+                  {selectedProj.mediaSections.map((section, idx) => {
+                    const getGridClass = () => {
+                      switch (section.layout) {
+                        case 'grid-2':
+                          return 'grid grid-cols-1 md:grid-cols-2 gap-1';
+                        case 'grid-3':
+                          return 'grid grid-cols-1 md:grid-cols-3 gap-1';
+                        case 'continuous':
+                          return 'space-y-1';
+                        default:
+                          return 'space-y-1';
+                      }
+                    };
+
+                    return (
+                      <div key={idx} className={getGridClass()}>
+                        {section.items.map((item, itemIdx) => (
+                          <div key={itemIdx} className='w-full overflow-hidden'>
+                            {item.type === 'video' ? (
+                              <video autoPlay loop muted playsInline className='w-full h-full object-cover'>
+                                <source src={item.url} type='video/mp4' />
+                              </video>
+                            ) : (
+                              <img src={item.url} alt='Project media' className='w-full h-full object-cover' />
+                            )}
+                          </div>
+                        ))}
+                      </div>
+                    );
+                  })}
+                </div>
+              )}
+
+              {/* Credits */}
+              {selectedProj.credits && (
+                <div>
+                  <div className='w-full border-t border-white/10 my-16'></div>
+                  <div className='grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-12'>
+                    <div className='lg:col-span-2'>
+                      <h2 className='text-lg font-normal text-white'>Credits</h2>
+                    </div>
+                    <div className='lg:col-span-10'>
+                      <div className='space-y-2'>
+                        {selectedProj.credits.map((credit, i) => (
+                          <p key={i} className='text-lg text-white font-normal'>
+                            {credit.role} → {credit.name}
+                          </p>
                         ))}
                       </div>
                     </div>
                   </div>
+                </div>
+              )}
 
-                  {/* Credits */}
-                  {selectedProj.credits && (
-                    <>
-                      <div className='w-full border-t border-white/10'></div>
-                      <div className='grid grid-cols-1 lg:grid-cols-12 gap-6'>
-                        <div className='lg:col-span-3'>
-                          <h3 className='text-lg font-normal text-white'>Credits</h3>
+              {/* Related Projects */}
+              {selectedProj.relatedProjects && selectedProj.relatedProjects.length > 0 && (
+                <div className='mt-16'>
+                  <div className='w-full border-t border-white/10 mb-10'></div>
+                  <div className='grid grid-cols-1 md:grid-cols-2 gap-6'>
+                    {selectedProj.relatedProjects.map((projIdx) => {
+                      const proj = projects[projIdx];
+                      return (
+                        <div
+                          key={projIdx}
+                          onClick={() => {
+                            setSelectedProject(projIdx);
+                            const modalElement = document.querySelector('.fixed.inset-0.overflow-y-scroll');
+                            if (modalElement) {
+                              modalElement.scrollTop = 0;
+                            }
+                          }}
+                          className='group cursor-pointer'
+                        >
+                          <div className='mb-3'>
+                            <p className='text-xs tracking-widest text-gray-500 mb-1.5 uppercase'>📄 PROJECT</p>
+                            <h3 className='text-xl font-normal text-white group-hover:text-gray-400 transition-colors'>
+                              {proj.title} <span className='inline-block group-hover:translate-x-1 transition-transform'>↗</span>
+                            </h3>
+                          </div>
+                          <div className='overflow-hidden aspect-video'>
+                            <img
+                              src={proj.image}
+                              alt={proj.title}
+                              className='w-full h-full object-cover group-hover:scale-105 transition-transform duration-500'
+                            />
+                          </div>
                         </div>
-                        <div className='lg:col-span-9 space-y-2'>
-                          {selectedProj.credits.map((credit, i) => (
-                            <p key={i} className='text-lg text-white font-normal'>
-                              {credit.role} → {credit.name}
-                            </p>
-                          ))}
-                        </div>
-                      </div>
-                    </>
-                  )}
-                </motion.div>
-              </div>
+                      );
+                    })}
+                  </div>
+                </div>
+              )}
             </div>
           </div>
         </motion.div>
