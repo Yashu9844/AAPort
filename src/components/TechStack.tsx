@@ -75,41 +75,6 @@ const TechStack = () => {
       </div>
       <div className="w-full h-[2px] bg-gray-600"></div>
       
-      <style jsx global>{`
-        .marquee {
-          display: flex;
-          gap: 2rem;
-          user-select: none;
-        }
-        
-        .marquee__content {
-          display: flex;
-          flex-shrink: 0;
-          justify-content: space-around;
-          min-width: 100%;
-          gap: 2rem;
-          animation: scroll 80s linear infinite;
-        }
-        
-        @media (min-width: 640px) {
-          .marquee { gap: 3rem; }
-          .marquee__content { gap: 3rem; }
-        }
-        
-        @media (min-width: 768px) {
-          .marquee { gap: 4rem; }
-          .marquee__content { gap: 4rem; }
-        }
-        
-        @keyframes scroll {
-          0% {
-            transform: translateX(0%);
-          }
-          100% {
-            transform: translateX(calc(-100% - 2rem));
-          }
-        }
-      `}</style>
     </div>
   );
 };
