@@ -2,20 +2,69 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Youtube, Linkedin, Instagram } from "lucide-react";
-import { useState } from "react";
+import { useState, useRef, useLayoutEffect } from "react";
 import carImage from "../../public/zoox-car.jpg";
 import Img from "next/image";
 import { motion } from "framer-motion";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+// Register GSAP ScrollTrigger plugin
+if (typeof window !== "undefined") {
+  gsap.registerPlugin(ScrollTrigger);
+}
 
 const Footer = () => {
   const [email, setEmail] = useState("");
   const [name, setName] = useState("");
   const [zipCode, setZipCode] = useState("");
 
+  // Refs for GSAP animation
+  const footerRef = useRef<HTMLElement>(null);
+  const contentRef = useRef<HTMLDivElement>(null);
+  const backgroundRef = useRef<HTMLDivElement>(null);
+
   const handleNewsletterSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     console.log("Newsletter signup:", { email, name });
   };
+
+  // GSAP ScrollTrigger Animation (Zoox-style)
+  useLayoutEffect(() => {
+    if (typeof window === "undefined") return;
+
+    const footer = footerRef.current;
+    const content = contentRef.current;
+    const background = backgroundRef.current;
+
+    if (!footer || !content || !background) return;
+
+    gsap.registerPlugin(ScrollTrigger);
+
+    // Initial state
+    gsap.set(footer, { minHeight: "100vh" });
+    gsap.set(content, { scale: 1.15, opacity: 0.4, y: 80 });
+    gsap.set(background, { opacity: 1 });
+
+    // Scroll-driven animation: BIG (full) → SMALL (compact)
+    const tl = gsap.timeline({
+      scrollTrigger: {
+        trigger: footer,
+        start: "top bottom",
+        end: "center center",
+        scrub: 1,
+      },
+    });
+
+    tl.to(footer, { minHeight: "auto" })
+      .to(content, { scale: 1, opacity: 1, y: 0 }, 0)
+      .to(background, { opacity: 0.6 }, 0);
+
+    return () => {
+      tl.kill();
+      ScrollTrigger.getAll().forEach((t) => t.kill());
+    };
+  }, []);
 
   // Animation variants
   const containerVariants = {
@@ -87,9 +136,9 @@ const Footer = () => {
   };
 
   return (
-    <footer className="relative bg-black text-gray-200 overflow-hidden">
+    <footer ref={footerRef} className="relative bg-black text-gray-200 overflow-hidden min-h-screen">
       {/* Background media with dark overlay */}
-      <div className="absolute inset-0 w-full h-full">
+      <div ref={backgroundRef} className="absolute inset-0 w-full h-full">
         <video 
           autoPlay 
           loop 
@@ -106,13 +155,14 @@ const Footer = () => {
 
       {/* Footer Content - Overlaying the background */}
       <motion.div
-        className="relative z-10 mx-4 md:mx-10 lg:mx-16 xl:mx-24 rounded-3xl bg-gradient-to-b from-black/40 via-black/80 to-black/95 backdrop-blur-[3px] border border-white/15 shadow-[0_0_25px_rgba(255,255,255,0.05)] py-20"
+        ref={contentRef}
+        className="relative z-10 max-w-[1920px] w-[calc(100%-1rem)] md:w-[calc(100%-2rem)] lg:w-[calc(100%-2.5rem)] xl:w-[calc(100%-3rem)] 2xl:w-[calc(100%-4rem)] mx-auto rounded-b-3xl bg-gradient-to-b from-black/40 via-black/80 to-black/95 backdrop-blur-[3px] border border-white/15 shadow-[0_0_25px_rgba(255,255,255,0.05)] py-20"
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, amount: 0.2 }}
         variants={containerVariants}
       >
-        <div className="max-w-8xl mx-auto px-6 py-12">
+        <div className="max-w-full mx-auto px-6 md:px-10 lg:px-14 xl:px-16 py-12">
           {/* Main Footer Content */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
             {/* Site Map */}
