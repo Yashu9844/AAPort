@@ -1,7 +1,9 @@
+
 "use client";
 
-import { useEffect, useState, useRef, useLayoutEffect } from "react";
+import { useEffect, useState, useRef } from "react";
 import { motion, useMotionValue, useSpring, animate } from "framer-motion";
+import gsap from "gsap";
 
 // A full-screen preloader with a mouse-following progress pill and
 // a zigzag reveal that animates upward after loading.
@@ -10,8 +12,8 @@ export default function Preloader({ durationMs = 3000 }: { durationMs?: number }
   const [progress, setProgress] = useState(0);
   const [reveal, setReveal] = useState(false);
   const [done, setDone] = useState(false);
-  const [stage, setStage] = useState(0); // 0 idle, 1 bottom cut, 2 middle cut, 3 top cut
   const [isClient, setIsClient] = useState(false);
+  const overlayRef = useRef<HTMLDivElement | null>(null);
 
   // Mouse-follow physics
   const mx = useMotionValue(typeof window !== "undefined" ? window.innerWidth / 2 : 0);
@@ -88,32 +90,51 @@ export default function Preloader({ durationMs = 3000 }: { durationMs?: number }
         raf = requestAnimationFrame(tick);
       } else {
         setReveal(true);
-        // stage-driven unmount will handle done()
       }
     };
     raf = requestAnimationFrame(tick);
     return () => cancelAnimationFrame(raf);
   }, [durationMs]);
 
-  // When reveal starts, advance slice stages sequentially (non-overlapping)
+  // Circular mask reveal transition
   useEffect(() => {
-    if (!reveal) return;
-    setStage(1);
-    const t1 = setTimeout(() => setStage(2), 320); // after bottom finishes
-    const t2 = setTimeout(() => setStage(3), 640); // after middle finishes
-    return () => { clearTimeout(t1); clearTimeout(t2); };
+    if (!reveal || typeof window === "undefined") return;
+
+    const delay = setTimeout(() => {
+      const overlay = overlayRef.current;
+      if (!overlay) return;
+
+      const tl = gsap.timeline({
+        onComplete: () => {
+          setDone(true);
+        }
+      });
+
+      tl.set(overlay, {
+        clipPath: "circle(0% at 50% 50%)",
+        opacity: 1,
+      })
+      .to(overlay, {
+        clipPath: "circle(150% at 50% 50%)",
+        duration: 1.2,
+        ease: "power4.inOut",
+      })
+      .to(overlay, {
+        opacity: 0,
+        duration: 0.3,
+      }, "-=0.2");
+
+      return () => {
+        tl.kill();
+      };
+    }, 200);
+
+    return () => clearTimeout(delay);
   }, [reveal]);
 
-  // Unmount overlay shortly after the last slice completes
+  // Disable page scroll while loader is active
   useEffect(() => {
-    if (stage !== 3) return;
-    const t = setTimeout(() => setDone(true), 360);
-    return () => clearTimeout(t);
-  }, [stage]);
-
-  // Disable page scroll while loader is active; restore slightly earlier (when reveal starts)
-  useEffect(() => {
-    if (reveal) return; // unlocking happens via cleanup when reveal flips to true
+    if (reveal) return;
 
     const html = document.documentElement;
     const body = document.body;
@@ -142,50 +163,24 @@ export default function Preloader({ durationMs = 3000 }: { durationMs?: number }
 
   if (done) return null;
 
-  // Triangular slices: keep full black until 100%, then remove 3 left-leaning slices bottom→top
   return (
-    <motion.div
-      initial={false}
-      className="fixed inset-0 z-[9999] bg-transparent overflow-hidden"
-    >
-      {/* Base black cover: stays until the first cut begins */}
-      <motion.div
-        className="absolute inset-0 z-0 bg-black"
-        animate={stage > 0 ? { opacity: 0 } : { opacity: 1 }}
-        transition={{ duration: 0.06 }}
+    <>
+      {/* Circular mask reveal overlay */}
+      <div
+        ref={overlayRef}
+        id="transitionOverlay"
+        className="fixed inset-0 z-[10000] pointer-events-none bg-white"
+        style={{
+          clipPath: "circle(100% at 50% 50%)",
+          opacity: 0,
+          willChange: "clip-path, opacity",
+        }}
       />
 
-      {/* Triangular slices covering entire screen, leaving leftward sequentially */}
-      <div className="pointer-events-none absolute inset-0 z-10">
-        {(() => {
-          // Define Y boundaries (bottom to top)
-          const Y1 = 72; // boundary between bottom and middle
-          const Y2 = 44; // boundary between middle and top
-          const items = [] as JSX.Element[];
-          for (let i = 0; i < 3; i++) {
-            let clip = '';
-            if (i === 0) {
-              // bottom triangle: covers bottom band fully
-              clip = `polygon(0% 100%, 100% 100%, 0% ${Y1}%)`;
-            } else if (i === 1) {
-              // middle triangle: diagonal band between Y1 and Y2
-              clip = `polygon(0% ${Y1}%, 100% ${Y2}%, 0% ${Y2}%)`;
-            } else {
-              // top triangle: covers top-right corner band
-              clip = `polygon(0% 0%, 100% 0%, 100% ${Y2}%)`;
-            }
-            items.push(
-              <motion.div
-                key={i}
-                className="absolute inset-0 bg-black"
-                style={{ clipPath: clip as any, willChange: 'transform' }}
-                animate={stage >= i + 1 ? { x: '-120%' } : { x: 0 }}
-                transition={{ duration: 0.32, ease: [0.22, 1, 0.36, 1] }}
-              />
-            );
-          }
-        })()}
-      </div>
+      <motion.div
+        initial={false}
+        className="fixed inset-0 z-[9999] bg-black overflow-hidden"
+      >
 
       {/* SVG filter for gooey effect */}
       <svg className="absolute w-0 h-0">
@@ -239,6 +234,7 @@ export default function Preloader({ durationMs = 3000 }: { durationMs?: number }
           <span className="relative z-10 font-extrabold text-white mix-blend-difference w-full text-center">{progress}% LOADED</span>
         </div>
       </motion.div>
-    </motion.div>
+      </motion.div>
+    </>
   );
 }
