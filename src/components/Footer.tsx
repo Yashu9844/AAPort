@@ -275,7 +275,7 @@ const Footer = () => {
                 className="text-sm mb-4 max-w-md text-gray-300"
                 variants={itemVariants}
               >
-                Sign up for our newsletter to see where we're headed next.
+                Sign up for our newsletter to see where we&apos;re headed next.
               </motion.p>
               <motion.form 
                 onSubmit={handleNewsletterSubmit} 
@@ -319,7 +319,7 @@ const Footer = () => {
                 variants={itemVariants}
               >
                 By submitting, you give Zoox permission to store and process your
-                personal information so we can provide you with the content you've
+                personal information so we can provide you with the content you&apos;ve
                 requested. For more information, please see our{" "}
                 <a href="#" className="underline hover:text-white transition-colors">
                   privacy policy

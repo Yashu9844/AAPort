@@ -4,7 +4,7 @@ import { useEffect, useRef } from "react";
 import Image from "next/image";
 import gsap from "gsap";
 
-const ArrowUpRight = (props: any) => (
+const ArrowUpRight = (props: React.SVGProps<SVGSVGElement>) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     viewBox="0 0 24 24"
@@ -113,7 +113,10 @@ export default function FeaturedPage() {
   }, []);
 
   const handleEnter = () => tweenRef.current?.pause();
-  const handleLeave = () => (tweenRef.current as any)?.resume?.() ?? tweenRef.current?.play();
+  const handleLeave = () => {
+    const tween = tweenRef.current as gsap.core.Tween & { resume?: () => void };
+    tween?.resume?.() ?? tween?.play();
+  };
 
   return (
     <main className="bg-black text-white w-full">

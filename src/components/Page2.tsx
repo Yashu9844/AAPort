@@ -2,7 +2,7 @@
 import { useEffect } from "react";
 import Link from "next/link";
 
-const ArrowUpRight = (props: any) => (
+const ArrowUpRight = (props: React.SVGProps<SVGSVGElement>) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     viewBox="0 0 24 24"
@@ -64,16 +64,16 @@ const Page2 = () => {
     const initShery = () => {
       if (!mounted || typeof window === "undefined") return;
 
-      const hasGSAP = !!(window as any).gsap;
-      const hasThree = !!(window as any).THREE;
-      const hasShery = !!(window as any).Shery;
+      const hasGSAP = !!((window as Window & { gsap?: unknown }).gsap);
+      const hasThree = !!((window as Window & { THREE?: unknown }).THREE);
+      const hasShery = !!((window as Window & { Shery?: unknown }).Shery);
 
       if (!hasGSAP || !hasThree || !hasShery) {
         setTimeout(initShery, 50);
         return;
       }
 
-      const Shery = (window as any).Shery;
+      const Shery = (window as Window & { Shery: typeof import('sheryjs') }).Shery;
       const images = document.querySelectorAll('.image-div img');
       
       if (images.length === 0) {
@@ -81,8 +81,8 @@ const Page2 = () => {
         return;
       }
 
-      const allLoaded = Array.from(images).every((img: any) => 
-        img.complete && img.naturalHeight !== 0
+      const allLoaded = Array.from(images).every((img) => 
+        (img as HTMLImageElement).complete && (img as HTMLImageElement).naturalHeight !== 0
       );
 
       if (!allLoaded) {
