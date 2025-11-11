@@ -13,12 +13,15 @@ export default function Home() {
     <div className="min-h-screen bg-black">
       <Navigation />
       <Hero />
-      <div className="w-full h-[4px] bg-gray-400"></div>
       <Page2 />
        <div className="w-full h-[1px] bg-gray-800 mb-4"></div>
       <Projects />
       <CircleCarousel />
+<<<<<<< Updated upstream
       <div className="w-full h-[1px] bg-gray-800 mb-4"></div>
+=======
+      <div className="my-16 md:my-24"></div>
+>>>>>>> Stashed changes
       <FeaturedPage />
       <div className="w-full h-[1px] bg-gray-800 my-8"></div>
       <About />

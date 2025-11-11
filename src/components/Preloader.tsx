@@ -2,6 +2,7 @@
 
 import { useEffect, useState, useRef } from "react";
 import { motion, useMotionValue, useSpring, animate } from "framer-motion";
+import lottie from "lottie-web";
 
 // A full-screen preloader with a mouse-following progress pill and
 // a zigzag reveal that animates upward after loading.
@@ -10,7 +11,13 @@ export default function Preloader({ durationMs = 3000 }: { durationMs?: number }
   const [progress, setProgress] = useState(0);
   const [reveal, setReveal] = useState(false);
   const [done, setDone] = useState(false);
+<<<<<<< Updated upstream
   const [stage, setStage] = useState(0); // 0 idle, 1 bottom cut, 2 middle cut, 3 top cut
+=======
+  const [stage, setStage] = useState(0); // 0 idle, 1 blob animation
+  const [isClient, setIsClient] = useState(false);
+  const blobContainerRef = useRef<HTMLDivElement>(null);
+>>>>>>> Stashed changes
 
   // Mouse-follow physics
   const mx = useMotionValue(typeof window !== "undefined" ? window.innerWidth / 2 : 0);
@@ -89,21 +96,74 @@ export default function Preloader({ durationMs = 3000 }: { durationMs?: number }
     return () => cancelAnimationFrame(raf);
   }, [durationMs]);
 
-  // When reveal starts, advance slice stages sequentially (non-overlapping)
+  // When reveal starts, trigger blob animation
   useEffect(() => {
-    if (!reveal) return;
-    setStage(1);
-    const t1 = setTimeout(() => setStage(2), 320); // after bottom finishes
-    const t2 = setTimeout(() => setStage(3), 640); // after middle finishes
-    return () => { clearTimeout(t1); clearTimeout(t2); };
+    if (!reveal || !blobContainerRef.current) return;
+    
+    // Blob animation data
+    const animationData = {
+      v: "5.7.4",
+      fr: 60,
+      ip: 0,
+      op: 60,
+      w: 1920,
+      h: 1080,
+      nm: "Blob Wipe",
+      ddd: 0,
+      assets: [],
+      layers: [
+        {
+          ddd: 0,
+          ind: 1,
+          ty: 1,
+          nm: "White Blob",
+          sr: 1,
+          ks: {
+            o: { a: 0, k: 100 },
+            r: { a: 0, k: 0 },
+            p: { a: 0, k: [960, 540, 0] },
+            a: { a: 0, k: [960, 540, 0] },
+            s: {
+              a: 1,
+              k: [
+                { i: { x: [0.22, 0.22, 0.667], y: [1, 1, 1] }, o: { x: [0.167, 0.167, 0.167], y: [0, 0, 0] }, t: 0, s: [0, 0, 100] },
+                { t: 30, s: [150, 150, 100] }
+              ]
+            }
+          },
+          ao: 0,
+          sw: 1920,
+          sh: 1080,
+          sc: "#ffffff",
+          ip: 0,
+          op: 60,
+          st: 0,
+          bm: 0
+        }
+      ]
+    };
+    
+    const anim = lottie.loadAnimation({
+      container: blobContainerRef.current,
+      renderer: 'svg',
+      loop: false,
+      autoplay: true,
+      animationData: animationData,
+      rendererSettings: {
+        preserveAspectRatio: 'xMidYMid slice'
+      }
+    });
+    
+    anim.addEventListener('complete', () => {
+      setDone(true);
+    });
+    
+    return () => {
+      anim.destroy();
+    };
   }, [reveal]);
 
-  // Unmount overlay shortly after the last slice completes
-  useEffect(() => {
-    if (stage !== 3) return;
-    const t = setTimeout(() => setDone(true), 360);
-    return () => clearTimeout(t);
-  }, [stage]);
+  // Unmount is now handled by blob animation complete event
 
   // Disable page scroll while loader is active; restore slightly earlier (when reveal starts)
   useEffect(() => {
@@ -130,7 +190,10 @@ export default function Preloader({ durationMs = 3000 }: { durationMs?: number }
       body.style.position = prevPosition;
       body.style.top = prevTop;
       body.style.width = prevWidth;
-      window.scrollTo(0, y);
+      // Don't force scroll - let the page maintain natural position
+      if (y > 0) {
+        window.scrollTo(0, y);
+      }
     };
   }, [reveal]);
 
@@ -142,44 +205,20 @@ export default function Preloader({ durationMs = 3000 }: { durationMs?: number }
       initial={false}
       className="fixed inset-0 z-[9999] bg-transparent overflow-hidden"
     >
-      {/* Base black cover: stays until the first cut begins */}
+      {/* Black overlay */}
       <motion.div
         className="absolute inset-0 z-0 bg-black"
-        animate={stage > 0 ? { opacity: 0 } : { opacity: 1 }}
-        transition={{ duration: 0.06 }}
+        animate={reveal ? { opacity: 0 } : { opacity: 1 }}
+        transition={{ duration: 0.01 }}
       />
-
-      {/* Triangular slices covering entire screen, leaving leftward sequentially */}
-      <div className="pointer-events-none absolute inset-0 z-10">
-        {(() => {
-          // Define Y boundaries (bottom to top)
-          const Y1 = 72; // boundary between bottom and middle
-          const Y2 = 44; // boundary between middle and top
-          const items = [] as JSX.Element[];
-          for (let i = 0; i < 3; i++) {
-            let clip = '';
-            if (i === 0) {
-              // bottom triangle: covers bottom band fully
-              clip = `polygon(0% 100%, 100% 100%, 0% ${Y1}%)`;
-            } else if (i === 1) {
-              // middle triangle: diagonal band between Y1 and Y2
-              clip = `polygon(0% ${Y1}%, 100% ${Y2}%, 0% ${Y2}%)`;
-            } else {
-              // top triangle: covers top-right corner band
-              clip = `polygon(0% 0%, 100% 0%, 100% ${Y2}%)`;
-            }
-            items.push(
-              <motion.div
-                key={i}
-                className="absolute inset-0 bg-black"
-                style={{ clipPath: clip as any, willChange: 'transform' }}
-                animate={stage >= i + 1 ? { x: '-120%' } : { x: 0 }}
-                transition={{ duration: 0.32, ease: [0.22, 1, 0.36, 1] }}
-              />
-            );
-          }
-        })()}
-      </div>
+      
+      {/* Blob animation that reveals content */}
+      {reveal && (
+        <div 
+          ref={blobContainerRef}
+          className="absolute inset-0 z-10 pointer-events-none"
+        />
+      )}
 
       {/* SVG filter for gooey effect */}
       <svg className="absolute w-0 h-0">
