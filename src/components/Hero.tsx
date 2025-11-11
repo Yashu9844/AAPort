@@ -25,7 +25,7 @@ export default function Hero() {
       
       {/* Content */}
       <div className="relative z-10 h-full flex items-center">
-        <div className="w-full pl-6 sm:pl-8 md:pl-12 lg:pl-16">
+        <div className="w-full px-3 sm:px-4 md:px-5 lg:px-6">
           <div className="max-w-none">
             {/* Main Content */}
             <div className="space-y-4 sm:space-y-6 md:space-y-8">

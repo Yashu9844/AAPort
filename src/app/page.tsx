@@ -14,16 +14,17 @@ export default function Home() {
       <Navigation />
       <Hero />
       <Page2 />
-       <div className="w-full h-[1px] bg-gray-800 mb-4"></div>
+      <div className="w-full h-[1px] bg-white/20"></div>
       <Projects />
+      <div className="w-full h-[1px] bg-white/20"></div>
       <CircleCarousel />
-      <div className="my-16 md:my-24"></div>
+      <div className="w-full h-[1px] bg-white/20 my-16 sm:my-20 md:my-24"></div>
       <FeaturedPage />
-      <div className="w-full h-[1px] bg-gray-800 my-8"></div>
+      <div className="w-full h-[1px] bg-white/20 my-16 sm:my-20 md:my-24"></div>
       <About />
-      <div className="w-full h-[1px] bg-gray-800 mt-8"></div>
+      <div className="w-full h-[1px] bg-white/20"></div>
       <Feature2/>
-      <div className="w-full h-[1px] bg-gray-800 mt-8"></div>
+      <div className="w-full h-[1px] bg-white/20"></div>
       <Footer />
     </div>
   );

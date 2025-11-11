@@ -288,16 +288,16 @@ const Projects = () => {
 
   return (
     <>
-    <div className='p-2 sm:p-3 lg:p-4 mb-[10vh] sm:mb-[15vh] lg:mb-[20vh]'>
-      <div className='pt-[6vh] sm:pt-[8vh] md:pt-[10vh] lg:pt-[12vh]'>
-        <h2 className='font-secondary text-white text-5xl sm:text-6xl md:text-7xl lg:text-[12vw] uppercase'>Projects</h2>
+    <div className='px-3 sm:px-4 md:px-5 lg:px-6 mb-16 sm:mb-20 md:mb-24 lg:mb-28'>
+      <div className='pt-16 sm:pt-20 md:pt-24 lg:pt-28'>
+        <h2 className='font-secondary text-white text-5xl sm:text-6xl md:text-7xl lg:text-[12vw] uppercase mb-12 md:mb-16 lg:mb-20'>Projects</h2>
       </div>
-      <div className='mt-8 sm:mt-12 md:mt-16 lg:mt-20 lol'>
+      <div className='lol'>
         {projects.map(function (elem, idx) {
           return (
             <div 
               key={idx} 
-              className='hero w-full h-[70vh] sm:h-[75vh] md:h-[80vh] lg:h-[600px] flex lg:flex-row flex-col gap-2 sm:gap-3 lg:gap-4 mt-2 sm:mt-2.5 lg:mt-3'
+              className='hero w-full h-[70vh] sm:h-[75vh] md:h-[80vh] lg:h-[600px] flex lg:flex-row flex-col gap-4 md:gap-6 mb-4 md:mb-6'
             >
               <motion.div 
                 layoutId={`project-${idx * 2}`}

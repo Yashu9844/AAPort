@@ -116,12 +116,9 @@ export default function FeaturedPage() {
   const handleLeave = () => (tweenRef.current as any)?.resume?.() ?? tweenRef.current?.play();
 
   return (
-    <main className=" bg-black text-white pt-8 pb-16 w-full flex justify-center">
-      <div className="w-[95%]">
-        {/* Horizontal line above Featured */}
-        <div className="w-full h-[1px] bg-gray-800 mb-8"></div>
-        
-        <h1 className="text-4xl font-primary mb-8 flex items-center gap-2">
+    <main className="bg-black text-white w-full">
+      <div className="px-3 sm:px-4 md:px-5 lg:px-6">
+        <h1 className="text-4xl md:text-5xl lg:text-6xl font-primary mb-12 md:mb-16 flex items-center gap-2">
           Featured <span className="text-gray-500">↘</span>
         </h1>
 

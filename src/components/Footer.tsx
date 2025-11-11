@@ -164,9 +164,9 @@ const Footer = () => {
         viewport={{ once: true, amount: 0.2 }}
         variants={containerVariants}
       >
-        <div className="max-w-full mx-auto px-6 md:px-10 lg:px-14 xl:px-16 py-12">
+        <div className="max-w-full mx-auto px-3 sm:px-4 md:px-5 lg:px-6 py-16 sm:py-20">
           {/* Main Footer Content */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 md:gap-12 mb-16 md:mb-20">
             {/* Site Map */}
             <motion.div variants={sectionVariants}>
               <motion.div variants={headingVariants}>

@@ -130,8 +130,8 @@ const Page2 = () => {
   }, []);
 
   return (
-    <div className="relative min-h-screen bg-black w-full text-white flex justify-center">
-      <div className="w-[95%] py-10 grid grid-cols-1 md:grid-cols-2 gap-6">
+    <div className="relative min-h-screen bg-black w-full text-white">
+      <div className="px-3 sm:px-4 md:px-5 lg:px-6 py-16 sm:py-20 md:py-24 lg:py-28 grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-10 lg:gap-12">
         {projects.map((project, index) => (
           <div key={index} className="group cursor-pointer">
             <Link href={project.link}>
