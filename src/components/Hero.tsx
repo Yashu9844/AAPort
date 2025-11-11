@@ -1,5 +1,6 @@
 'use client';
 
+import Link from 'next/link';
 import TechStack from './TechStack';
 
 export default function Hero() {
@@ -44,19 +45,21 @@ export default function Hero() {
               </div>
               
               <div className="pt-3 sm:pt-4 md:pt-6">
-                <button className="group bg-black/20 backdrop-blur-md text-white font-light px-5 sm:px-6 md:px-8 py-2.5 sm:py-3 md:py-4 rounded-full border border-white/10 transition-all duration-300 hover:bg-black/30 shadow-xl">
-                  <span className="flex items-center space-x-2 sm:space-x-3">
-                    <span className="text-xs sm:text-sm md:text-base font-medium">View My Work</span>
-                    <svg 
-                      className="w-3 sm:w-4 md:w-5 h-3 sm:h-4 md:h-5 transform group-hover:translate-x-1 transition-transform" 
-                      fill="none" 
-                      stroke="currentColor" 
-                      viewBox="0 0 24 24"
-                    >
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                    </svg>
-                  </span>
-                </button>
+                <Link href="/projects">
+                  <button className="group bg-black/20 backdrop-blur-md text-white font-light px-5 sm:px-6 md:px-8 py-2.5 sm:py-3 md:py-4 rounded-full border border-white/10 transition-all duration-300 hover:bg-black/30 shadow-xl">
+                    <span className="flex items-center space-x-2 sm:space-x-3">
+                      <span className="text-xs sm:text-sm md:text-base font-medium">View My Work</span>
+                      <svg 
+                        className="w-3 sm:w-4 md:w-5 h-3 sm:h-4 md:h-5 transform group-hover:translate-x-1 transition-transform" 
+                        fill="none" 
+                        stroke="currentColor" 
+                        viewBox="0 0 24 24"
+                      >
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                      </svg>
+                    </span>
+                  </button>
+                </Link>
               </div>
             </div>
           </div>
