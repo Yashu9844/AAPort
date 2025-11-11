@@ -28,7 +28,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className="font-kh-teka antialiased"
+        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         {/* Preloader overlay */}
         {/* Note: server renders it visible; it unmounts itself after 3s + reveal */}

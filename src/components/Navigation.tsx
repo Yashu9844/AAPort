@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import EyeFollower from './EyeFollower';
 
 export default function Navigation() {
@@ -9,24 +9,72 @@ export default function Navigation() {
   const [forceClosed, setForceClosed] = useState(false);
   // Fast reopen when user has scrolled inside menu
   const [fastOpen, setFastOpen] = useState(false);
+  // Track if we're on mobile/touch device
+  const [isTouchDevice, setIsTouchDevice] = useState(false);
   const listRef = useRef<HTMLDivElement | null>(null);
+  const menuRef = useRef<HTMLDivElement | null>(null);
+  const closeTimeoutRef = useRef<NodeJS.Timeout | null>(null);
   const isOpen = isMenuHovered && !forceClosed;
+
+  // Detect touch device
+  useEffect(() => {
+    // Only consider it a touch device if it ONLY supports touch (not hybrid like laptops with touchscreens)
+    const hasTouchOnly = 'ontouchstart' in window && window.matchMedia('(pointer: coarse)').matches;
+    setIsTouchDevice(hasTouchOnly);
+  }, []);
+
+  // Close menu when clicking outside on touch devices
+  useEffect(() => {
+    if (!isTouchDevice || !isOpen) return;
+
+    const handleClickOutside = (event: MouseEvent | TouchEvent) => {
+      if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
+        setIsMenuHovered(false);
+        setForceClosed(false);
+        setFastOpen(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    document.addEventListener('touchstart', handleClickOutside);
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+      document.removeEventListener('touchstart', handleClickOutside);
+    };
+  }, [isTouchDevice, isOpen]);
 
   return (
     <>
       {/* Center Menu Strip */}
       <nav className="fixed top-4 sm:top-6 md:top-8 left-1/2 transform -translate-x-1/2 z-50">
-        <div 
+        <div
+          ref={menuRef}
           className="relative pb-2 sm:pb-3"
-onMouseEnter={() => {
-            setIsMenuHovered(true);
-            // if user previously scrolled, open almost instantly
-            if (listRef.current && listRef.current.scrollTop > 0) setFastOpen(true);
-          }}
-          onMouseLeave={() => { setIsMenuHovered(false); setForceClosed(false); setFastOpen(false); }}
         >
           {/* Main Menu Strip */}
-          <div className="bg-black/30 backdrop-blur-md rounded-lg sm:rounded-[0.5vw] border border-white/10 px-3 sm:px-6 md:px-8  py-2 sm:py-2.5 flex items-center justify-between w-[85vw] sm:w-[60vw] md:w-[50vw] lg:w-[40vw] max-w-xl">
+          <div
+            className="bg-black/30 backdrop-blur-md rounded-lg sm:rounded-[0.5vw] border border-white/10 px-3 sm:px-6 md:px-8  py-2 sm:py-2.5 flex items-center justify-between w-[85vw] sm:w-[60vw] md:w-[50vw] lg:w-[40vw] max-w-xl"
+            onMouseEnter={() => {
+              if (closeTimeoutRef.current) {
+                clearTimeout(closeTimeoutRef.current);
+                closeTimeoutRef.current = null;
+              }
+              if (!forceClosed) {
+                setIsMenuHovered(true);
+                // if user previously scrolled, open almost instantly
+                if (listRef.current && listRef.current.scrollTop > 0) setFastOpen(true);
+              }
+            }}
+            onMouseLeave={() => {
+              // Delay close slightly to allow moving to dropdown
+              closeTimeoutRef.current = setTimeout(() => {
+                setIsMenuHovered(false);
+                setForceClosed(false);
+                setFastOpen(false);
+              }, 150);
+            }}
+          >
             <span className="text-white text-xs sm:text-sm md:text-base lg:text-lg font-light tracking-wider">MENU</span>
             
             <div className="flex items-center gap-3 sm:gap-4 md:gap-6">
@@ -53,12 +101,12 @@ onMouseEnter={() => {
                   onClick={(e) => {
                     e.stopPropagation();
                     if (isOpen) {
-                      // Close while hovering; keep closed until mouse leaves
+                      // Close menu
                       setForceClosed(true);
                       setIsMenuHovered(false);
                       setFastOpen(false);
                     } else {
-                      // Click to open: allow hover again and mark hovered so it opens
+                      // Open menu
                       setForceClosed(false);
                       setIsMenuHovered(true);
                       if (listRef.current && listRef.current.scrollTop > 0) setFastOpen(true);
@@ -70,16 +118,45 @@ onMouseEnter={() => {
             </div>
           </div>
           
+          {/* Invisible bridge to prevent hover gap - Desktop only */}
+          {!isTouchDevice && (
+            <div 
+              className="absolute left-0 right-0 h-3"
+              style={{ top: '100%' }}
+              onMouseEnter={() => {
+                if (closeTimeoutRef.current) {
+                  clearTimeout(closeTimeoutRef.current);
+                  closeTimeoutRef.current = null;
+                }
+                setIsMenuHovered(true);
+              }}
+            />
+          )}
+          
           {/* Dropdown Menu - Extended hover area */}
-<div className={`absolute top-full left-1/2 transform -translate-x-1/2 ${fastOpen ? 'transition-none' : 'transition-transform duration-500 ease-out'} origin-top z-40 ${
+<div className={`absolute left-1/2 transform -translate-x-1/2 ${fastOpen ? 'transition-none' : 'transition-transform duration-500 ease-out'} origin-top z-40 ${
             isOpen 
               ? 'visible scale-100 translate-y-0 pointer-events-auto' 
               : 'invisible scale-95 -translate-y-6 pointer-events-none'
-          }`}>
+          }`}
+          style={{ top: 'calc(100% + 8px)' }}
+          >
 <div
               ref={listRef}
               className={`nav-menu-scroll rounded-xl sm:rounded-2xl md:rounded-[0.5vw] border border-white/20 shadow-2xl w-[85vw] sm:w-[60vw] md:w-[50vw] lg:w-[40vw] max-w-xl max-h-[70vh] sm:max-h-[60vh] overflow-y-scroll bg-black/50 backdrop-blur-2xl`}
               style={{ scrollBehavior: 'smooth', overscrollBehavior: 'contain', willChange: 'transform, backdrop-filter' }}
+              onMouseEnter={() => {
+                if (closeTimeoutRef.current) {
+                  clearTimeout(closeTimeoutRef.current);
+                  closeTimeoutRef.current = null;
+                }
+                setIsMenuHovered(true);
+              }}
+              onMouseLeave={() => {
+                setIsMenuHovered(false);
+                setForceClosed(false);
+                setFastOpen(false);
+              }}
               onWheel={(e) => e.stopPropagation()}
               onScroll={(e) => e.stopPropagation()}
             >

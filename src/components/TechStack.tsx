@@ -26,7 +26,6 @@ const techStack = [
 const TechStack = () => {
   return (
     <div className="w-full bg-transparent overflow-hidden">
-      <div className="w-full h-[2px] bg-gray-600"></div>
       <div className="py-2 sm:py-3 md:py-3">
         <div className="relative">
           {/* Gradient masks */}
@@ -44,9 +43,9 @@ const TechStack = () => {
                   <img
                     src={tech.logo}
                     alt={tech.name}
-                    className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6 object-contain filter brightness-0 invert opacity-40 group-hover:opacity-100 transition-opacity duration-300"
+                    className="w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8 object-contain filter brightness-0 invert opacity-70 group-hover:opacity-100 transition-opacity duration-300"
                   />
-                  <span className="text-white/40 text-xs sm:text-sm font-light tracking-wide group-hover:text-white/80 transition-colors duration-300 whitespace-nowrap">
+                  <span className="text-white/50 text-sm sm:text-base font-light tracking-wide group-hover:text-white/80 transition-colors duration-300 whitespace-nowrap">
                     {tech.name}
                   </span>
                 </div>
@@ -62,9 +61,9 @@ const TechStack = () => {
                   <img
                     src={tech.logo}
                     alt={tech.name}
-                    className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6 object-contain filter brightness-0 invert opacity-40 group-hover:opacity-100 transition-opacity duration-300"
+                    className="w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8 object-contain filter brightness-0 invert opacity-70 group-hover:opacity-100 transition-opacity duration-300"
                   />
-                  <span className="text-white/40 text-xs sm:text-sm font-light tracking-wide group-hover:text-white/80 transition-colors duration-300 whitespace-nowrap">
+                  <span className="text-white/50 text-sm sm:text-base font-light tracking-wide group-hover:text-white/80 transition-colors duration-300 whitespace-nowrap">
                     {tech.name}
                   </span>
                 </div>
@@ -73,8 +72,6 @@ const TechStack = () => {
           </div>
         </div>
       </div>
-      <div className="w-full h-[2px] bg-gray-600"></div>
-      
     </div>
   );
 };
