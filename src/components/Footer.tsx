@@ -1,11 +1,9 @@
 "use client";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Youtube, Linkedin, Instagram } from "lucide-react";
+import { Github, Linkedin, Mail, ExternalLink } from "lucide-react";
 import { useState, useRef, useLayoutEffect } from "react";
-import carImage from "../../public/zoox-car.jpg";
-import Img from "next/image";
-import { motion } from "framer-motion";
+import { motion, useInView } from "framer-motion";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
@@ -158,247 +156,257 @@ const Footer = () => {
       {/* Footer Content - Overlaying the background */}
       <motion.div
         ref={contentRef}
-        className="relative z-10 max-w-[1920px] w-[calc(100%-1rem)] md:w-[calc(100%-2rem)] lg:w-[calc(100%-2.5rem)] xl:w-[calc(100%-3rem)] 2xl:w-[calc(100%-4rem)] mx-auto rounded-b-3xl bg-gradient-to-b from-black/40 via-black/80 to-black/95 backdrop-blur-[3px] border border-white/15 shadow-[0_0_25px_rgba(255,255,255,0.05)] py-20"
+        className="relative z-10 w-full bg-gradient-to-b from-black/40 via-black/80 to-black/95 backdrop-blur-[3px]"
         initial={false}
         whileInView="visible"
         viewport={{ once: true, amount: 0.2 }}
         variants={containerVariants}
       >
-        <div className="max-w-full mx-auto px-3 sm:px-4 md:px-5 lg:px-6 py-16 sm:py-20">
+        <div className="max-w-full mx-auto px-6 sm:px-8 md:px-12 lg:px-16 xl:px-20 py-4">
+          
+          {/* Large CTA Section */}
+          <div className="mb-12 md:mb-16">
+            <motion.h2 
+              className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-bold text-white leading-[1.1] mb-8 md:mb-12"
+              variants={headingVariants}
+              style={{ fontFamily: 'KH Teka, sans-serif' }}
+            >
+              Let's Create
+              <br />
+              <span className="text-white/40">Something Great</span>
+            </motion.h2>
+            <motion.div 
+              className="flex flex-col sm:flex-row gap-6 items-start sm:items-center"
+              variants={sectionVariants}
+            >
+              <a href="mailto:your.email@example.com">
+                <motion.button 
+                  className="group bg-white text-black px-12 py-6 text-base font-medium tracking-wider uppercase hover:bg-white/90 transition-all duration-500 hover:scale-105 flex items-center gap-3"
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  style={{ fontFamily: 'KH Teka, sans-serif' }}
+                >
+                  Get In Touch
+                  <svg className="w-5 h-5 transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                  </svg>
+                </motion.button>
+              </a>
+              <motion.p 
+                className="text-base md:text-lg text-white/60"
+                variants={itemVariants}
+                style={{ fontFamily: 'KH Teka, sans-serif' }}
+              >
+                Available for freelance projects
+              </motion.p>
+            </motion.div>
+          </div>
+
           {/* Main Footer Content */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 md:gap-12 mb-16 md:mb-20">
-            {/* Site Map */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-12 md:gap-16 mb-12 md:mb-16">
+            {/* Quick Links */}
             <motion.div variants={sectionVariants}>
               <motion.div variants={headingVariants}>
-                <h3 className="text-sm font-semibold mb-6 tracking-wide uppercase text-white">
-                  Site Map
+                <div className="h-[2px] w-12 bg-white mb-6"></div>
+                <h3 className="text-sm font-medium mb-8 uppercase text-white/50" style={{ fontFamily: 'KH Teka, sans-serif', letterSpacing: '0.15em' }}>
+                  Quick Links
                 </h3>
               </motion.div>
-              <nav className="space-y-3">
+              <nav className="space-y-5">
                 <motion.a
-                  href="#"
-                  className="flex items-center text-base text-gray-200 hover:text-white transition-colors"
+                  href="/"
+                  className="group block text-xl text-white hover:text-white/60 transition-all duration-300"
                   variants={itemVariants}
                   whileHover="hover"
                   whileTap="tap"
+                  style={{ fontFamily: 'KH Teka, sans-serif' }}
                 >
-                  How To Ride
-                  <span className="ml-2">›</span>
+                  <span className="group-hover:translate-x-2 inline-block transition-transform duration-300">Home</span>
                 </motion.a>
                 <motion.a
-                  href="#"
-                  className="flex items-center text-base text-gray-200 hover:text-white transition-colors"
+                  href="/projects"
+                  className="group block text-xl text-white hover:text-white/60 transition-all duration-300"
                   variants={itemVariants}
                   whileHover="hover"
                   whileTap="tap"
+                  style={{ fontFamily: 'KH Teka, sans-serif' }}
                 >
-                  Where to Ride
-                  <span className="ml-2">›</span>
+                  <span className="group-hover:translate-x-2 inline-block transition-transform duration-300">Work</span>
                 </motion.a>
                 <motion.a
-                  href="#"
-                  className="flex items-center text-base text-gray-200 hover:text-white transition-colors"
+                  href="#about"
+                  className="group block text-xl text-white hover:text-white/60 transition-all duration-300"
                   variants={itemVariants}
                   whileHover="hover"
                   whileTap="tap"
+                  style={{ fontFamily: 'KH Teka, sans-serif' }}
                 >
-                  Know Your Ride
-                  <span className="ml-2">›</span>
+                  <span className="group-hover:translate-x-2 inline-block transition-transform duration-300">About</span>
                 </motion.a>
                 <motion.a
-                  href="#"
-                  className="flex items-center text-base text-gray-200 hover:text-white transition-colors"
+                  href="#contact"
+                  className="group block text-xl text-white hover:text-white/60 transition-all duration-300"
                   variants={itemVariants}
                   whileHover="hover"
                   whileTap="tap"
+                  style={{ fontFamily: 'KH Teka, sans-serif' }}
                 >
-                  Support
-                  <span className="ml-2">›</span>
+                  <span className="group-hover:translate-x-2 inline-block transition-transform duration-300">Contact</span>
                 </motion.a>
               </nav>
             </motion.div>
 
-            {/* Where to Ride */}
+            {/* Expertise */}
             <motion.div variants={sectionVariants}>
               <motion.div variants={headingVariants}>
-                <h3 className="text-sm font-semibold mb-6 tracking-wide uppercase text-white">
-                  Where to Ride
+                <div className="h-[2px] w-12 bg-white mb-6"></div>
+                <h3 className="text-sm font-medium mb-8 uppercase text-white/50" style={{ fontFamily: 'KH Teka, sans-serif', letterSpacing: '0.15em' }}>
+                  Expertise
                 </h3>
               </motion.div>
-              <nav className="space-y-3">
-                <motion.a
-                  href="#"
-                  className="flex items-center text-base text-gray-200 hover:text-white transition-colors"
+              <div className="space-y-5">
+                <motion.p
+                  className="text-xl text-white/80"
                   variants={itemVariants}
-                  whileHover="hover"
-                  whileTap="tap"
+                  style={{ fontFamily: 'KH Teka, sans-serif' }}
                 >
-                  Las Vegas
-                  <span className="ml-2">›</span>
-                </motion.a>
-                <motion.a
-                  href="#"
-                  className="flex items-center text-base text-gray-200 hover:text-white transition-colors"
-                  variants={itemVariants}
-                  whileHover="hover"
-                  whileTap="tap"
-                >
-                  San Francisco
-                  <span className="ml-2">›</span>
-                </motion.a>
-                <motion.p 
-                  className="text-base text-gray-400"
-                  variants={itemVariants}
-                >
-                  Austin (Coming Soon)
+                  Web Development
                 </motion.p>
-                <motion.p 
-                  className="text-base text-gray-400"
+                <motion.p
+                  className="text-xl text-white/80"
                   variants={itemVariants}
+                  style={{ fontFamily: 'KH Teka, sans-serif' }}
                 >
-                  Miami (Coming Soon)
+                  UI/UX Design
                 </motion.p>
-              </nav>
+                <motion.p
+                  className="text-xl text-white/80"
+                  variants={itemVariants}
+                  style={{ fontFamily: 'KH Teka, sans-serif' }}
+                >
+                  Full Stack Apps
+                </motion.p>
+                <motion.p
+                  className="text-xl text-white/80"
+                  variants={itemVariants}
+                  style={{ fontFamily: 'KH Teka, sans-serif' }}
+                >
+                  API Solutions
+                </motion.p>
+              </div>
             </motion.div>
 
-            {/* Newsletter Signup */}
+            {/* Get In Touch */}
             <motion.div 
               className="lg:col-span-2" 
               variants={sectionVariants}
             >
               <motion.div variants={headingVariants}>
-                <h3 className="text-sm font-semibold mb-6 tracking-wide uppercase text-white">
-                  Get Up to Speed
+                <h3 className="text-xs font-bold mb-6 tracking-[0.3em] uppercase text-white font-accent">
+                  Let's Connect
                 </h3>
               </motion.div>
               <motion.p 
-                className="text-sm mb-4 max-w-md text-gray-300"
+                className="text-lg sm:text-xl md:text-2xl font-light mb-8 max-w-lg text-white/90 leading-relaxed"
                 variants={itemVariants}
               >
-                Sign up for our newsletter to see where we&apos;re headed next.
+                Have a project in mind or want to collaborate?
+                <br />
+                Let's create something amazing together.
               </motion.p>
               <motion.form 
                 onSubmit={handleNewsletterSubmit} 
-                className="space-y-3"
+                className="space-y-4"
                 variants={sectionVariants}
               >
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <motion.div variants={formItemVariants}>
                     <Input
-                      type="email"
-                      placeholder="Email Address *"
-                      value={email}
-                      onChange={(e) => setEmail(e.target.value)}
+                      type="text"
+                      placeholder="Your Name"
+                      value={name}
+                      onChange={(e) => setName(e.target.value)}
                       required
-                      className="rounded-full px-6 h-12 placeholder-[#9ca3af] bg-[rgba(255,255,255,0.08)] border border-[rgba(255,255,255,0.15)] text-white focus:border-white hover:border-white/70 transition-colors focus:outline-none focus-visible:ring-0 focus-visible:ring-offset-0"
+                      className="px-0 h-12 placeholder-gray-500 bg-transparent border-0 border-b-2 border-white/20 text-white font-light focus:border-white hover:border-white/50 transition-colors focus:outline-none focus-visible:ring-0 focus-visible:ring-offset-0 rounded-none"
                     />
                   </motion.div>
                   <motion.div variants={formItemVariants}>
                     <Input
-                      type="text"
-                      placeholder="Zip Code *"
-                      value={zipCode}
-                      onChange={(e) => setZipCode(e.target.value)}
+                      type="email"
+                      placeholder="Your Email"
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
                       required
-                      className="rounded-full px-6 h-12 placeholder-[#9ca3af] bg-[rgba(255,255,255,0.08)] border border-[rgba(255,255,255,0.15)] text-white focus:border-white hover:border-white/70 transition-colors focus:outline-none focus-visible:ring-0 focus-visible:ring-offset-0"
+                      className="px-0 h-12 placeholder-gray-500 bg-transparent border-0 border-b-2 border-white/20 text-white font-light focus:border-white hover:border-white/50 transition-colors focus:outline-none focus-visible:ring-0 focus-visible:ring-offset-0 rounded-none"
                     />
                   </motion.div>
                 </div>
                 <motion.div variants={formItemVariants}>
                   <Button
                     type="submit"
-                    className="w-full sm:w-auto rounded-full px-8 h-12 font-medium uppercase text-sm tracking-wide bg-white text-black hover:bg-gray-200 transition-colors"
+                    className="group w-full sm:w-auto bg-white text-black px-10 py-6 font-medium uppercase text-sm tracking-[0.2em] hover:bg-white/90 transition-all duration-300 hover:scale-105"
                   >
-                    Join the Newsletter
-                    <span className="ml-2">›</span>
+                    Send Message
+                    <ExternalLink className="ml-2 w-4 h-4 inline-block group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform duration-300" />
                   </Button>
                 </motion.div>
               </motion.form>
               <motion.p 
-                className="text-xs mt-4 text-gray-400 max-w-md"
+                className="text-xs mt-6 text-gray-500 max-w-md font-light"
                 variants={itemVariants}
               >
-                By submitting, you give Zoox permission to store and process your
-                personal information so we can provide you with the content you&apos;ve
-                requested. For more information, please see our{" "}
-                <a href="#" className="underline hover:text-white transition-colors">
-                  privacy policy
-                </a>
-                .
+                By submitting this form, you agree to be contacted regarding your inquiry.
+                I respect your privacy and will never share your information.
               </motion.p>
             </motion.div>
           </div>
 
           {/* Bottom Bar */}
           <motion.div 
-            className="pt-8 border-t border-white/15 flex flex-col md:flex-row justify-between items-start md:items-center gap-4" 
+            className="pt-10 border-t border-white/10 flex flex-col md:flex-row justify-between items-start md:items-center gap-6" 
             variants={sectionVariants}
           >
-            {/* Legal Links */}
-            <nav className="flex flex-wrap gap-x-6 gap-y-2 text-sm">
-              <motion.a 
-                href="#" 
-                className="uppercase tracking-wide text-gray-200 hover:text-white transition-colors" 
+            {/* Copyright & Info */}
+            <div className="flex flex-col gap-2">
+              <motion.p 
+                className="text-sm font-light text-gray-400"
                 variants={itemVariants}
-                whileHover="hover"
-                whileTap="tap"
               >
-                Privacy Policy
-                <span className="ml-2">›</span>
-              </motion.a>
-              <motion.a 
-                href="#" 
-                className="uppercase tracking-wide text-gray-200 hover:text-white transition-colors" 
+                © {new Date().getFullYear()} Yashavanth R Siddesh. All rights reserved.
+              </motion.p>
+              <motion.p 
+                className="text-xs font-light text-gray-500"
                 variants={itemVariants}
-                whileHover="hover"
-                whileTap="tap"
               >
-                Supply Chain Standards
-                <span className="ml-2">›</span>
-              </motion.a>
-              <motion.a 
-                href="#" 
-                className="uppercase tracking-wide text-gray-200 hover:text-white transition-colors" 
-                variants={itemVariants}
-                whileHover="hover"
-                whileTap="tap"
-              >
-                Terms of Use
-                <span className="ml-2">›</span>
-              </motion.a>
-              <motion.a 
-                href="#" 
-                className="uppercase tracking-wide text-gray-200 hover:text-white transition-colors" 
-                variants={itemVariants}
-                whileHover="hover"
-                whileTap="tap"
-              >
-                Manage Cookies
-                <span className="ml-2">›</span>
-              </motion.a>
-            </nav>
+                Designed & Developed with passion
+              </motion.p>
+            </div>
 
             {/* Social Links */}
-            <div className="flex items-center gap-4 text-white">
+            <div className="flex items-center gap-6">
               <motion.span 
-                className="text-sm font-semibold uppercase tracking-wide"
+                className="text-xs font-bold uppercase tracking-[0.3em] text-white/70 font-accent"
                 variants={itemVariants}
               >
-                Socials
+                Connect
               </motion.span>
               <motion.a
-                href="#"
-                className="hover:opacity-70 transition-opacity"
-                aria-label="YouTube"
+                href="https://github.com/yourusername"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-white hover:text-white/70 transition-all duration-300 hover:scale-110"
+                aria-label="GitHub"
                 variants={socialIconVariants}
                 whileHover="hover"
                 whileTap="tap"
               >
-                <Youtube className="w-5 h-5" />
+                <Github className="w-5 h-5" />
               </motion.a>
               <motion.a
-                href="#"
-                className="hover:opacity-70 transition-opacity"
+                href="https://linkedin.com/in/yourusername"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-white hover:text-white/70 transition-all duration-300 hover:scale-110"
                 aria-label="LinkedIn"
                 variants={socialIconVariants}
                 whileHover="hover"
@@ -407,19 +415,21 @@ const Footer = () => {
                 <Linkedin className="w-5 h-5" />
               </motion.a>
               <motion.a
-                href="#"
-                className="hover:opacity-70 transition-opacity"
-                aria-label="Instagram"
+                href="mailto:your.email@example.com"
+                className="text-white hover:text-white/70 transition-all duration-300 hover:scale-110"
+                aria-label="Email"
                 variants={socialIconVariants}
                 whileHover="hover"
                 whileTap="tap"
               >
-                <Instagram className="w-5 h-5" />
+                <Mail className="w-5 h-5" />
               </motion.a>
               <motion.a
-                href="#"
-                className="hover:opacity-70 transition-opacity"
-                aria-label="X (Twitter)"
+                href="https://twitter.com/yourusername"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-white hover:text-white/70 transition-all duration-300 hover:scale-110"
+                aria-label="Twitter"
                 variants={socialIconVariants}
                 whileHover="hover"
                 whileTap="tap"
