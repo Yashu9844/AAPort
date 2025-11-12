@@ -162,7 +162,10 @@ export default function Navigation() {
             >
               <div className="p-4 sm:p-6 md:p-8 lg:p-10">
                 {/* Download Resume Button - Mobile Only */}
-                <button className={`lg:hidden w-full bg-white/15 backdrop-blur-sm text-white py-2 rounded-full border border-white/30 text-xs font-accent transition-all duration-200 mb-6 flex items-center justify-center gap-1.5 ${
+                <a 
+                  href="/Resume-YashavanthRSiddesh.pdf" 
+                  download="Yashavanth_R_Siddesh_Resume.pdf"
+                  className={`lg:hidden w-full bg-white/15 backdrop-blur-sm text-white py-2 rounded-full border border-white/30 text-xs font-accent transition-all duration-200 mb-6 flex items-center justify-center gap-1.5 ${
                   isMenuHovered 
                     ? 'opacity-100 translate-y-0 delay-[100ms]' 
                     : 'opacity-0 translate-y-6'
@@ -171,7 +174,7 @@ export default function Navigation() {
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
                   </svg>
                   <span className="tracking-wider text-[10px]">DOWNLOAD</span>
-                </button>
+                </a>
                 
                 {/* Projects Section */}
                 <div className="mb-10">
@@ -272,13 +275,17 @@ export default function Navigation() {
       
       {/* Download Resume Button - Desktop Only */}
       <div className="hidden lg:block fixed top-6 md:top-8 right-6 md:right-8 z-50">
-        <button className="bg-black/30 backdrop-blur-md text-white px-4 py-3 rounded-lg md:rounded-[0.5vw] border border-white/10 transition-all duration-300 hover:bg-black/40 flex items-center gap-2">
+        <a 
+          href="/Resume-YashavanthRSiddesh.pdf" 
+          download="Yashavanth_R_Siddesh_Resume.pdf"
+          className="bg-black/30 backdrop-blur-md text-white px-4 py-3 rounded-lg md:rounded-[0.5vw] border border-white/10 transition-all duration-300 hover:bg-black/40 flex items-center gap-2"
+        >
           {/* Download Icon */}
           <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
           </svg>
           <span className="text-xs sm:text-sm font-light tracking-wider whitespace-nowrap">Download Resume</span>
-        </button>
+        </a>
       </div>
     </>
   );

@@ -11,20 +11,61 @@ import Feature2 from "@/components/Feature-2";
 export default function Home() {
   return (
     <div className="min-h-screen bg-black">
+      {/* Navigation */}
       <Navigation />
+      
+      {/* Hero Section */}
       <Hero />
-      <Page2 />
-      <div className="w-full h-[1px] bg-white/20"></div>
-      <Projects />
-      <div className="w-full h-[1px] bg-white/20"></div>
-      <CircleCarousel />
-      <div className="w-full h-[1px] bg-white/20 my-16 sm:my-20 md:my-24"></div>
-      <FeaturedPage />
-      <div className="w-full h-[1px] bg-white/20 my-16 sm:my-20 md:my-24"></div>
-      <About />
-      <div className="w-full h-[1px] bg-white/20"></div>
-      <Feature2/>
-      <div className="w-full h-[1px] bg-white/20"></div>
+      
+      {/* Intro Section */}
+      <div className="py-20 sm:py-24 md:py-28 lg:py-32">
+        <Page2 />
+      </div>
+      
+      {/* Separator */}
+      <div className="w-full h-[1px] bg-gradient-to-r from-transparent via-white/30 to-transparent"></div>
+      
+      {/* Projects Section */}
+      <div className="py-20 sm:py-24 md:py-28 lg:py-32">
+        <Projects />
+      </div>
+      
+      {/* Separator */}
+      <div className="w-full h-[1px] bg-gradient-to-r from-transparent via-white/30 to-transparent"></div>
+      
+      {/* Carousel Section */}
+      <div className="py-20 sm:py-24 md:py-28 lg:py-32">
+        <CircleCarousel />
+      </div>
+      
+      {/* Separator */}
+      <div className="w-full h-[1px] bg-gradient-to-r from-transparent via-white/30 to-transparent"></div>
+      
+      {/* Featured Section */}
+      <div className="py-20 sm:py-24 md:py-28 lg:py-32">
+        <FeaturedPage />
+      </div>
+      
+      {/* Separator */}
+      <div className="w-full h-[1px] bg-gradient-to-r from-transparent via-white/30 to-transparent"></div>
+      
+      {/* About Section */}
+      <div className="py-20 sm:py-24 md:py-28 lg:py-32">
+        <About />
+      </div>
+      
+      {/* Separator */}
+      <div className="w-full h-[1px] bg-gradient-to-r from-transparent via-white/30 to-transparent"></div>
+      
+      {/* Feature 2 Section */}
+      <div className="py-20 sm:py-24 md:py-28 lg:py-32">
+        <Feature2 />
+      </div>
+      
+      {/* Separator */}
+      <div className="w-full h-[1px] bg-gradient-to-r from-transparent via-white/30 to-transparent"></div>
+      
+      {/* Footer */}
       <Footer />
     </div>
   );

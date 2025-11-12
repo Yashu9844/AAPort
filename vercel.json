@@ -1,0 +1,4 @@
+{
+  "buildCommand": "npm install --include=optional && npm run build",
+  "installCommand": "npm install --include=optional"
+}

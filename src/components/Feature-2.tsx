@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import Image from 'next/image';
 
-const ArrowUpRight = (props: any) => (
+const ArrowUpRight = (props: React.SVGProps<SVGSVGElement>) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     viewBox="0 0 24 24"
@@ -52,7 +52,7 @@ export default function Feature2() {
           
 
  <div className="relative h-full min-h-[400px] flex items-center">
-            <div className="relative w-full h-full rounded  overflow-hidden">
+            <div className="relative w-full h-full   overflow-hidden">
               {features.map((feature, index) => (
                 <div
                   key={index}

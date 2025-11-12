@@ -57,7 +57,7 @@ const Testimonials = () => {
             >
               {/* Quote Icon */}
               <div className="absolute top-6 right-6 text-6xl text-zinc-700 opacity-50 group-hover:opacity-70 transition-opacity">
-                "
+                &quot;
               </div>
 
               {/* Content */}

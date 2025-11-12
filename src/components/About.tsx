@@ -91,7 +91,7 @@ const About = () => {
 
         <div className="space-y-4 md:space-y-6 font-kh-teka" style={{ fontSize: '18px', lineHeight: '24px', color: 'rgb(229, 229, 229)' }}>
           <p className="about-paragraph md:text-[20px] md:leading-[26px]">
-            I'm Yashavanth R Siddesh, a Full Stack Developer from Bengaluru. I focus on clean engineering, strong product thinking, and purposeful interfaces that solve meaningful problems.
+            I&apos;m Yashavanth R Siddesh, a Full Stack Developer from Bengaluru. I focus on clean engineering, strong product thinking, and purposeful interfaces that solve meaningful problems.
           </p>
 
           <p className="about-paragraph md:text-[20px] md:leading-[26px]">
@@ -103,7 +103,7 @@ const About = () => {
           </p>
 
           <p className="about-paragraph md:text-[20px] md:leading-[26px]">
-            I've solved 400+ coding problems (300+ LeetCode) and won multiple competitions: 1st in Web Development, 1st in ML NOVA, and 3rd in an 8-hour AI Hackathon.
+            I&apos;ve solved 400+ coding problems (300+ LeetCode) and won multiple competitions: 1st in Web Development, 1st in ML NOVA, and 3rd in an 8-hour AI Hackathon.
           </p>
 
           <p className="about-paragraph md:text-[20px] md:leading-[26px]">

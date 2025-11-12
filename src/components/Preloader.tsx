@@ -7,8 +7,8 @@ import gsap from "gsap";
 
 // A full-screen preloader with a mouse-following progress pill and
 // a zigzag reveal that animates upward after loading.
-// Duration is fixed to 3s for now (configurable via props.durationMs).
-export default function Preloader({ durationMs = 3000 }: { durationMs?: number }) {
+// Duration is fixed to 1.8s for now (configurable via props.durationMs).
+export default function Preloader({ durationMs = 1500 }: { durationMs?: number }) {
   const [progress, setProgress] = useState(0);
   const [reveal, setReveal] = useState(false);
   const [done, setDone] = useState(false);
