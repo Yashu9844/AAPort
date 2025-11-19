@@ -150,7 +150,7 @@ const Footer = () => {
           Your browser does not support the video tag.
         </video>
         {/* Overlay to keep background cinematic and dark */}
-        <div className="absolute top-0 left-0 w-full h-full bg-black/55"></div>
+        <div className="absolute top-0 left-0 w-full h-full bg-black/15"></div>
       </div>
 
       {/* Footer Content - Overlaying the background */}
