@@ -2,6 +2,7 @@
 
 import Link from 'next/link';
 import TechStack from './TechStack';
+import { Github, Linkedin } from 'lucide-react';
 
 export default function Hero() {
   return (
@@ -59,7 +60,7 @@ export default function Hero() {
               {/* CTA Button */}
               <div className="pt-4">
                 <Link href="/projects">
-                  <button className="group relative bg-transparent text-white px-8 sm:px-10 py-4 sm:py-5 border-2 border-white transition-all duration-500 hover:bg-white hover:text-black overflow-hidden">
+                  <button className="group relative bg-transparent text-white px-8 sm:px-10 py-4 sm:py-5 border-2 border-white transition-all duration-500 hover:bg-white hover:text-black hover:cursor-pointer overflow-hidden">
                     <span className="relative z-10 flex items-center gap-3">
                       <span className="text-sm sm:text-base font-medium tracking-[0.2em] uppercase">Explore Work</span>
                       <svg className="w-5 h-5 transform group-hover:rotate-45 transition-transform duration-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -86,8 +87,50 @@ export default function Hero() {
               </div>
               
               {/* Specialization */}
-              <div className="space-y-4">
-                <div className="h-[1px] bg-white/20"></div>
+              <div className="space-y-6 md:space-y-7 lg:space-y-8">
+                <div className="flex items-center gap-3 sm:gap-4 md:gap-5">
+                  <a
+                    href="https://github.com/YashavanthR"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label="GitHub"
+                    className="group flex items-center justify-center w-9 h-9 sm:w-10 sm:h-10 rounded-xl border border-white/10 bg-black/60 text-white/80 hover:text-white cursor-pointer transition-all duration-300 hover:scale-105 hover:ring-1 ring-white/20"
+                  >
+                    <Github className="w-4 h-4 sm:w-5 sm:h-5" />
+                  </a>
+                  <a
+                    href="https://www.linkedin.com/in/yashavanth-r-siddesh"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label="LinkedIn"
+                    className="group flex items-center justify-center w-9 h-9 sm:w-10 sm:h-10 rounded-xl border border-white/10 bg-black/60 text-white/80 hover:text-white cursor-pointer transition-all duration-300 hover:scale-105 hover:ring-1 ring-white/20"
+                  >
+                    <Linkedin className="w-4 h-4 sm:w-5 sm:h-5" />
+                  </a>
+                  <a
+                    href="https://leetcode.com/u/yashavanth_r_siddesh"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label="LeetCode"
+                    className="group flex items-center justify-center w-9 h-9 sm:w-10 sm:h-10 rounded-xl border border-white/10 bg-black/60 text-white/80 hover:text-white cursor-pointer transition-all duration-300 hover:scale-105 hover:ring-1 ring-white/20"
+                  >
+                    <svg
+                      className="w-4 h-4 sm:w-5 sm:h-5"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="1.5"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    >
+                      <path d="M7 15l5-5" />
+                      <path d="M12 10l5 5" />
+                      <path d="M14 7h3v3" />
+                      <circle cx="9" cy="12" r="5" strokeOpacity="0.6" />
+                    </svg>
+                  </a>
+                  <div className="h-px flex-1 bg-white/20"></div>
+                </div>
                 <div className="space-y-2">
                   <p className="text-xs text-white/50 tracking-widest uppercase">Specialization</p>
                   <p className="text-sm sm:text-base text-white/90 leading-relaxed">
