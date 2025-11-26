@@ -134,17 +134,17 @@ export default function Navigation() {
           )}
           
           {/* Dropdown Menu - Extended hover area */}
-<div className={`absolute left-1/2 transform -translate-x-1/2 ${fastOpen ? 'transition-none' : 'transition-transform duration-500 ease-out'} origin-top z-40 ${
+<div className={`absolute left-1/2 transform -translate-x-1/2 ${fastOpen ? 'transition-none' : 'transition-all duration-500 ease-out'} origin-top z-40 ${
             isOpen 
-              ? 'visible scale-100 translate-y-0 pointer-events-auto' 
-              : 'invisible scale-95 -translate-y-6 pointer-events-none'
+              ? 'visible scale-100 translate-y-0 pointer-events-auto opacity-100' 
+              : 'invisible scale-95 -translate-y-6 pointer-events-none opacity-0'
           }`}
           style={{ top: 'calc(100% + 8px)' }}
           >
 <div
               ref={listRef}
               className={`nav-menu-scroll rounded-xl sm:rounded-2xl md:rounded-[0.5vw] border border-white/20 shadow-2xl w-[85vw] sm:w-[60vw] md:w-[50vw] lg:w-[40vw] max-w-xl max-h-[70vh] sm:max-h-[60vh] overflow-y-scroll bg-black/50 backdrop-blur-2xl`}
-              style={{ scrollBehavior: 'smooth', overscrollBehavior: 'contain', willChange: 'transform, backdrop-filter' }}
+              style={{ scrollBehavior: 'smooth', overscrollBehavior: 'contain' }}
               onMouseEnter={() => {
                 if (closeTimeoutRef.current) {
                   clearTimeout(closeTimeoutRef.current);

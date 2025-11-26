@@ -39,9 +39,6 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        {/* Preloader overlay */}
-        {/* Note: server renders it visible; it unmounts itself after 3s + reveal */}
-      
         <Preloader />
         <SheryScripts />
         {children}
