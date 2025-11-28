@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 interface Project {
@@ -66,6 +66,25 @@ export default function ProjectsGrid({ projects, allProjects }: ProjectsGridProp
 
   const noProjectsFound = selectedDomains.size > 0 && filteredProjects.length === 0;
 
+  // Prevent body scroll when modal is open & handle ESC key
+  useEffect(() => {
+    const handleEsc = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') setSelectedProject(null);
+    };
+    
+    if (selectedProject !== null) {
+      window.addEventListener('keydown', handleEsc);
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+    
+    return () => {
+      window.removeEventListener('keydown', handleEsc);
+      document.body.style.overflow = '';
+    };
+  }, [selectedProject]);
+
   return (
     <div className="min-h-screen bg-black text-white pt-32 pb-16 px-6 sm:px-8 md:px-12 lg:px-16">
       <div className="max-w-7xl mx-auto">
@@ -96,7 +115,7 @@ export default function ProjectsGrid({ projects, allProjects }: ProjectsGridProp
                 <button
                   key={domain}
                   onClick={() => toggleDomain(domain)}
-                  className={`px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 border ${
+                  className={`px-4 py-2 text-sm font-medium transition-all duration-300 border ${
                     selectedDomains.has(domain)
                       ? 'bg-white text-black border-white'
                       : 'bg-transparent text-white border-white/30 hover:border-white/50'
@@ -108,7 +127,7 @@ export default function ProjectsGrid({ projects, allProjects }: ProjectsGridProp
               {/* Reserve space for Clear button to avoid layout shift */}
               <button
                 onClick={clearFilters}
-                className={`px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 border ${
+                className={`px-4 py-2 text-sm font-medium transition-all duration-300 border ${
                   selectedDomains.size > 0 
                     ? 'border-white/30 hover:border-white/50 text-white/70 hover:text-white' 
                     : 'border-transparent text-transparent cursor-default'
@@ -129,7 +148,7 @@ export default function ProjectsGrid({ projects, allProjects }: ProjectsGridProp
               <button
                 key={domain}
                 onClick={() => toggleDomain(domain)}
-                className={`px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 border ${
+                className={`px-4 py-2 text-sm font-medium transition-all duration-300 border ${
                   selectedDomains.has(domain)
                     ? 'bg-white text-black border-white'
                     : 'bg-transparent text-white border-white/30 hover:border-white/50'
@@ -141,7 +160,7 @@ export default function ProjectsGrid({ projects, allProjects }: ProjectsGridProp
             {/* Reserve space for Clear button to avoid layout shift */}
             <button
               onClick={clearFilters}
-              className={`px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 border ${
+              className={`px-4 py-2 text-sm font-medium transition-all duration-300 border ${
                 selectedDomains.size > 0 
                   ? 'border-white/30 hover:border-white/50 text-white/70 hover:text-white' 
                   : 'border-transparent text-transparent cursor-default'
@@ -160,24 +179,80 @@ export default function ProjectsGrid({ projects, allProjects }: ProjectsGridProp
           </div>
         )}
 
-        {/* Projects Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-          {filteredProjects.map((project) => (
+        {/* Projects List - Awwwards Style */}
+        <div className="space-y-16 md:space-y-20">
+          {filteredProjects.map((project, index) => (
             <motion.div
               key={project.id}
               layoutId={`project-${project.id}`}
               onClick={() => setSelectedProject(project)}
-              className="group cursor-pointer relative aspect-[4/5] overflow-hidden rounded-lg"
+              className="group cursor-pointer relative border-b border-white/10 pb-8"
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: index * 0.1, duration: 0.6 }}
             >
-              <img
-                src={project.image}
-                alt={project.title}
-                className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
-              />
-              <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-                <button className="px-8 sm:px-12 py-3 sm:py-4 border border-white text-white text-lg sm:text-2xl font-light rounded-full hover:bg-white hover:text-black transition-all duration-300">
-                  View Project
-                </button>
+              {/* Project Number & Meta */}
+              <div className="flex items-start justify-between mb-6 gap-4">
+                <div className="flex items-baseline gap-6">
+                  <span className="text-sm text-gray-500 font-light">
+                    {String(index + 1).padStart(2, '0')}
+                  </span>
+                  <div className="flex items-center gap-4 text-xs text-gray-400 tracking-wider uppercase">
+                    <span>{project.category}</span>
+                    <span className="text-white/30">•</span>
+                    <span>{project.year}</span>
+                  </div>
+                </div>
+                <div className="hidden md:flex items-center gap-2 text-xs text-gray-500">
+                  {project.domains?.slice(0, 2).map((domain, i) => (
+                    <span key={i} className="px-3 py-1 border border-white/10 bg-white/5">
+                      {domain}
+                    </span>
+                  ))}
+                </div>
+              </div>
+
+              {/* Main Content */}
+              <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-start">
+                {/* Image */}
+                <div className="lg:col-span-8 relative overflow-hidden bg-black aspect-[16/10]">
+                  <img
+                    src={project.image}
+                    alt={project.title}
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out"
+                  />
+                  {/* Overlay on hover */}
+                  <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-center justify-center">
+                    <div className="text-white text-sm tracking-widest uppercase flex items-center gap-3">
+                      <span>View Project</span>
+                      <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                      </svg>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Project Info */}
+                <div className="lg:col-span-4 space-y-4">
+                  <h2 className="text-3xl md:text-4xl lg:text-5xl font-normal text-white leading-tight group-hover:text-gray-300 transition-colors duration-300">
+                    {project.title}
+                  </h2>
+                  <p className="text-base text-gray-400 leading-relaxed font-light">
+                    {project.description}
+                  </p>
+                  
+                  {/* Tech Stack - Small Pills */}
+                  <div className="flex flex-wrap gap-2 pt-2">
+                    {project.tech.slice(0, 4).map((tech, i) => (
+                      <span key={i} className="text-xs text-gray-500 px-2 py-1 border border-white/10 bg-white/5">
+                        {tech}
+                      </span>
+                    ))}
+                    {project.tech.length > 4 && (
+                      <span className="text-xs text-gray-500">+{project.tech.length - 4} more</span>
+                    )}
+                  </div>
+                </div>
               </div>
             </motion.div>
           ))}
@@ -199,7 +274,7 @@ export default function ProjectsGrid({ projects, allProjects }: ProjectsGridProp
                   {/* Close Button */}
                   <button
                     onClick={() => setSelectedProject(null)}
-                    className="fixed top-8 right-8 z-50 w-12 h-12 bg-white/10 backdrop-blur-sm rounded-full flex items-center justify-center hover:bg-white/20 transition-colors"
+                    className="fixed top-8 right-8 z-50 w-12 h-12 bg-white/10 backdrop-blur-sm flex items-center justify-center hover:bg-white/20 transition-colors border border-white/20"
                   >
                     <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
@@ -216,7 +291,7 @@ export default function ProjectsGrid({ projects, allProjects }: ProjectsGridProp
                       <motion.img
                         src={selectedProject.image}
                         alt={selectedProject.title}
-                        className="w-full rounded-lg"
+                        className="w-full"
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         transition={{ delay: 0.2 }}
@@ -237,14 +312,14 @@ export default function ProjectsGrid({ projects, allProjects }: ProjectsGridProp
                           <h2 className="text-4xl sm:text-5xl md:text-6xl font-bold text-white">{selectedProject.title}</h2>
                           <div className="flex gap-3 flex-shrink-0">
                             {selectedProject.github && (
-                              <a href={selectedProject.github} target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full bg-white/10 border border-white/20 flex items-center justify-center hover:bg-white/20 transition-colors">
+                              <a href={selectedProject.github} target="_blank" rel="noopener noreferrer" className="w-10 h-10 bg-white/10 border border-white/20 flex items-center justify-center hover:bg-white/20 transition-colors">
                                 <svg className="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 24 24">
                                   <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
                                 </svg>
                               </a>
                             )}
                             {selectedProject.live && (
-                              <a href={selectedProject.live} target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full bg-white/10 border border-white/20 flex items-center justify-center hover:bg-white/20 transition-colors">
+                              <a href={selectedProject.live} target="_blank" rel="noopener noreferrer" className="w-10 h-10 bg-white/10 border border-white/20 flex items-center justify-center hover:bg-white/20 transition-colors">
                                 <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
                                 </svg>
@@ -308,7 +383,7 @@ export default function ProjectsGrid({ projects, allProjects }: ProjectsGridProp
                       <div className="lg:col-span-10">
                         <div className="flex flex-wrap gap-2">
                           {selectedProject.tech.map((t, i) => (
-                            <span key={i} className="px-4 py-2 bg-white/10 border border-white/20 rounded text-sm text-white font-light">
+                            <span key={i} className="px-4 py-2 bg-white/10 border border-white/20 text-sm text-white font-light">
                               {t}
                             </span>
                           ))}
