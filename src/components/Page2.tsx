@@ -1,3 +1,5 @@
+'use client';
+
 const ArrowUpRight = (props:any) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
@@ -21,28 +23,28 @@ const Page2 = () => {
       title: 'Robinhood Onboarding',
       subtitle: 'Brand Experience Design',
       image: '/images/pimg1.jpg',
-      link: '#',
+      link: '/case-study-1',
     },
     {
       type: 'SNAPSHOT',
       title: 'E-Commerce Platform',
       subtitle: 'Full Stack Development',
       image: '/images/pimg5.jpg',
-      link: '#',
+      link: '/case-study-2',
     },
     {
       type: 'SNAPSHOT',
       title: 'Healthcare Dashboard',
       subtitle: 'UI/UX Design & Development',
       image: '/images/pimg9.jpg',
-      link: '#',
+      link: '/case-study-3',
     },
     {
       type: 'CASE STUDY',
       title: 'Mixpanel Rebrand',
       subtitle: 'Brand Design',
       image: '/images/pimg13.jpg',
-      link: '#',
+      link: '/case-study-2',
     },
   ];
 
@@ -50,7 +52,7 @@ const Page2 = () => {
     <div className="relative min-h-screen bg-black w-full text-white">
       <div className="px-3 sm:px-4 md:px-5 lg:px-6 py-16 sm:py-20 md:py-24 lg:py-28 grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
         {projects.map((project, index) => (
-          <div key={index} className="group cursor-pointer">
+          <a key={index} href={project.link} className="group cursor-pointer block">
             {/* Header */}
             <div className="mb-4">
               <p className="uppercase text-xs tracking-widest text-gray-400 mb-2">
@@ -75,7 +77,7 @@ const Page2 = () => {
                 className="w-full h-[500px] md:h-[580px] lg:h-[620px] object-cover group-hover:scale-105 transition-transform duration-500"
               />
             </div>
-          </div>
+          </a>
         ))}
       </div>
     </div>

@@ -23,15 +23,15 @@ export default function Hero() {
       <div className="absolute top-0 left-0 w-full h-full bg-black/20"></div>
 
       {/* Bottom Gradient Fade to blend into next section */}
-      <div className="absolute inset-x-0 bottom-0 h-28 sm:h-40 md:h-56 lg:h-64 bg-gradient-to-b from-transparent to-black pointer-events-none"></div>
+      <div className="absolute inset-x-0 bottom-0 h-20 sm:h-32 md:h-48 lg:h-64 bg-gradient-to-b from-transparent to-black pointer-events-none"></div>
       
       {/* Content */}
-      <div className="relative z-10 h-full flex items-center">
+      <div className="relative z-10 h-full flex flex-col items-start justify-start pt-4 sm:pt-6 md:pt-0 md:justify-center md:items-center">
         <div className="w-full px-6 sm:px-8 md:px-12 lg:px-16 xl:px-20">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-8 lg:gap-12 items-center">
             
             {/* Left Column - Main Content */}
-            <div className="lg:col-span-8 space-y-8 sm:space-y-10 md:space-y-12">
+            <div className="lg:col-span-8 space-y-4 sm:space-y-6 md:space-y-10">
               {/* Small Label */}
               <div className="flex items-center gap-3">
                 <div className="w-12 h-[1px] bg-white/60"></div>
@@ -58,7 +58,7 @@ export default function Hero() {
               </div>
               
               {/* CTA Button */}
-              <div className="pt-4">
+              <div className="mt-2 sm:mt-3 md:mt-4">
                 <Link href="/projects">
                   <button className="group relative bg-transparent text-white px-8 sm:px-10 py-4 sm:py-5 border-2 border-white transition-all duration-500 hover:bg-white hover:text-black hover:cursor-pointer overflow-hidden">
                     <span className="relative z-10 flex items-center gap-3">
@@ -147,7 +147,7 @@ export default function Hero() {
       </div>
       
       {/* Tech Stack at bottom */}
-      <div className="absolute bottom-0 left-0 right-0 z-20">
+      <div className="absolute left-0 right-0 z-20" style={{ bottom: '-20px' }}>
         <TechStack />
       </div>
       
