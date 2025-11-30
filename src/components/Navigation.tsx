@@ -233,16 +233,16 @@ export default function Navigation() {
                   }`}>MORE</h3>
                   <div className="space-y-3">
                     {[
-                      'About',
-                      'Experience',
-                      'Skills',
-                      'Blog',
-                      'Testimonials',
-                      'Awards'
+                      { label: 'About', href: '/about2' },
+                      { label: 'Experience', href: '#' },
+                      { label: 'Skills', href: '#' },
+                      { label: 'Blog', href: '/blog' },
+                      { label: 'Testimonials', href: '#' },
+                      { label: 'Awards', href: '#' }
                     ].map((item, index) => (
                       <a 
-                        key={item}
-                        href="#" 
+                        key={item.label}
+                        href={item.href}
                         className={`block text-white text-base sm:text-lg font-primary py-1.5 ${fastOpen ? 'transition-none' : 'transition-colors duration-100'} hover:text-white/80 ${
                           isMenuHovered 
                             ? 'opacity-100 translate-y-0' 
@@ -261,7 +261,7 @@ export default function Navigation() {
                           e.target.style.transition = 'transform 0.1s ease-out, color 0.1s ease-out';
                         }}
                       >
-                        {item}
+                        {item.label}
                       </a>
                     ))}
                   </div>
