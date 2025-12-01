@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useRef, useEffect } from 'react';
+import Link from 'next/link';
 import EyeFollower from './EyeFollower';
 
 export default function Navigation() {
@@ -46,6 +47,18 @@ export default function Navigation() {
 
   return (
     <>
+      {/* Y Logo - Desktop Only (Left side) */}
+      <Link 
+        href="/"
+        className="hidden lg:block fixed top-6 md:top-8 left-6 md:left-8 z-50 group cursor-pointer"
+      >
+        <div className="w-12 h-12 md:w-14 md:h-14 bg-black/30 backdrop-blur-md border border-white/10 rounded-lg md:rounded-[0.5vw] flex items-center justify-center transition-all duration-300 hover:bg-black/40 hover:border-white/20">
+          <span className="text-white text-2xl md:text-3xl font-bold font-kh-teka group-hover:scale-110 transition-transform duration-300">
+            Y
+          </span>
+        </div>
+      </Link>
+
       {/* Center Menu Strip */}
       <nav className="fixed top-4 sm:top-6 md:top-8 left-1/2 transform -translate-x-1/2 z-50">
         <div
