@@ -1,5 +1,6 @@
 import Navigation from "@/components/Navigation";
 import ProjectsGrid from "@/components/ProjectsGrid";
+import Footer from "@/components/Footer";
 
 export default function ProjectsPage() {
   const projects = [
@@ -210,6 +211,7 @@ export default function ProjectsPage() {
     <div className="min-h-screen bg-black">
       <Navigation />
       <ProjectsGrid projects={projects} />
+      <Footer />
     </div>
   );
 }

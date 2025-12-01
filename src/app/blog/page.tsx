@@ -5,6 +5,7 @@ import Link from 'next/link';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import Navigation from '@/components/Navigation';
+import Footer from '@/components/Footer';
 
 if (typeof window !== 'undefined') {
   gsap.registerPlugin(ScrollTrigger);
@@ -299,8 +300,8 @@ export default function BlogPage() {
         </div>
       </div>
 
-      {/* Bottom Spacer */}
-      <div className="h-32"></div>
+      {/* Footer */}
+      <Footer />
     </div>
   );
 }

@@ -4,6 +4,7 @@ import { useEffect, useRef } from 'react';
 import Link from 'next/link';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import Footer from '@/components/Footer';
 
 if (typeof window !== 'undefined') {
   gsap.registerPlugin(ScrollTrigger);
@@ -439,7 +440,8 @@ export default function About2() {
         </div>
       </div>
 
-      <div className="h-32"></div>
+      {/* Footer */}
+      <Footer />
     </div>
   );
 }
