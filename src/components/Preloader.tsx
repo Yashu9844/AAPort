@@ -2,12 +2,12 @@
 "use client";
 
 import { useEffect, useState, useRef } from "react";
-import { motion, useMotionValue, useSpring, animate } from "framer-motion";
+import { motion } from "framer-motion";
 import gsap from "gsap";
 
-// A full-screen preloader with a mouse-following progress pill and
-// a zigzag reveal that animates upward after loading.
-// Duration is fixed to 1.8s for now (configurable via props.durationMs).
+// A full-screen preloader with a premium thin-line progress bar.
+// Features a minimal percentage counter and circular reveal animation.
+// Duration is configurable via props.durationMs (default: 1500ms).
 export default function Preloader({ durationMs = 1500 }: { durationMs?: number }) {
   const [progress, setProgress] = useState(0);
   const [reveal, setReveal] = useState(false);
@@ -15,67 +15,9 @@ export default function Preloader({ durationMs = 1500 }: { durationMs?: number }
   const [isClient, setIsClient] = useState(false);
   const overlayRef = useRef<HTMLDivElement | null>(null);
 
-  // Mouse-follow physics
-  const mx = useMotionValue(typeof window !== "undefined" ? window.innerWidth / 2 : 0);
-  const my = useMotionValue(typeof window !== "undefined" ? window.innerHeight / 2 : 0);
-  const x = useSpring(mx, { stiffness: 2400, damping: 45, mass: 0.15 });
-  const y = useSpring(my, { stiffness: 2400, damping: 45, mass: 0.15 });
-
   // Detect client-side hydration complete
   useEffect(() => {
     setIsClient(true);
-  }, []);
-  // Liquid "energy" from cursor movement to drive blob wobble
-  const ampRef = useRef(0);
-  const phaseRef = useRef(0);
-  const tiltRef = useRef(0); // horizontal slip in px
-  const lastRef = useRef<{x:number;y:number}|null>(null);
-  const [waveAmp, setWaveAmp] = useState(0);
-  const [tilt, setTilt] = useState(0);
-
-  useEffect(() => {
-    const onMove = (e: MouseEvent) => {
-      mx.set(e.clientX);
-      my.set(e.clientY);
-      const last = lastRef.current;
-      if (last) {
-        const dx = e.clientX - last.x;
-        const dy = e.clientY - last.y;
-        const spd = Math.hypot(dx, dy);
-        ampRef.current = Math.min(16, ampRef.current + spd * 0.22);
-        // accumulate horizontal slip based on dx
-        tiltRef.current = Math.max(-10, Math.min(10, tiltRef.current + dx * 0.06));
-      }
-      lastRef.current = { x: e.clientX, y: e.clientY };
-    };
-    window.addEventListener("mousemove", onMove);
-    return () => window.removeEventListener("mousemove", onMove);
-  }, [mx, my]);
-
-  // Smoothly move to click position instead of instant teleport
-  useEffect(() => {
-    const onDown = (e: MouseEvent) => {
-      animate(mx, e.clientX, { duration: 0.28, ease: [0.22, 1, 0.36, 1] });
-      animate(my, e.clientY, { duration: 0.28, ease: [0.22, 1, 0.36, 1] });
-      ampRef.current = Math.min(16, ampRef.current + 6);
-    };
-    window.addEventListener("mousedown", onDown);
-    return () => window.removeEventListener("mousedown", onDown);
-  }, [mx, my]);
-
-  // Decay the liquid energy smoothly
-  useEffect(() => {
-    let raf = 0;
-    const loop = () => {
-      ampRef.current *= 0.9; // friction (slightly slower decay for pronounced effect)
-      phaseRef.current += 0.18; // running phase for subtle ripples even when idle
-      tiltRef.current *= 0.88; // slip easing
-      setWaveAmp(ampRef.current);
-      setTilt(tiltRef.current);
-      raf = requestAnimationFrame(loop);
-    };
-    raf = requestAnimationFrame(loop);
-    return () => cancelAnimationFrame(raf);
   }, []);
 
   // Progress timer (fixed duration)
@@ -182,58 +124,36 @@ export default function Preloader({ durationMs = 1500 }: { durationMs?: number }
         className="fixed inset-0 z-[9999] bg-black overflow-hidden"
       >
 
-      {/* SVG filter for gooey effect */}
-      <svg className="absolute w-0 h-0">
-        <defs>
-          <filter id="goo">
-            <feGaussianBlur in="SourceGraphic" stdDeviation="6" result="blur" />
-            <feColorMatrix in="blur" mode="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 20 -10" result="goo" />
-            <feBlend in="SourceGraphic" in2="goo" />
-          </filter>
-        </defs>
-      </svg>
-
-      {/* Progress pill following mouse */}
-      <motion.div
-        style={isClient ? { x, y, left: 'auto', top: 'auto' } : { left: '50%', top: '50%' }}
-        className="pointer-events-none absolute z-20 -translate-x-1/2 -translate-y-1/2"
-        animate={reveal ? { opacity: 0, scale: 0.95 } : { opacity: 1, scale: 1 }}
-        transition={{ duration: 0.2, ease: [0.22, 1, 0.36, 1] }}
-      >
-        <div className="relative isolate rounded-full border border-white/80 bg-black/90 text-white shadow-[0_4px_18px_rgba(0,0,0,0.4)] px-4 sm:px-6 md:px-8 lg:px-9 py-2 sm:py-2.5 md:py-3 text-[10px] sm:text-xs md:text-sm tracking-wide select-none min-w-[140px] sm:min-w-[200px] md:min-w-[260px] flex items-center justify-center">
-          {/* Gooey fill bar */}
-          <div className="absolute inset-[3px] rounded-[999px] overflow-hidden" style={{ filter: 'url(#goo)' }} aria-hidden>
-            <svg className="absolute inset-0 w-full h-full" viewBox="0 0 100 24" preserveAspectRatio="none">
-              {(() => {
-                const H = 24; // svg height units
-                const headX = Math.max(0.001, Math.min(100, progress));
-                const baseA = 2;
-                const a = Math.min(12, baseA + waveAmp * 1.2); // stronger response with cap
-                const segs = 8; // more waves
-                const step = H / segs;
-                const tiltUnits = tilt * 0.12; // convert px-ish to viewbox units
-                let d = `M 0 0 H ${headX} `;
-                for (let i = 0; i < segs; i++) {
-                  const y0 = i * step;
-                  const y1 = (i + 1) * step;
-                  const dir = i % 2 === 0 ? 1 : -1;
-                  const wobble = 1 + 0.35 * Math.sin(phaseRef.current + i * 0.9);
-                  const amp = a * wobble;
-                  const c1x = headX + dir * amp + tiltUnits;
-                  const c1y = y0 + step / 3;
-                  const c2x = headX - dir * amp + tiltUnits;
-                  const c2y = y1 - step / 3;
-                  d += `C ${c1x} ${c1y}, ${c2x} ${c2y}, ${headX} ${y1} `;
-                }
-                d += `H 0 Z`;
-                return <path d={d} fill="#ffffff" />;
-              })()}
-            </svg>
+      {/* Premium thin-line progress bar */}
+      <div className="pointer-events-none absolute inset-0 z-20 flex flex-col items-center justify-center">
+        <motion.div
+          className="flex flex-col items-center gap-8 sm:gap-10 md:gap-12"
+          animate={reveal ? { opacity: 0, y: -20 } : { opacity: 1, y: 0 }}
+          transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
+        >
+          {/* Percentage Counter */}
+          <div className="text-white text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold tracking-tighter font-kh-teka">
+            {progress}<span className="text-white/40">%</span>
           </div>
-          {/* Single text blended with fill: white on dark, turns black over white fill */}
-          <span className="relative z-10 font-extrabold text-white mix-blend-difference w-full text-center">{progress}% LOADED</span>
-        </div>
-      </motion.div>
+
+          {/* Thin Progress Line */}
+          <div className="relative w-[240px] sm:w-[320px] md:w-[400px] lg:w-[480px] h-[2px] bg-white/10">
+            <motion.div
+              className="absolute left-0 top-0 h-full bg-white"
+              style={{
+                width: `${progress}%`,
+                boxShadow: '0 0 12px rgba(255, 255, 255, 0.4)'
+              }}
+              transition={{ duration: 0.1, ease: 'linear' }}
+            />
+          </div>
+
+          {/* Label */}
+          <div className="text-white/50 text-xs sm:text-sm tracking-[0.3em] uppercase font-light font-kh-teka">
+            Loading Experience
+          </div>
+        </motion.div>
+      </div>
       </motion.div>
     </>
   );

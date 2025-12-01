@@ -305,11 +305,14 @@ const Projects = () => {
                 className='w-full lg:w-1/2 h-full overflow-hidden cursor-pointer group relative'
               >
                 <img src={projects[idx * 2]?.image || elem.image} alt='' className='w-full h-full object-cover group-hover:scale-110 transition-transform duration-500' />
-                <div className='absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center'>
-                  <button className='px-8 sm:px-12 py-3 sm:py-4 border border-white text-white text-lg sm:text-2xl font-light rounded-full hover:bg-white hover:text-black transition-all duration-300'>
-                    View Project
-                  </button>
-                </div>
+                  <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-center justify-center">
+                    <div className="text-white text-sm tracking-widest uppercase flex items-center gap-3">
+                      <span>View Project</span>
+                      <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                      </svg>
+                    </div>
+                  </div>
               </motion.div>
               {projects[idx * 2 + 1] && (
                 <motion.div 
@@ -318,10 +321,13 @@ const Projects = () => {
                   className='w-full lg:w-1/2 h-full overflow-hidden cursor-pointer group relative'
                 >
                   <img src={projects[idx * 2 + 1].image} alt='' className='w-full h-full object-cover group-hover:scale-110 transition-transform duration-500' />
-                  <div className='absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center'>
-                    <button className='px-8 sm:px-12 py-3 sm:py-4 border border-white text-white text-lg sm:text-2xl font-light rounded-full hover:bg-white hover:text-black transition-all duration-300'>
-                      View Project
-                    </button>
+                  <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-center justify-center">
+                    <div className="text-white text-sm tracking-widest uppercase flex items-center gap-3">
+                      <span>View Project</span>
+                      <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                      </svg>
+                    </div>
                   </div>
                 </motion.div>
               )}
@@ -364,7 +370,7 @@ const Projects = () => {
                   <motion.img
                     src={selectedProj.image}
                     alt={selectedProj.title}
-                    className='w-full rounded-lg'
+                    className='w-full '
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     transition={{ delay: 0.2 }}
@@ -448,7 +454,7 @@ const Projects = () => {
                   <div className='lg:col-span-10'>
                     <div className='flex flex-wrap gap-2'>
                       {selectedProj.tech.map((t, i) => (
-                        <span key={i} className='px-4 py-2 bg-white/10 border border-white/20 rounded text-sm text-white font-light'>
+                        <span key={i} className='px-4 py-2 bg-white/10 border border-white/20  text-sm text-white font-light'>
                           {t}
                         </span>
                       ))}

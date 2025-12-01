@@ -1,6 +1,13 @@
 'use client';
 
+import { useEffect, useRef } from 'react';
 import Link from 'next/link';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+if (typeof window !== 'undefined') {
+  gsap.registerPlugin(ScrollTrigger);
+}
 
 const SectionSeparator = () => (
   <div className="w-full border-t border-white/10 my-16"></div>
@@ -46,6 +53,213 @@ const InformationSection = ({ title, paragraphs }: { title: string; paragraphs: 
     </div>
   </div>
 );
+
+const ProcessSection = () => {
+  const processRef = useRef<HTMLDivElement>(null);
+  const timelineRef = useRef<HTMLDivElement>(null);
+
+  const phases = [
+    {
+      number: '01',
+      title: 'Discovery',
+      description: 'Understanding the problem space, user needs, and business goals through research and analysis.',
+      activities: ['User Research', 'Competitive Analysis', 'Requirements Gathering', 'Technical Feasibility']
+    },
+    {
+      number: '02',
+      title: 'Design',
+      description: 'Crafting intuitive interfaces and system architecture that balance aesthetics with functionality.',
+      activities: ['Wireframing', 'UI/UX Design', 'System Architecture', 'Database Schema']
+    },
+    {
+      number: '03',
+      title: 'Build',
+      description: 'Transforming designs into robust, scalable code with clean engineering practices.',
+      activities: ['Frontend Development', 'Backend APIs', 'Database Integration', 'Testing & QA']
+    },
+    {
+      number: '04',
+      title: 'Launch',
+      description: 'Deploying to production, monitoring performance, and iterating based on real-world feedback.',
+      activities: ['Deployment', 'Performance Monitoring', 'User Feedback', 'Continuous Optimization']
+    }
+  ];
+
+  useEffect(() => {
+    if (typeof window === 'undefined' || !processRef.current) return;
+
+    const ctx = gsap.context(() => {
+      // Animate timeline line
+      gsap.fromTo(
+        timelineRef.current,
+        { scaleX: 0 },
+        {
+          scaleX: 1,
+          ease: 'none',
+          scrollTrigger: {
+            trigger: processRef.current,
+            start: 'top 70%',
+            end: 'bottom 30%',
+            scrub: 1,
+          },
+        }
+      );
+
+      // Animate each phase card
+      gsap.utils.toArray('.process-phase').forEach((phase: any, index: number) => {
+        gsap.fromTo(
+          phase,
+          { 
+            opacity: 0, 
+            y: 60,
+            scale: 0.95
+          },
+          {
+            opacity: 1,
+            y: 0,
+            scale: 1,
+            duration: 0.8,
+            ease: 'power3.out',
+            scrollTrigger: {
+              trigger: phase,
+              start: 'top 85%',
+              end: 'top 60%',
+              toggleActions: 'play none none none',
+            },
+          }
+        );
+
+        // Animate phase number
+        gsap.fromTo(
+          phase.querySelector('.phase-number'),
+          { scale: 0.8, opacity: 0 },
+          {
+            scale: 1,
+            opacity: 1,
+            duration: 0.6,
+            delay: 0.2,
+            ease: 'back.out(1.7)',
+            scrollTrigger: {
+              trigger: phase,
+              start: 'top 85%',
+              toggleActions: 'play none none none',
+            },
+          }
+        );
+
+        // Stagger animate activities
+        const activities = phase.querySelectorAll('.activity-item');
+        gsap.fromTo(
+          activities,
+          { opacity: 0, x: -20 },
+          {
+            opacity: 1,
+            x: 0,
+            duration: 0.5,
+            stagger: 0.1,
+            delay: 0.4,
+            ease: 'power2.out',
+            scrollTrigger: {
+              trigger: phase,
+              start: 'top 80%',
+              toggleActions: 'play none none none',
+            },
+          }
+        );
+      });
+    }, processRef);
+
+    return () => ctx.revert();
+  }, []);
+
+  return (
+    <div ref={processRef} className="my-20">
+      <div className="mb-16">
+        <div className="flex items-center gap-4 mb-6">
+          <div className="h-px w-8 bg-white/50"></div>
+          <p className="text-xs tracking-widest text-gray-500 uppercase font-kh-teka">
+            Process
+          </p>
+        </div>
+        <h2 className="text-4xl sm:text-5xl md:text-6xl font-bold text-white mb-6 font-kh-teka">
+          How I Work
+        </h2>
+        <p className="text-xl text-gray-400 font-light max-w-3xl font-kh-teka">
+          Every project is unique, but my approach remains consistent—thorough, intentional, and focused on delivering value at every stage.
+        </p>
+      </div>
+
+      {/* Timeline Line */}
+      <div className="relative mb-20">
+        <div className="absolute top-1/2 left-0 w-full h-px bg-white/10 -translate-y-1/2"></div>
+        <div 
+          ref={timelineRef}
+          className="absolute top-1/2 left-0 w-full h-px bg-gradient-to-r from-white/60 via-white/40 to-white/60 -translate-y-1/2 origin-left"
+        ></div>
+      </div>
+
+      {/* Process Grid */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12">
+        {phases.map((phase, index) => (
+          <div
+            key={phase.number}
+            className="process-phase relative group"
+          >
+            {/* Phase Card */}
+            <div className="relative bg-white/[0.02] border border-white/10 p-8 transition-all duration-500 hover:bg-white/[0.04] hover:border-white/20">
+              {/* Phase Number */}
+              <div className="phase-number absolute -top-6 -left-6 w-16 h-16 bg-black border border-white/20 flex items-center justify-center">
+                <span className="text-2xl font-bold text-white/80 font-kh-teka">{phase.number}</span>
+              </div>
+
+              {/* Content */}
+              <div className="mt-4">
+                <h3 className="text-3xl font-bold text-white mb-4 font-kh-teka group-hover:text-white/90 transition-colors">
+                  {phase.title}
+                </h3>
+                <p className="text-lg text-gray-400 leading-relaxed mb-6 font-kh-teka">
+                  {phase.description}
+                </p>
+
+                {/* Activities */}
+                <div className="space-y-3">
+                  {phase.activities.map((activity, actIndex) => (
+                    <div
+                      key={actIndex}
+                      className="activity-item flex items-center gap-3 text-sm text-white/70 font-kh-teka"
+                    >
+                      <div className="w-1.5 h-1.5 bg-white/40 rounded-full flex-shrink-0"></div>
+                      <span>{activity}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* Hover Effect Line */}
+              <div className="absolute bottom-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-white/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+            </div>
+
+            {/* Connection Arrow (for desktop) */}
+            {index < phases.length - 1 && (
+              <div className="hidden md:block absolute top-1/2 -right-6 text-white/20 -translate-y-1/2">
+                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                </svg>
+              </div>
+            )}
+          </div>
+        ))}
+      </div>
+
+      {/* Bottom Statement */}
+      <div className="mt-16 pt-12 border-t border-white/10">
+        <p className="text-lg text-white/80 leading-relaxed font-kh-teka max-w-4xl">
+          This process isn't rigid—it adapts to the project's needs. Whether it's a rapid prototype or a large-scale system, the core principles remain: <span className="text-white font-medium">clarity in goals, precision in execution, and constant iteration toward excellence</span>.
+        </p>
+      </div>
+    </div>
+  );
+};
 
 export default function About2() {
   return (
@@ -122,6 +336,14 @@ export default function About2() {
               "Teaching forced me to simplify complex concepts, and leading a team taught me how to balance technical excellence with empathy and clear communication. It's one thing to build something yourself—it's another to teach someone else how to build it."
             ]}
           />
+        </div>
+      </div>
+
+      {/* How I Work Section */}
+      <div className="px-6 sm:px-8 md:px-12 lg:px-16">
+        <div className="max-w-7xl mx-auto">
+          <SectionSeparator />
+          <ProcessSection />
         </div>
       </div>
 

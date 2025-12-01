@@ -26,7 +26,7 @@ const techStack = [
 const TechStack = () => {
   return (
     <div className="w-full bg-transparent overflow-hidden">
-      <div className="py-2 sm:py-3 md:py-3">
+      <div className="py-6 sm:py-8 md:py-10 lg:py-12">
         <div className="relative">
           {/* Gradient masks */}
           <div className="absolute left-0 top-0 bottom-0 w-20 bg-gradient-to-r from-black to-transparent z-10" />
