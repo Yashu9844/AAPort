@@ -173,9 +173,9 @@ export default function CaseStudy({
   relatedProjects,
 }: CaseStudyProps) {
   return (
-    <div className="min-h-screen bg-black text-white">
+    <div className="min-h-screen bg-black text-white w-full">
       {/* Hero Section */}
-      <div className="pt-32 pb-16 px-6 sm:px-8 md:px-12 lg:px-16">
+      <div className="pt-32 pb-16 px-4 sm:px-6 md:px-8 lg:px-12 w-full">
         <div className="max-w-7xl mx-auto">
           <p className="text-xs tracking-widest text-gray-500 mb-6 uppercase">
             📸 {type}
@@ -188,7 +188,7 @@ export default function CaseStudy({
       </div>
 
       {/* Dynamic Sections */}
-      <div className="px-6 sm:px-8 md:px-12 lg:px-16">
+      <div className="px-4 sm:px-6 md:px-8 lg:px-12 w-full">
         <div className="max-w-7xl mx-auto space-y-1">
           {sections.map((section, index) => {
             if ('items' in section) {

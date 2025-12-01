@@ -7,7 +7,6 @@ import FeaturedPage from "@/components/Features";
 import Footer from "@/components/Footer";
 import About from "@/components/About";
 import Feature2 from "@/components/Feature-2";
-import AnimatedTechStack from "@/components/AnimatedTechStack";
 
 export default function Home() {
   return (
@@ -18,9 +17,6 @@ export default function Home() {
       {/* Hero Section */}
       <Hero />
 
-      {/* Tech Stack Section */}
-      <AnimatedTechStack />
-      
       {/* Separator */}
       <div className="w-full h-[1px] bg-gradient-to-r from-transparent via-white/30 to-transparent"></div>
 

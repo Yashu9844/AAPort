@@ -144,7 +144,7 @@ export default function Navigation() {
 <div
               ref={listRef}
               className={`nav-menu-scroll rounded-xl sm:rounded-2xl md:rounded-[0.5vw] border border-white/20 shadow-2xl w-[85vw] sm:w-[60vw] md:w-[50vw] lg:w-[40vw] max-w-xl max-h-[70vh] sm:max-h-[60vh] overflow-y-scroll bg-black/50 backdrop-blur-2xl`}
-              style={{ scrollBehavior: 'smooth', overscrollBehavior: 'contain' }}
+              style={{ overscrollBehavior: 'contain' }}
               onMouseEnter={() => {
                 if (closeTimeoutRef.current) {
                   clearTimeout(closeTimeoutRef.current);

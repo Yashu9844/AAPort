@@ -26,7 +26,7 @@ export default function Hero() {
       <div className="absolute inset-x-0 bottom-0 h-20 sm:h-32 md:h-48 lg:h-64 bg-gradient-to-b from-transparent to-black pointer-events-none"></div>
       
       {/* Content */}
-      <div className="relative z-10 h-full flex flex-col items-start justify-start pt-4 sm:pt-6 md:pt-0 md:justify-center md:items-center">
+      <div className="relative z-10 h-full flex flex-col items-start justify-start pt-12 sm:pt-6 md:pt-0 md:justify-center md:items-center">
         <div className="w-full px-6 sm:px-8 md:px-12 lg:px-16 xl:px-20">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-8 lg:gap-12 items-center">
             
@@ -133,11 +133,11 @@ export default function Hero() {
                 </div>
                 <div className="space-y-2">
                   <p className="text-xs text-white/50 tracking-widest uppercase">Specialization</p>
-                  <p className="text-sm sm:text-base text-white/90 leading-relaxed">
-                    Full Stack Development<br/>
-                    UI/UX Design<br/>
-                    Web Applications
-                  </p>
+                  <div className="grid grid-cols-2 gap-x-4 gap-y-1">
+                    <p className="text-sm sm:text-base text-white/90 leading-relaxed">Full Stack Development</p>
+                    <p className="text-sm sm:text-base text-white/90 leading-relaxed">UI/UX Design</p>
+                    <p className="text-sm sm:text-base text-white/90 leading-relaxed">Web Applications</p>
+                  </div>
                 </div>
               </div>
             </div>
@@ -146,7 +146,7 @@ export default function Hero() {
         </div>
       </div>
       
-      {/* Tech Stack at bottom */}
+      {/* Tech Stack marquee at bottom of hero */}
       <div className="absolute left-0 right-0 z-20" style={{ bottom: '-20px' }}>
         <TechStack />
       </div>
