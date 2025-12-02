@@ -187,7 +187,7 @@ const Footer = () => {
   };
 
   return (
-    <footer ref={footerRef} className="relative bg-black text-gray-200 overflow-hidden min-h-screen">
+    <footer ref={footerRef} className="relative bg-black text-gray-200 overflow-hidden md:min-h-screen">
       {/* Background */}
       <div ref={backgroundRef} className="absolute inset-0 w-full h-full">
         <video 
@@ -212,7 +212,7 @@ const Footer = () => {
         viewport={{ once: true, amount: 0.1 }}
         variants={containerVariants}
       >
-        <div className="max-w-full px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16 py-8 lg:py-12">
+        <div className="max-w-full px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16 py-6 sm:py-8 md:py-12">
           
           {/* Hero CTA Section + Contact Form */}
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 mb-12 lg:mb-16 xl:mb-20">
@@ -254,7 +254,7 @@ const Footer = () => {
 
             {/* Right: Contact Form */}
             <motion.div 
-              className="lg:pl-8" 
+              className="hidden md:block lg:pl-8" 
               variants={sectionVariants}
             >
               <h3 className="text-xs font-bold mb-4 tracking-widest uppercase text-white/60" style={{ fontFamily: 'KH Teka, sans-serif' }}>
@@ -398,7 +398,7 @@ const Footer = () => {
             </motion.div>
           </div>
 
-          {/* Main Content Grid - Navigation and Expertise */}
+          {/* Main Content Grid - Navigation, Expertise, and Social */}
           <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-2 gap-6 sm:gap-8 lg:gap-12 mb-8 lg:mb-16">
             
             {/* Quick Links */}
@@ -426,7 +426,7 @@ const Footer = () => {
             </motion.div>
 
             {/* Expertise */}
-            <motion.div variants={sectionVariants} className="mb-8 md:mb-0">
+            <motion.div variants={sectionVariants} className="hidden md:block mb-8 md:mb-0">
               <div className="h-px w-8 bg-white/50 mb-4"></div>
               <h3 className="text-xs font-medium mb-6 uppercase text-white/40 tracking-widest" style={{ fontFamily: 'KH Teka, sans-serif' }}>
                 Expertise
@@ -441,6 +441,37 @@ const Footer = () => {
                   >
                     {skill}
                   </motion.p>
+                ))}
+              </div>
+            </motion.div>
+
+            {/* Social Links - Mobile Only */}
+            <motion.div variants={sectionVariants} className="md:hidden">
+              <div className="h-px w-8 bg-white/50 mb-4"></div>
+              <h3 className="text-xs font-medium mb-6 uppercase text-white/40 tracking-widest" style={{ fontFamily: 'KH Teka, sans-serif' }}>
+                Follow
+              </h3>
+              <div className="flex flex-col gap-4">
+                {[
+                  { icon: Github, href: "https://github.com/yourusername", label: "GitHub" },
+                  { icon: Linkedin, href: "https://linkedin.com/in/yourusername", label: "LinkedIn" },
+                  { icon: Mail, href: "mailto:your.email@example.com", label: "Email" },
+                ].map((social, index) => (
+                  <motion.a
+                    key={social.label}
+                    href={social.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center gap-3 text-white/70 hover:text-white transition-all duration-300 p-2 w-fit"
+                    aria-label={social.label}
+                    variants={socialIconVariants}
+                    whileHover="hover"
+                    whileTap="tap"
+                    custom={index}
+                  >
+                    <social.icon className="w-5 h-5" />
+                    <span className="text-lg" style={{ fontFamily: 'KH Teka, sans-serif' }}>{social.label}</span>
+                  </motion.a>
                 ))}
               </div>
             </motion.div>
@@ -467,19 +498,19 @@ const Footer = () => {
               </motion.p>
             </div>
 
-            {/* Social Links */}
+            {/* Social Links - Desktop Only */}
             <motion.div 
-              className="flex items-center gap-6 order-1 md:order-2"
+              className="hidden md:flex md:flex-row md:items-center gap-6 order-1 md:order-2"
               variants={sectionVariants}
             >
               <motion.span 
-                className="text-xs font-bold uppercase tracking-widest text-white/40 hidden sm:block"
+                className="text-xs font-bold uppercase tracking-widest text-white/40"
                 variants={itemVariants}
                 style={{ fontFamily: 'KH Teka, sans-serif' }}
               >
                 Follow
               </motion.span>
-              <div className="flex items-center gap-4">
+              <div className="flex flex-row items-center gap-4">
                 {[
                   { icon: Github, href: "https://github.com/yourusername", label: "GitHub" },
                   { icon: Linkedin, href: "https://linkedin.com/in/yourusername", label: "LinkedIn" },

@@ -7,6 +7,7 @@ import FeaturedPage from "@/components/Features";
 import Footer from "@/components/Footer";
 import About from "@/components/About";
 import Feature2 from "@/components/Feature-2";
+import Contact from "@/components/Contact";
 
 export default function Home() {
   return (
@@ -21,7 +22,7 @@ export default function Home() {
       <div className="w-full h-[1px] bg-gradient-to-r from-transparent via-white/30 to-transparent"></div>
 
       {/* Intro Section */}
-      <div className="py-20 sm:py-24 md:py-28 lg:py-32">
+      <div className="py-12 sm:py-20 md:py-28 lg:py-32">
         <Page2 />
       </div>
       
@@ -29,7 +30,7 @@ export default function Home() {
       <div className="w-full h-[1px] bg-gradient-to-r from-transparent via-white/30 to-transparent"></div>
       
       {/* Projects Section */}
-      <div className="py-20 sm:py-24 md:py-28 lg:py-32">
+      <div className="py-12 sm:py-20 md:py-28 lg:py-32">
         <Projects />
       </div>
       
@@ -37,7 +38,7 @@ export default function Home() {
       <div className="w-full h-[1px] bg-gradient-to-r from-transparent via-white/30 to-transparent"></div>
       
       {/* Carousel Section */}
-      <div className="py-20 sm:py-24 md:py-28 lg:py-32">
+      <div className="py-12 sm:py-20 md:py-28 lg:py-32">
         <CircleCarousel />
       </div>
       
@@ -45,7 +46,7 @@ export default function Home() {
       <div className="w-full h-[1px] bg-gradient-to-r from-transparent via-white/30 to-transparent"></div>
       
       {/* Featured Section */}
-      <div className="py-20 sm:py-24 md:py-28 lg:py-32">
+      <div className="py-12 sm:py-20 md:py-28 lg:py-32">
         <FeaturedPage />
       </div>
       
@@ -53,7 +54,7 @@ export default function Home() {
       <div className="w-full h-[1px] bg-gradient-to-r from-transparent via-white/30 to-transparent"></div>
       
       {/* About Section */}
-      <div className="py-20 sm:py-24 md:py-28 lg:py-32">
+      <div className="py-12 sm:py-20 md:py-28 lg:py-32">
         <About />
       </div>
       
@@ -61,7 +62,7 @@ export default function Home() {
       <div className="w-full h-[1px] bg-gradient-to-r from-transparent via-white/30 to-transparent"></div>
       
       {/* Feature 2 Section */}
-      <div className="py-20 sm:py-24 md:py-28 lg:py-32">
+      <div className="py-12 sm:py-20 md:py-28 lg:py-32">
         <Feature2 />
       </div>
       

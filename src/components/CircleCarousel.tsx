@@ -5,19 +5,18 @@ import Lenis from "lenis";
 import { useEffect, useRef, useState } from "react";
 
 const images = [
-  "/images/pimg1.jpg",
-  "/images/pimg2.jpg",
-  "/images/pimg3.jpg",
-  "/images/pimg4.jpg",
-  "/images/pimg5.jpg",
-  "/images/pimg6.jpg",
-  "/images/pimg7.jpg",
-  "/images/pimg8.jpg",
-  "/images/pimg9.jpg",
-  "/images/pimg10.jpg",
-  "/images/pimg11.jpg",
-  "/images/pimg12.jpg",
-  "/images/pimg13.jpg",
+  "/images/testimonial1.png",
+  "/images/testimonial2.png",
+  "/images/testimonial3.png",
+  "/images/testimonial4.png",
+  "/images/testimonial5.png",
+  "/images/testimonial6.png",
+  "/images/testimonial7.png",
+  "/images/testimonial1.png",
+  "/images/testimonial2.png",
+  "/images/testimonial3.png",
+  "/images/testimonial4.png",
+  "/images/testimonial5.png",
 ];
 
 const CircleCarousel = () => {
