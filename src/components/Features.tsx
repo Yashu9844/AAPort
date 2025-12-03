@@ -2,6 +2,7 @@
 
 import { useEffect, useRef } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import gsap from "gsap";
 
 const ArrowUpRight = (props: React.SVGProps<SVGSVGElement>) => (
@@ -24,37 +25,42 @@ const featuredItems = [
   {
     title: "Framer",
     description:
-      "JonHowell.com was featured on the Framer Gallery, a collection of the best website design on the Framer platform",
+      "My portfolio was featured on the Framer Gallery, a collection of the best website design on the Framer platform",
     image: "/images/pimg1.jpg",
     bg: "bg-gradient-to-br from-purple-500 via-pink-500 to-blue-500",
+    link: "/achievements/framer",
   },
   {
     title: "SiteInspire",
     description:
-      "JonHowell.com was featured on Siteinspire, a long-standing showcase of exceptional web and interactive design.",
+      "Featured on Siteinspire, a long-standing showcase of exceptional web and interactive design.",
     image: "/images/pimg2.jpg",
     bg: "bg-white",
+    link: "/achievements/siteinspire",
   },
   {
     title: "A1 Gallery",
     description:
-      "JonHowell.com was featured on A1.gallery, a curated collection showcasing the best websites on the web.",
+      "Featured on A1.gallery, a curated collection showcasing the best websites on the web.",
     image: "/images/pimg3.jpg",
     bg: "bg-[#1a1a1a]",
+    link: "/achievements/a1gallery",
   },
   {
     title: "LogoLounge 15",
     description:
-      "Three logos Jon designed were selected for LogoLounge Book 15, showcasing identity work from around the world",
+      "My designs were selected for LogoLounge Book 15, showcasing identity work from around the world",
     image: "/images/pimg4.jpg",
     bg: "bg-orange-500",
+    link: "/achievements/logolounge",
   },
   {
     title: "Awwwards",
     description:
-      "JonHowell.com received recognition on Awwwards, the awards that recognize talent and effort of web designers.",
+      "Received recognition on Awwwards, the awards that recognize talent and effort of web designers.",
     image: "/images/pimg5.jpg",
     bg: "bg-gradient-to-br from-green-500 via-teal-500 to-cyan-500",
+    link: "/achievements/awwwards",
   },
   {
     title: "CSS Design Awards",
@@ -62,6 +68,7 @@ const featuredItems = [
       "Featured on CSS Design Awards, honoring web designers, developers and agencies for their outstanding work.",
     image: "/images/pimg6.jpg",
     bg: "bg-gradient-to-br from-red-500 via-orange-500 to-yellow-500",
+    link: "/achievements/cssdesignawards",
   },
   {
     title: "Behance",
@@ -69,6 +76,7 @@ const featuredItems = [
       "Featured project on Behance, the world's largest creative network for showcasing and discovering creative work.",
     image: "/images/pimg7.jpg",
     bg: "bg-blue-600",
+    link: "/achievements/behance",
   },
   {
     title: "Dribbble",
@@ -76,6 +84,7 @@ const featuredItems = [
       "Featured shot on Dribbble, where designers gain inspiration, feedback, community, and jobs worldwide.",
     image: "/images/pimg8.jpg",
     bg: "bg-pink-500",
+    link: "/achievements/dribbble",
   },
 ];
 
@@ -132,9 +141,10 @@ export default function FeaturedPage() {
           <div ref={swiperRef} className="flex gap-4">
             {/* Render cards twice for seamless loop */}
             {[...featuredItems, ...featuredItems].map((item, idx) => (
-              <div
+              <Link
                 key={idx}
-                className="group cursor-pointer flex-shrink-0 w-[360px] md:w-[420px]"
+                href={item.link}
+                className="group cursor-pointer flex-shrink-0 w-[360px] md:w-[420px] block"
                 onMouseEnter={handleEnter}
                 onMouseLeave={handleLeave}
               >
@@ -158,7 +168,7 @@ export default function FeaturedPage() {
                 <p className="text-base md:text-lg text-gray-400 leading-relaxed font-light antialiased">
                   {item.description}
                 </p>
-              </div>
+              </Link>
             ))}
           </div>
         </div>
