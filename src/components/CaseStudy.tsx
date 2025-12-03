@@ -222,7 +222,18 @@ export default function CaseStudy({
         </div>
       </div>
 
-      <div className="h-32"></div>
+      {/* Back to Home */}
+      <div className="px-6 sm:px-8 md:px-12 lg:px-16 pb-16">
+        <div className="max-w-7xl mx-auto">
+          <SectionSeparator />
+          <Link 
+            href="/"
+            className="inline-flex items-center gap-2 text-white/70 hover:text-white transition-colors duration-300 font-light tracking-wide border-b border-white/30 pb-0.5"
+          >
+            ← Back to Home
+          </Link>
+        </div>
+      </div>
     </div>
   );
 }
