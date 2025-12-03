@@ -133,6 +133,10 @@
   --radius-xl: calc(var(--radius) + 4px);
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 body {
   margin: 0;
   padding: 0;
@@ -328,6 +332,7 @@ body {
     transform: translate(calc(-50% + var(--dx)), calc(-50% + var(--dy))) scale(1);
   }
 }
+
 
 :root {
   --radius: 0.625rem;

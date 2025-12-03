@@ -8,10 +8,12 @@ import Footer from "@/components/Footer";
 import About from "@/components/About";
 import Feature2 from "@/components/Feature-2";
 import Contact from "@/components/Contact";
+import SmoothScroll from "@/components/SmoothScroll";
 
 export default function Home() {
   return (
     <div className="min-h-screen bg-black">
+      <SmoothScroll />
       {/* Navigation */}
       <Navigation />
       
