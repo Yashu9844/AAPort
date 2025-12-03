@@ -9,6 +9,7 @@ import About from "@/components/About";
 import Feature2 from "@/components/Feature-2";
 import Contact from "@/components/Contact";
 import SmoothScroll from "@/components/SmoothScroll";
+import PremiumTechStack from "@/components/PremiumTechStack";
 
 export default function Home() {
   return (
@@ -67,6 +68,12 @@ export default function Home() {
       <div className="py-12 sm:py-20 md:py-28 lg:py-32">
         <Feature2 />
       </div>
+      
+      {/* Separator */}
+      <div className="w-full h-[1px] bg-gradient-to-r from-transparent via-white/30 to-transparent"></div>
+      
+      {/* Premium Tech Stack Section */}
+      <PremiumTechStack />
       
       {/* Separator */}
       <div className="w-full h-[1px] bg-gradient-to-r from-transparent via-white/30 to-transparent"></div>

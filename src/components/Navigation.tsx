@@ -244,9 +244,9 @@ export default function Navigation() {
                   <h3 className={`text-white/70 text-sm font-secondary tracking-wider mb-6 ${fastOpen ? 'transition-none' : 'transition-all duration-400'} ${
                     isMenuHovered ? (fastOpen ? 'opacity-100 translate-y-0' : 'opacity-100 translate-y-0 delay-[700ms]') : 'opacity-0 translate-y-4'
                   }`}>MORE</h3>
-                  <div className="space-y-3">
+                <div className="space-y-3">
                     {[
-                      { label: 'About', href: '/about2' },
+                      { label: 'About', href: '/about2' },                      
                       { label: 'Experience', href: '#' },
                       { label: 'Skills', href: '#' },
                       { label: 'Blog', href: '/blog' },
