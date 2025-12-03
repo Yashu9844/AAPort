@@ -57,9 +57,6 @@ const CircleCarousel = () => {
 
   return (
     <main className="w-full bg-black text-white">
-      {/* Horizontal line before Testimonials */}
-      <div className="w-full h-[1px] bg-gray-800 mb-8"></div>
-      
       <div className='p-2 sm:p-3 lg:p-4 mb-4'>
         <div className='pt-[6vh] sm:pt-[8vh] md:pt-[10vh] lg:pt-[12vh]'>
           <h2 className='font-secondary text-5xl sm:text-6xl md:text-7xl lg:text-[10vw] uppercase'>Testimonials</h2>

@@ -133,10 +133,11 @@ export default function Hero() {
                 </div>
                 <div className="space-y-2">
                   <p className="text-xs text-white/50 tracking-widest uppercase">Specialization</p>
-                  <div className="grid grid-cols-2 gap-x-4 gap-y-1">
+                  <div className="grid grid-cols-2 gap-x-4 gap-y-2">
                     <p className="text-sm sm:text-base text-white/90 leading-relaxed">Full Stack Development</p>
                     <p className="text-sm sm:text-base text-white/90 leading-relaxed">UI/UX Design</p>
-                    <p className="text-sm sm:text-base text-white/90 leading-relaxed">Web Applications</p>
+                    <p className="text-sm sm:text-base text-white/90 leading-relaxed">AI/ML Engineering</p>
+                    <p className="text-sm sm:text-base text-white/90 leading-relaxed">Mobile Development</p>
                   </div>
                 </div>
               </div>

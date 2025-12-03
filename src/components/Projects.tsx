@@ -6,6 +6,7 @@ import { useGSAP } from '@gsap/react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { motion, AnimatePresence } from 'framer-motion'
+import Link from 'next/link'
 
 const Projects = () => {
   const [selectedProject, setSelectedProject] = useState<number | null>(null)
@@ -333,7 +334,21 @@ const Projects = () => {
               )}
             </div>
           )
-        }).filter((_, idx) => idx < Math.ceil(projects.length / 2))}
+        }).filter((_, idx) => idx < 3)}
+      </div>
+      
+      {/* Explore Work Button */}
+      <div className="flex justify-center mt-12 md:mt-16 lg:mt-20">
+        <Link href="/projects">
+          <button className="group relative bg-transparent text-white px-8 sm:px-10 py-4 sm:py-5 border-2 border-white transition-all duration-500 hover:bg-white hover:text-black hover:cursor-pointer overflow-hidden">
+            <span className="relative z-10 flex items-center gap-3">
+              <span className="text-sm sm:text-base font-medium tracking-[0.2em] uppercase">Explore More Work</span>
+              <svg className="w-5 h-5 transform group-hover:rotate-45 transition-transform duration-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
+              </svg>
+            </span>
+          </button>
+        </Link>
       </div>
     </div>
 
