@@ -261,7 +261,7 @@ const Projects = () => {
 
   gsap.registerPlugin(ScrollTrigger)
   useGSAP(function () {
-    gsap.fromTo('.hero', 
+    const animation = gsap.fromTo('.hero', 
       {
         height: '100px',
         opacity: 0.3
@@ -281,6 +281,18 @@ const Projects = () => {
         }
       }
     )
+
+    // Listen for programmatic scroll and instantly expand all cards
+    const handleProgrammaticScroll = () => {
+      const scrollTarget = (window as any).__scrollTarget;
+      if (scrollTarget && ['testimonials', 'featured', 'approach', 'tech-stack'].includes(scrollTarget)) {
+        // Instantly expand all cards
+        gsap.set('.hero', { height: 'auto', opacity: 1 });
+      }
+    };
+
+    window.addEventListener('beforeScroll', handleProgrammaticScroll);
+    return () => window.removeEventListener('beforeScroll', handleProgrammaticScroll);
   })
 
 

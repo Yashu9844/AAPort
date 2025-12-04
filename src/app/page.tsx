@@ -33,7 +33,7 @@ export default function Home() {
       <div className="w-full h-[1px] bg-gradient-to-r from-transparent via-white/30 to-transparent"></div>
       
       {/* Projects Section */}
-      <div className="py-12 sm:py-20 md:py-28 lg:py-32">
+      <div id="projects" className="py-12 sm:py-20 md:py-28 lg:py-32">
         <Projects />
       </div>
       
@@ -41,7 +41,7 @@ export default function Home() {
       <div className="w-full h-[1px] bg-gradient-to-r from-transparent via-white/30 to-transparent"></div>
       
       {/* Carousel Section */}
-      <div className="py-12 sm:py-20 md:py-28 lg:py-32">
+      <div id="testimonials" className="py-12 sm:py-20 md:py-28 lg:py-32">
         <CircleCarousel />
       </div>
       
@@ -49,7 +49,7 @@ export default function Home() {
       <div className="w-full h-[1px] bg-gradient-to-r from-transparent via-white/30 to-transparent"></div>
       
       {/* Featured Section */}
-      <div className="py-12 sm:py-20 md:py-28 lg:py-32">
+      <div id="featured" className="py-12 sm:py-20 md:py-28 lg:py-32">
         <FeaturedPage />
       </div>
       
@@ -65,7 +65,7 @@ export default function Home() {
       <div className="w-full h-[1px] bg-gradient-to-r from-transparent via-white/30 to-transparent"></div>
       
       {/* Feature 2 Section */}
-      <div className="py-12 sm:py-20 md:py-28 lg:py-32">
+      <div id="approach" className="py-12 sm:py-20 md:py-28 lg:py-32">
         <Feature2 />
       </div>
       
