@@ -3,6 +3,7 @@
 import { useState, useRef, useEffect } from 'react';
 import Link from 'next/link';
 import EyeFollower from './EyeFollower';
+import { useScrollToSection } from '@/hooks/useScrollToSection';
 
 export default function Navigation() {
   const [isMenuHovered, setIsMenuHovered] = useState(false);
@@ -16,6 +17,7 @@ export default function Navigation() {
   const menuRef = useRef<HTMLDivElement | null>(null);
   const closeTimeoutRef = useRef<NodeJS.Timeout | null>(null);
   const isOpen = isMenuHovered && !forceClosed;
+  const scrollToSection = useScrollToSection();
 
   // Detect touch device
   useEffect(() => {
@@ -189,28 +191,31 @@ export default function Navigation() {
                   <span className="tracking-wider text-[10px]">DOWNLOAD</span>
                 </a>
                 
-                {/* Projects Section */}
+                {/* Sections Section */}
                 <div className="mb-10">
                   <h3 className={`text-white/70 text-sm font-secondary tracking-wider mb-6 ${fastOpen ? 'transition-none' : 'transition-all duration-400'} ${
                     isMenuHovered ? (fastOpen ? 'opacity-100 translate-y-0' : 'opacity-100 translate-y-0 delay-[100ms]') : 'opacity-0 translate-y-4'
-                  }`}>PROJECTS</h3>
+                  }`}>SECTIONS</h3>
                   <div className="space-y-3">
                     {[
-                      'Portfolio Website',
-                      'E-commerce Platform', 
-                      'Task Management App',
-                      'API Dashboard',
-                      'Mobile App',
-                      'Web Analytics',
-                      'React Native App',
-                      'Node.js Backend',
-                      'Python Data Analysis',
-                      'Vue.js Dashboard'
-                    ].map((project, index) => (
+                      { label: 'Projects', href: '#projects' },
+                      { label: 'Testimonials', href: '#testimonials' },
+                      { label: 'Featured', href: '#featured' },
+                      { label: 'Approach', href: '#approach' },
+                      { label: 'Tech Stack', href: '#tech-stack' }
+                    ].map((item, index) => (
                       <a 
-                        key={project}
-                        href="#" 
-                        className={`block text-white text-base sm:text-lg font-primary py-1.5 ${fastOpen ? 'transition-none' : 'transition-colors duration-100'} hover:text-white/80 ${
+                        key={item.label}
+                        href={item.href}
+                        onClick={(e) => {
+                          e.preventDefault();
+                          const sectionId = item.href.replace('#', '');
+                          scrollToSection(sectionId);
+                          setIsMenuHovered(false);
+                          setForceClosed(true);
+                          setFastOpen(false);
+                        }}
+                        className={`block text-white text-base sm:text-lg font-primary py-1.5 pointer-events-auto cursor-pointer ${fastOpen ? 'transition-none' : 'transition-colors duration-100'} hover:text-white/80 ${
                           isMenuHovered 
                             ? 'opacity-100 translate-y-0' 
                             : 'opacity-0 translate-y-6'
@@ -228,7 +233,7 @@ export default function Navigation() {
                           e.target.style.transition = 'transform 0.1s ease-out, color 0.1s ease-out';
                         }}
                       >
-                        {project}
+                        {item.label}
                       </a>
                     ))}
                   </div>
@@ -236,22 +241,20 @@ export default function Navigation() {
                 
                 {/* Divider */}
                 <div className={`border-t border-white/20 mb-6 ${fastOpen ? 'transition-none' : 'transition-all duration-400'} ${
-                  isMenuHovered ? (fastOpen ? 'opacity-100' : 'opacity-100 delay-[650ms]') : 'opacity-0'
+                  isMenuHovered ? (fastOpen ? 'opacity-100' : 'opacity-100 delay-[500ms]') : 'opacity-0'
                 }`}></div>
                 
-                {/* More Section */}
+                {/* Navigation Section */}
                 <div className="mb-10">
                   <h3 className={`text-white/70 text-sm font-secondary tracking-wider mb-6 ${fastOpen ? 'transition-none' : 'transition-all duration-400'} ${
-                    isMenuHovered ? (fastOpen ? 'opacity-100 translate-y-0' : 'opacity-100 translate-y-0 delay-[700ms]') : 'opacity-0 translate-y-4'
-                  }`}>MORE</h3>
-                <div className="space-y-3">
+                    isMenuHovered ? (fastOpen ? 'opacity-100 translate-y-0' : 'opacity-100 translate-y-0 delay-[550ms]') : 'opacity-0 translate-y-4'
+                  }`}>NAVIGATION</h3>
+                  <div className="space-y-3">
                     {[
-                      { label: 'About', href: '/about2' },                      
-                      { label: 'Experience', href: '#' },
-                      { label: 'Skills', href: '#' },
-                      { label: 'Blog', href: '/blog' },
-                      { label: 'Testimonials', href: '#' },
-                      { label: 'Awards', href: '#' }
+                      { label: 'Home', href: '/' },
+                      { label: 'Works', href: '/projects' },
+                      { label: 'About', href: '/about2' },
+                      { label: 'Blogs', href: '/blog' }
                     ].map((item, index) => (
                       <a 
                         key={item.label}
@@ -262,7 +265,7 @@ export default function Navigation() {
                             : 'opacity-0 translate-y-6'
                         }`}
                         style={{ 
-                          transitionDelay: fastOpen ? '0ms' : (isMenuHovered ? `${750 + (index * 50)}ms` : '0ms'),
+                          transitionDelay: fastOpen ? '0ms' : (isMenuHovered ? `${700 + (index * 50)}ms` : '0ms'),
                           transitionProperty: isMenuHovered ? 'opacity, transform' : 'opacity, transform, color'
                         }}
                         onMouseEnter={(e) => {
