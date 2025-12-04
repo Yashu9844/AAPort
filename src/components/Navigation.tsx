@@ -254,6 +254,7 @@ export default function Navigation() {
                       { label: 'Home', href: '/' },
                       { label: 'Works', href: '/projects' },
                       { label: 'About', href: '/about2' },
+                      { label: 'Playground', href: '/playground' },
                       { label: 'Blogs', href: '/blog' }
                     ].map((item, index) => (
                       <a 
