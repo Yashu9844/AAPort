@@ -15,6 +15,8 @@ const Footer = () => {
   const [email, setEmail] = useState("");
   const [name, setName] = useState("");
   const [message, setMessage] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [statusMessage, setStatusMessage] = useState("");
   const [activeFormats, setActiveFormats] = useState<{
     bold: boolean;
     italic: boolean;
@@ -30,10 +32,47 @@ const Footer = () => {
   const contentRef = useRef<HTMLDivElement>(null);
   const backgroundRef = useRef<HTMLDivElement>(null);
 
-  const handleNewsletterSubmit = (e: React.FormEvent) => {
+  const handleNewsletterSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    const htmlContent = messageRef.current?.innerHTML || '';
-    console.log("Form submission:", { email, name, message: htmlContent });
+    setLoading(true);
+    setStatusMessage("");
+
+    try {
+      const htmlContent = messageRef.current?.innerHTML || message;
+
+      const response = await fetch('/api/send-email', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          email,
+          name,
+          message: htmlContent || message,
+        }),
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        setStatusMessage('✓ Email sent successfully! I\'ll get back to you soon.');
+        setEmail('');
+        setName('');
+        setMessage('');
+        if (messageRef.current) {
+          messageRef.current.innerHTML = '';
+        }
+      } else {
+        setStatusMessage('✗ Failed to send email. Please try again.');
+        console.error('Error:', data.error);
+      }
+    } catch (error) {
+      setStatusMessage('✗ An error occurred. Please try again.');
+      console.error('Submission error:', error);
+    } finally {
+      setLoading(false);
+      setTimeout(() => setStatusMessage(''), 5000);
+    }
   };
 
   const applyFormat = (command: string, value?: string) => {
@@ -381,12 +420,22 @@ const Footer = () => {
                 <motion.div variants={itemVariants}>
                   <Button
                     type="submit"
-                    className="group bg-white text-black px-6 py-2.5 font-medium uppercase text-xs tracking-widest hover:bg-white/90 transition-all duration-300 w-auto"
+                    disabled={loading}
+                    className="group bg-white text-black px-6 py-2.5 font-medium uppercase text-xs tracking-widest hover:bg-white/90 transition-all duration-300 w-auto disabled:opacity-50 disabled:cursor-not-allowed"
                   >
-                    Send Message
+                    {loading ? 'Sending...' : 'Send Message'}
                     <ExternalLink className="ml-2 w-3.5 h-3.5 transform group-hover:translate-x-1 transition-transform duration-300" />
                   </Button>
                 </motion.div>
+                {statusMessage && (
+                  <motion.p 
+                    className={`text-xs mt-4 ${statusMessage.includes('✓') ? 'text-green-400' : 'text-red-400'}`}
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                  >
+                    {statusMessage}
+                  </motion.p>
+                )}
               </motion.form>
               
               <motion.p 
