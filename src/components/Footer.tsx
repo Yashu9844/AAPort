@@ -269,7 +269,7 @@ const Footer = () => {
               
               <div className="flex flex-col sm:flex-row gap-4 sm:gap-6 items-start sm:items-center">
                 <motion.a 
-                  href="mailto:your.email@example.com"
+                  href="/contact"
                   variants={itemVariants}
                   whileHover="hover"
                 >

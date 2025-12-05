@@ -328,7 +328,7 @@ const PremiumTechStack = () => {
               Want to collaborate on something amazing?
             </p>
             <a
-              href="#contact"
+              href="/contact"
               className="group relative bg-transparent text-white px-8 sm:px-10 py-4 sm:py-5 border border-white/20 hover:border-white transition-all duration-500 overflow-hidden"
             >
               <span className="relative z-10 flex items-center gap-3 text-xs sm:text-sm font-medium tracking-[0.2em] uppercase">
