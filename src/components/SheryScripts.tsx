@@ -2,66 +2,42 @@
 
 import { useEffect } from 'react';
 
+/**
+ * Lazy loads GSAP and ScrollTrigger (required for About section animations)
+ * Three.js and SheryJS removed - were unused and added 720KB+ of bloat
+ */
 export default function SheryScripts() {
   useEffect(() => {
-    const loadScript = (src: string, id: string): Promise<void> => {
-      return new Promise((resolve, reject) => {
-        if (document.getElementById(id)) {
-          resolve();
-          return;
+    // Delay loading until page is idle to improve initial load performance
+    if ('requestIdleCallback' in window) {
+      requestIdleCallback(() => loadGSAP(), { timeout: 2000 });
+    } else {
+      setTimeout(() => loadGSAP(), 1000);
+    }
+    
+    function loadGSAP() {
+      const scripts = [
+        { 
+          src: 'https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js',
+          id: 'gsap-script'
+        },
+        { 
+          src: 'https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js',
+          id: 'scrolltrigger-script'
         }
-
-        const script = document.createElement('script');
-        script.id = id;
-        script.src = src;
-        script.async = true;
-        script.onload = () => resolve();
-        script.onerror = () => reject(new Error(`Failed to load: ${src}`));
-        document.head.appendChild(script);
+      ];
+      
+      scripts.forEach(({ src, id }) => {
+        if (!document.getElementById(id)) {
+          const script = document.createElement('script');
+          script.id = id;
+          script.src = src;
+          script.async = true;
+          script.defer = true;
+          document.body.appendChild(script);
+        }
       });
-    };
-
-    const loadCSS = (href: string, id: string) => {
-      if (document.getElementById(id)) return;
-
-      const link = document.createElement('link');
-      link.id = id;
-      link.rel = 'stylesheet';
-      link.href = href;
-      document.head.appendChild(link);
-    };
-
-    const init = async () => {
-      try {
-        loadCSS('https://unpkg.com/sheryjs/dist/Shery.css', 'shery-css');
-
-        await loadScript(
-          'https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js',
-          'gsap-script'
-        );
-        
-        await loadScript(
-          'https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js',
-          'scrolltrigger-script'
-        );
-        
-        await loadScript(
-          'https://cdnjs.cloudflare.com/ajax/libs/three.js/0.155.0/three.min.js',
-          'threejs-script'
-        );
-
-        await loadScript(
-          'https://unpkg.com/sheryjs/dist/Shery.js',
-          'shery-script'
-        );
-        
-        console.log('Shery.js loaded successfully');
-      } catch (error) {
-        console.error('Error loading Shery.js:', error);
-      }
-    };
-
-    init();
+    }
   }, []);
 
   return null;

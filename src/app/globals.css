@@ -1,4 +1,4 @@
-@import url("https://cdn.jsdelivr.net/gh/aayushchouhan24/sheryjs@main/dist/Shery.css");
+/* SheryJS CSS removed - library was unused */
 @import "tailwindcss";
 @import "tw-animate-css";
 
@@ -202,37 +202,7 @@ body {
 
 /* Firefox scrollbar */
 
-/* Shery.js image-div styling */
-.image-div {
-  height: 480px;
-  width: 100%;
-  position: relative;
-  overflow: hidden;
-  flex-shrink: 0;
-}
-
-.image-div img {
-  height: 100%;
-  width: 100%;
-  object-fit: cover;
-  object-position: center;
-}
-
-/* Ensure Shery canvas containers are visible */
-._canvas_container {
-  position: fixed !important;
-  top: 0;
-  left: 0;
-  z-index: 0 !important;
-  pointer-events: none !important;
-  width: 100%;
-  height: 100%;
-}
-
-._canvas_container canvas {
-  display: block !important;
-  pointer-events: none !important;
-}
+/* SheryJS CSS removed - library was unused and added unnecessary bloat */
 
 * {
   scrollbar-width: thin;

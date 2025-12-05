@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import Image from 'next/image';
+import Link from 'next/link';
 import { motion } from 'framer-motion';
 
 const ArrowUpRight = (props: React.SVGProps<SVGSVGElement>) => (
@@ -20,26 +21,26 @@ const ArrowUpRight = (props: React.SVGProps<SVGSVGElement>) => (
   </svg>
 );
 
-const features = [
+const questions = [
   {
-    title: 'Crafting Thoughtful Interfaces',
+    question: 'What drives your development approach?',
     image: '/images/pimg1.jpg',
+    link: '/approach/what-drives-me',
   },
   {
-    title: 'Building for Scale',
+    question: 'How do you balance speed and quality?',
     image: '/images/pimg3.jpg',
+    link: '/approach/speed-and-quality',
   },
   {
-    title: 'Engineering with Clarity',
+    question: 'What\'s your problem-solving philosophy?',
     image: '/images/pimg10.jpg',
+    link: '/approach/problem-solving',
   },
   {
-    title: 'Performance & Precision',
+    question: 'Where do you see web development heading?',
     image: '/images/pimg14.jpg',
-  },
-    {
-    title: 'Crafting Thoughtful Interfaces',
-    image: '/images/pimg1.jpg',
+    link: '/approach/future-of-web',
   },
 ];
 
@@ -76,8 +77,8 @@ export default function Feature2() {
           
 
  <div className="relative h-full min-h-[400px] flex items-center">
-            <div className="relative w-full h-full   overflow-hidden">
-              {features.map((feature, index) => (
+            <div className="relative w-full h-full overflow-hidden">
+              {questions.map((item, index) => (
                 <div
                   key={index}
                   className={`absolute inset-0 transition-opacity duration-200 ${
@@ -85,8 +86,8 @@ export default function Feature2() {
                   }`}
                 >
                   <Image
-                    src={feature.image}
-                    alt={feature.title}
+                    src={item.image}
+                    alt={item.question}
                     fill
                     className="object-cover"
                   />
@@ -96,10 +97,11 @@ export default function Feature2() {
           </div>
 
           <div className="flex flex-col justify-center space-y-12">
-            {features.map((feature, index) => (
-              <div
+            {questions.map((item, index) => (
+              <Link
                 key={index}
-                className="cursor-pointer group relative"
+                href={item.link}
+                className="cursor-pointer group relative block"
                 onMouseEnter={() => setActiveIndex(index)}
               >
                 <div className={`flex items-start gap-6 transition-all duration-400 ease-out ${
@@ -115,7 +117,7 @@ export default function Feature2() {
                       lineHeight: '26px', 
                       color: activeIndex === index ? 'rgb(255, 255, 255)' : 'rgb(229, 229, 229)'
                     }}>
-                      {feature.title}
+                      {item.question}
                     </h3>
                   </div>
                   
@@ -142,7 +144,7 @@ export default function Feature2() {
                   }`}
                   style={{ transformOrigin: 'left' }}
                 ></div>
-              </div>
+              </Link>
             ))}
           </div>
 
