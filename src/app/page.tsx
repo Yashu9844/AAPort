@@ -24,17 +24,22 @@ export default function Home() {
       {/* Separator */}
       <div className="w-full h-[1px] bg-gradient-to-r from-transparent via-white/30 to-transparent"></div>
 
-      {/* Intro Section */}
-         <div id="projects" className="py-12 sm:py-20 md:py-28 lg:py-32">
+      {/* Projects Section */}
+      <div id="projects">
         <Projects />
       </div>
-     
+      
+      {/* Spacing before separator */}
+      <div className="py-8 sm:py-10 md:py-12 lg:py-14"></div>
       
       {/* Separator */}
       <div className="w-full h-[1px] bg-gradient-to-r from-transparent via-white/30 to-transparent"></div>
       
-      {/* Projects Section */}
-       <div className="py-12 sm:py-20 md:py-28 lg:py-32">
+      {/* Spacing after separator */}
+      <div className="py-8 sm:py-10 md:py-12 lg:py-14"></div>
+      
+      {/* Experience Section */}
+      <div className="py-12 sm:py-20 md:py-28 lg:py-32">
         <Page2 />
       </div>
    
@@ -42,17 +47,22 @@ export default function Home() {
       {/* Separator */}
       <div className="w-full h-[1px] bg-gradient-to-r from-transparent via-white/30 to-transparent"></div>
       
-      {/* Carousel Section */}
+      {/* Featured Section */}
        <div id="featured" className="py-12 sm:py-20 md:py-28 lg:py-32">
         <FeaturedPage />
       </div>
       
+      {/* Spacing before separator */}
+      <div className="py-8 sm:py-10 md:py-12 lg:py-14"></div>
       
       {/* Separator */}
       <div className="w-full h-[1px] bg-gradient-to-r from-transparent via-white/30 to-transparent"></div>
       
-      {/* Featured Section */}
-      <div className="py-12 sm:py-20 md:py-28 lg:py-32">
+      {/* Spacing after separator */}
+      <div className="py-8 sm:py-5 md:py-6 lg:py-8"></div>
+      
+      {/* About Section */}
+      <div>
         <About />
       </div>
       

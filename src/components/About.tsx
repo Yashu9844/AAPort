@@ -68,20 +68,20 @@ const About = () => {
   });
 
   return (
-    <div id="about-section" className="w-full min-h-screen bg-black px-8 py-16 md:py-24 flex items-center">
+    <div id="about-section" className="w-full min-h-screen bg-black px-8 pb-16 md:pb-24 flex items-center">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-16 w-full">
         
         <div className="flex items-start">
           <h1 
-            className="text-5xl md:text-4xl font-kh-teka tracking-wide text-neutral-200 leading-tight flex items-center gap-3"
+            className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-primary text-white font-normal leading-[0.95] tracking-[-0.01em] flex items-center gap-3 sm:gap-4"
             onMouseEnter={() => setIsHovered(true)}
             onMouseLeave={() => setIsHovered(false)}
           >
-            About 
+            <span>About</span>
             <span 
-              className="text-gray-500 transition-transform duration-300 ease-out inline-block"
+              className="text-white/30 transition-transform duration-300 ease-out inline-block"
               style={{
-                transform: isHovered ? 'translate(4px, 4px) rotate(45deg)' : 'translate(0, 0) rotate(0deg)'
+                transform: isHovered ? 'translate(8px, 8px) rotate(45deg)' : 'translate(0, 0) rotate(0deg)'
               }}
             >
               ↘

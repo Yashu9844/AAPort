@@ -22,6 +22,7 @@ const images = [
 const CircleCarousel = () => {
   const gallery = useRef<HTMLDivElement>(null);
   const [dimension, setDimension] = useState({ width: 0, height: 0 });
+  const [isArrowHovered, setIsArrowHovered] = useState(false);
 
   const { scrollYProgress } = useScroll({
     target: gallery,
@@ -59,7 +60,24 @@ const CircleCarousel = () => {
     <main className="w-full bg-black text-white">
       <div className='p-2 sm:p-3 lg:p-4 mb-4'>
         <div className='pt-[6vh] sm:pt-[8vh] md:pt-[10vh] lg:pt-[12vh]'>
-          <h2 className='font-secondary text-5xl sm:text-6xl md:text-7xl lg:text-[10vw] uppercase'>Testimonials</h2>
+          <h2 
+            className='text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-primary text-white font-normal leading-[0.95] tracking-[-0.01em] flex items-center gap-3 sm:gap-4'
+            onMouseEnter={() => setIsArrowHovered(true)}
+            onMouseLeave={() => setIsArrowHovered(false)}
+          >
+            <span>Testimonials</span>
+            <motion.span 
+              className="text-white/30"
+              animate={{
+                x: isArrowHovered ? 8 : 0,
+                y: isArrowHovered ? 8 : 0,
+                rotate: isArrowHovered ? 45 : 0,
+              }}
+              transition={{ duration: 0.3, ease: 'easeOut' }}
+            >
+              ↘
+            </motion.span>
+          </h2>
         </div>
       </div>
 

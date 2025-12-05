@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import Image from 'next/image';
+import { motion } from 'framer-motion';
 
 const ArrowUpRight = (props: React.SVGProps<SVGSVGElement>) => (
   <svg
@@ -44,10 +45,33 @@ const features = [
 
 export default function Feature2() {
   const [activeIndex, setActiveIndex] = useState(0);
+  const [isArrowHovered, setIsArrowHovered] = useState(false);
 
   return (
-    <div className="w-full  bg-black py-24 px-8 md:px-16">
+    <div className="w-full bg-black py-24 px-8 md:px-16">
       <div className="max-w-[95vw] mx-auto">
+        {/* Section Header */}
+        <div className="mb-16 sm:mb-20 md:mb-24 lg:mb-28">
+          <h2 
+            className='text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-primary text-white font-normal leading-[0.95] tracking-[-0.01em] flex items-center gap-3 sm:gap-4'
+            onMouseEnter={() => setIsArrowHovered(true)}
+            onMouseLeave={() => setIsArrowHovered(false)}
+          >
+            <span>My Approach</span>
+            <motion.span 
+              className="text-white/30"
+              animate={{
+                x: isArrowHovered ? 8 : 0,
+                y: isArrowHovered ? 8 : 0,
+                rotate: isArrowHovered ? 45 : 0,
+              }}
+              transition={{ duration: 0.3, ease: 'easeOut' }}
+            >
+              ↘
+            </motion.span>
+          </h2>
+        </div>
+        
         <div className="grid grid-cols-1 md:grid-cols-2 gap-32 lg:gap-40">
           
 

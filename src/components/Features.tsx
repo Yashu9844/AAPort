@@ -1,9 +1,10 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import gsap from "gsap";
+import { motion } from "framer-motion";
 
 const ArrowUpRight = (props: React.SVGProps<SVGSVGElement>) => (
   <svg
@@ -91,6 +92,7 @@ const featuredItems = [
 export default function FeaturedPage() {
   const swiperRef = useRef<HTMLDivElement>(null);
   const tweenRef = useRef<gsap.core.Tween | null>(null);
+  const [isArrowHovered, setIsArrowHovered] = useState(false);
 
   useEffect(() => {
     if (!swiperRef.current) return;
@@ -128,10 +130,25 @@ export default function FeaturedPage() {
   };
 
   return (
-    <main className="bg-black text-white w-full">
+    <main className="bg-black text-white w-full pb-12 md:pb-16">
       <div className="px-3 sm:px-4 md:px-5 lg:px-6">
-        <h1 className="text-3xl md:text-4xl lg:text-5xl font-primary mb-12 md:mb-16 flex items-center gap-2">
-          Featured <span className="text-gray-500 text-2xl md:text-3xl lg:text-4xl">↘</span>
+        <h1 
+          className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-primary text-white font-normal leading-[0.95] tracking-[-0.01em] mb-12 md:mb-16 flex items-center gap-3 sm:gap-4"
+          onMouseEnter={() => setIsArrowHovered(true)}
+          onMouseLeave={() => setIsArrowHovered(false)}
+        >
+          <span>Featured</span>
+          <motion.span 
+            className="text-white/30"
+            animate={{
+              x: isArrowHovered ? 8 : 0,
+              y: isArrowHovered ? 8 : 0,
+              rotate: isArrowHovered ? 45 : 0,
+            }}
+            transition={{ duration: 0.3, ease: 'easeOut' }}
+          >
+            ↘
+          </motion.span>
         </h1>
 
         <div className="relative overflow-hidden" onMouseEnter={handleEnter} onMouseLeave={handleLeave}>

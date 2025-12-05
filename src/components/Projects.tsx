@@ -10,6 +10,7 @@ import Link from 'next/link'
 
 const Projects = () => {
   const [selectedProject, setSelectedProject] = useState<number | null>(null)
+  const [isArrowHovered, setIsArrowHovered] = useState(false)
   
   const projects = [
     { 
@@ -303,7 +304,24 @@ const Projects = () => {
     <>
     <div className='px-3 sm:px-4 md:px-5 lg:px-6 mb-16 sm:mb-20 md:mb-24 lg:mb-28'>
       <div className='pt-16 sm:pt-20 md:pt-24 lg:pt-28'>
-        <h2 className='font-secondary text-white text-5xl sm:text-6xl md:text-7xl lg:text-[12vw] uppercase mb-12 md:mb-16 lg:mb-20'>Projects</h2>
+        <h2 
+          className='text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-primary text-white font-normal leading-[0.95] tracking-[-0.01em] mb-12 md:mb-16 lg:mb-20 flex items-center gap-3 sm:gap-4'
+          onMouseEnter={() => setIsArrowHovered(true)}
+          onMouseLeave={() => setIsArrowHovered(false)}
+        >
+          <span>Projects</span>
+          <motion.span 
+            className="text-white/30"
+            animate={{
+              x: isArrowHovered ? 8 : 0,
+              y: isArrowHovered ? 8 : 0,
+              rotate: isArrowHovered ? 45 : 0,
+            }}
+            transition={{ duration: 0.3, ease: 'easeOut' }}
+          >
+            ↘
+          </motion.span>
+        </h2>
       </div>
       <div className='lol'>
         {projects.map(function (elem, idx) {
