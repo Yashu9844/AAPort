@@ -25,58 +25,71 @@ export default function Home() {
       <div className="w-full h-[1px] bg-gradient-to-r from-transparent via-white/30 to-transparent"></div>
 
       {/* Intro Section */}
-      <div className="py-12 sm:py-20 md:py-28 lg:py-32">
-        <Page2 />
+         <div id="projects" className="py-12 sm:py-20 md:py-28 lg:py-32">
+        <Projects />
       </div>
+     
       
       {/* Separator */}
       <div className="w-full h-[1px] bg-gradient-to-r from-transparent via-white/30 to-transparent"></div>
       
       {/* Projects Section */}
-      <div id="projects" className="py-12 sm:py-20 md:py-28 lg:py-32">
-        <Projects />
+       <div className="py-12 sm:py-20 md:py-28 lg:py-32">
+        <Page2 />
       </div>
+   
       
       {/* Separator */}
       <div className="w-full h-[1px] bg-gradient-to-r from-transparent via-white/30 to-transparent"></div>
       
       {/* Carousel Section */}
-      <div id="testimonials" className="py-12 sm:py-20 md:py-28 lg:py-32">
-        <CircleCarousel />
+       <div id="featured" className="py-12 sm:py-20 md:py-28 lg:py-32">
+        <FeaturedPage />
       </div>
+      
       
       {/* Separator */}
       <div className="w-full h-[1px] bg-gradient-to-r from-transparent via-white/30 to-transparent"></div>
       
       {/* Featured Section */}
-      <div id="featured" className="py-12 sm:py-20 md:py-28 lg:py-32">
-        <FeaturedPage />
+      <div className="py-12 sm:py-20 md:py-28 lg:py-32">
+        <About />
       </div>
+      
       
       {/* Separator */}
       <div className="w-full h-[1px] bg-gradient-to-r from-transparent via-white/30 to-transparent"></div>
       
       {/* About Section */}
-      <div className="py-12 sm:py-20 md:py-28 lg:py-32">
-        <About />
+      <div id="approach" className="py-12 sm:py-20 md:py-28 lg:py-32">
+        <Feature2 />
       </div>
+      
       
       {/* Separator */}
       <div className="w-full h-[1px] bg-gradient-to-r from-transparent via-white/30 to-transparent"></div>
       
       {/* Feature 2 Section */}
-      <div id="approach" className="py-12 sm:py-20 md:py-28 lg:py-32">
-        <Feature2 />
-      </div>
+     
+      <PremiumTechStack />
       
       {/* Separator */}
       <div className="w-full h-[1px] bg-gradient-to-r from-transparent via-white/30 to-transparent"></div>
       
       {/* Premium Tech Stack Section */}
-      <PremiumTechStack />
+      
+      <div id="testimonials" className="py-12 sm:py-20 md:py-28 lg:py-32">
+        <CircleCarousel />
+      </div>
+      
+      {/* Spacing before separator */}
+      <div className="py-8 sm:py-12 md:py-16 lg:py-20"></div>
       
       {/* Separator */}
       <div className="w-full h-[1px] bg-gradient-to-r from-transparent via-white/30 to-transparent"></div>
+      
+      {/* Spacing after separator, before Footer */}
+      <div className="py-8 sm:py-12 md:py-16 lg:py-20"></div>
       
       {/* Footer */}
       <Footer />
