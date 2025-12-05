@@ -6,22 +6,37 @@ import { motion } from "framer-motion";
 import gsap from "gsap";
 
 // A full-screen preloader with a premium thin-line progress bar.
-// Features a minimal percentage counter and circular reveal animation.
+// Only shows on initial website load (refresh), not on page navigation.
 // Duration is configurable via props.durationMs (default: 1500ms).
 export default function Preloader({ durationMs = 1500 }: { durationMs?: number }) {
   const [progress, setProgress] = useState(0);
   const [reveal, setReveal] = useState(false);
   const [done, setDone] = useState(false);
   const [isClient, setIsClient] = useState(false);
+  const [shouldShow, setShouldShow] = useState(false);
   const overlayRef = useRef<HTMLDivElement | null>(null);
 
-  // Detect client-side hydration complete
+  // Check if this is the first load of the session
   useEffect(() => {
     setIsClient(true);
+    
+    // Check sessionStorage to see if preloader has already been shown
+    const hasLoadedBefore = sessionStorage.getItem('preloader-shown');
+    
+    if (!hasLoadedBefore) {
+      // First load - show preloader
+      setShouldShow(true);
+      sessionStorage.setItem('preloader-shown', 'true');
+    } else {
+      // Not first load - skip preloader
+      setDone(true);
+    }
   }, []);
 
-  // Progress timer (fixed duration)
+  // Progress timer (fixed duration) - only runs if shouldShow is true
   useEffect(() => {
+    if (!shouldShow) return;
+    
     let raf = 0;
     const start = performance.now();
     const tick = (t: number) => {
@@ -36,7 +51,7 @@ export default function Preloader({ durationMs = 1500 }: { durationMs?: number }
     };
     raf = requestAnimationFrame(tick);
     return () => cancelAnimationFrame(raf);
-  }, [durationMs]);
+  }, [durationMs, shouldShow]);
 
   // Circular mask reveal transition
   useEffect(() => {
@@ -76,7 +91,7 @@ export default function Preloader({ durationMs = 1500 }: { durationMs?: number }
 
   // Disable page scroll while loader is active
   useEffect(() => {
-    if (reveal) return;
+    if (!shouldShow || reveal) return;
 
     const html = document.documentElement;
     const body = document.body;
@@ -103,7 +118,8 @@ export default function Preloader({ durationMs = 1500 }: { durationMs?: number }
     };
   }, [reveal]);
 
-  if (done) return null;
+  // Don't render if we shouldn't show or if done
+  if (!shouldShow || done) return null;
 
   return (
     <>
