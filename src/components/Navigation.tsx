@@ -199,10 +199,10 @@ export default function Navigation() {
                   <div className="space-y-3">
                     {[
                       { label: 'Projects', href: '#projects' },
-                      { label: 'Testimonials', href: '#testimonials' },
                       { label: 'Featured', href: '#featured' },
                       { label: 'Approach', href: '#approach' },
-                      { label: 'Tech Stack', href: '#tech-stack' }
+                      { label: 'Tech Stack', href: '#tech-stack' },
+                      { label: 'Testimonials', href: '#testimonials' }
                     ].map((item, index) => (
                       <a 
                         key={item.label}

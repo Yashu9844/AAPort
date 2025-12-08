@@ -10,7 +10,7 @@ export const useScrollToSection = () => {
     }
 
     const projectsSection = document.getElementById('projects');
-    const sectionsAfterProjects = ['testimonials', 'featured', 'approach', 'tech-stack'];
+    const sectionsAfterProjects = ['featured', 'approach', 'tech-stack', 'testimonials'];
     const needsToPassProjects = sectionsAfterProjects.includes(sectionId);
     
     // Check if we're already past projects section
