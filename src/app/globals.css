@@ -275,6 +275,13 @@ body {
   z-index: 9999;
 }
 
+/* Hide sparkle effect on mobile and tablet */
+@media (max-width: 1024px) {
+  .click-sparkles {
+    display: none;
+  }
+}
+
 .sparkle {
   position: absolute;
   left: 0;
