@@ -15,7 +15,7 @@ const Projects = () => {
   const projects = [
     { 
       image: '/images/pimg1.jpg',
-      title: 'E-commerce Platform',
+            title: 'E-commerce Platform',
       category: 'Web Development',
       year: '2024',
       description: 'A modern e-commerce platform built with Next.js and Stripe integration for seamless checkout experiences.',
