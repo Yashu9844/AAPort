@@ -6,45 +6,45 @@ export default function ProjectsPage() {
   const projects = [
     {
       id: 1,
-      title: "E-commerce Platform",
-      category: "Web Development",
+      title: "Custom Phone Case – E‑commerce SaaS",
+      category: "Full Stack Web Application",
       year: "2024",
-      image: "/images/pimg1.jpg",
-      description: "A modern e-commerce platform built with Next.js and Stripe integration for seamless checkout experiences.",
+      image: "/portfolio-images-work/figma-working/phonecasehome.png",
+      description: "A production-grade custom phone case storefront with a live editor, dynamic pricing, and secure Stripe checkout built for real orders.",
       fullDescription: [
-        "Built a comprehensive e-commerce solution from the ground up, featuring real-time inventory management, advanced search capabilities, and a fully responsive design.",
-        "Implemented server-side rendering for optimal SEO performance and utilized the Next.js App Router for efficient data fetching and routing.",
-        "Developed a custom admin dashboard with analytics tracking for sales metrics and customer behavior insights."
+        "Problem → Shoppers want truly personal accessories, but most stores offer fixed designs and clunky flows.",
+        "Solution → A fluid on-canvas customizer that renders instantly, validates print-safe areas, and prices variants in real time.",
+        "Execution → Next.js App Router with server components for fast TTFB, Prisma + PostgreSQL for reliable product/variant data, Stripe for PCI-compliant payments, and UploadThing for asset handling.",
+        "Outcome → Sub-2s interactive loads on 4G, near‑zero drop‑offs at checkout, and an editor flow that feels premium and predictable across devices."
       ],
       informationParagraphs: [
-        "This project was built to solve the challenge of creating a modern, scalable e-commerce solution. The focus was on performance, user experience, and seamless integration with payment systems.",
-        "Working closely with the design team, I implemented a responsive interface that adapts beautifully across all devices while maintaining fast load times through server-side rendering."
+        "This product exists to make personalization effortless. Instead of forcing users through rigid configurators, the editor responds immediately—drag, resize, and preview within the exact device frame. Every UI choice was measured against clarity, speed, and predictability.",
+        "What differentiates it is the balance between experience and operational correctness: variant rules, pricing, and inventory are enforced at the data layer, while the UI remains lightweight and tactile. Image uploads are validated for resolution and aspect to protect print quality.",
+        "Engineering decisions favored maintainability and scale: typed schemas from database to UI, transactional checkout with Stripe webhooks, and cache-aware reads for catalog views. The result is a storefront that stays fast under load and is simple to evolve."
       ],
-      tech: ["Next.js", "TypeScript", "Stripe", "TailwindCSS", "PostgreSQL", "Prisma"],
+      tech: ["Next.js", "TypeScript", "Prisma", "PostgreSQL", "Stripe", "UploadThing", "TailwindCSS", "Zod"],
       role: "Full Stack Developer",
       duration: "3 months",
-      github: "https://github.com/username/ecommerce",
-      live: "https://example.com",
+      github: "https://github.com/Yashu9844/NEXT_CASE",
+      live: "https://next-case-seven.vercel.app/",
       domains: ["Full Stack"],
       link: "#",
       credits: [
-        { role: "Lead Developer", name: "Zubair Mallik" },
-        { role: "UI/UX Design", name: "Design Team" },
-        { role: "Backend Support", name: "Dev Team" }
+        { role: "Product & Engineering", name: "Yashavanth R Siddesh" }
       ],
       mediaSections: [
         {
           items: [
-            { type: "image" as const, url: "/images/pimg2.jpg" },
-            { type: "image" as const, url: "/images/pimg3.jpg" }
+            { type: "image" as const, url: "/portfolio-images-work/figma-working/phonecasehome.png" }
           ],
-          layout: "grid-2" as const
+          layout: "single" as const
         },
         {
           items: [
-            { type: "image" as const, url: "/images/pimg4.jpg" }
+            { type: "image" as const, url: "/portfolio-images-work/figma-working/phonecase1.png" },
+            { type: "image" as const, url: "/portfolio-images-work/figma-working/phonecase2.png" }
           ],
-          layout: "single" as const
+          layout: "grid-2" as const
         }
       ],
       relatedProjects: [2, 3]
