@@ -194,19 +194,52 @@ const Projects = () => {
       relatedProjects: [0, 2]
     },
     { 
-      image: '/images/pimg5.jpg',
-      title: 'API Dashboard',
-      category: 'SaaS Product',
-      year: '2023',
-      description: 'Analytics dashboard for API monitoring with real-time metrics and performance tracking.',
+      image: '/portfolio-images-work/figma-working/rejouicehome.jpg',
+      title: 'Rejouice – Venture Agency Experience',
+      category: 'Frontend Web Development',
+      year: '2024',
+      description: 'Premium creative agency landing page featuring sophisticated animations, smooth scrolling, and immersive visual storytelling built with GSAP and Locomotive Scroll.',
       fullDescription: [
-        'Developed a comprehensive API monitoring dashboard with real-time metrics visualization.',
-        'Integrated GraphQL for efficient data querying and Redis for caching layer.',
-        'Created custom charts and graphs for performance analytics.'
+        'Brand narrative → "Tomorrow\'s Brands, Today." A digital brand accelerator that transforms visions into market‑defining identities. Partners with 5 select clients annually for intense, focused transformations.',
+        'Animation architecture → Locomotive Scroll for buttery‑smooth parallax and scroll‑jacking. GSAP for staggered text reveals, cursor effects, and timeline‑based sequences. Custom cursor interactions that follow mouse movement with elastic easing. Page transitions orchestrated via ScrollTrigger with precise timing.',
+        'Visual system → Full‑screen hero video with custom play reel cursor. Staggered heading animations letter‑by‑letter. Hover‑triggered video reveals in portfolio grid. Swiper carousel for client showcase. Responsive breakpoints for mobile, tablet, and desktop.',
+        'Craftsmanship → Typography with custom font loading (NB International, Rejouice Headline). Microinteractions on every scroll event. Elastic transforms and opacity shifts. Loader sequence with timed reveals. Footer with animated spans and social links.'
       ],
-      tech: ['Vue.js', 'GraphQL', 'PostgreSQL', 'Redis'],
-      role: 'Frontend Lead',
-      duration: '2 months'
+      informationParagraphs: [
+        'This project demonstrates mastery of modern frontend animation libraries and scroll‑based storytelling. Every section is meticulously timed: text stagger at 0.2s intervals, scroll scrub factors tuned for fluid perception, and cursor transforms with GSAP\'s Expo easing for premium feel.',
+        'Technical sophistication lives in the details: ScrollTrigger\'s scroller proxy syncs Locomotive with GSAP, preventing jank. Event listeners manage cursor scale and opacity states. Timeline chaining creates loader → hero → content flow. Breakpoints ensure Swiper adapts slidesPerView from 1.2 on mobile to 4 on desktop.',
+        'The result is an experience that feels expensive and intentional. Brands scroll into view with weight, videos trigger at precise thresholds, and the footer reveals with orchestrated drama. Pure frontend artistry—no backend, just impeccable timing and animation craft.'
+      ],
+      tech: ['HTML5', 'CSS3', 'JavaScript', 'GSAP', 'ScrollTrigger', 'Locomotive Scroll', 'Swiper.js', 'Remix Icons'],
+      role: 'Frontend Developer',
+      duration: '1 month',
+      github: 'https://github.com/Yashu9844/Project_07',
+      live: 'https://yashu9844.github.io/Project_07/',
+      credits: [
+        { role: 'Frontend Development', name: 'Yashavanth R Siddesh' },
+        { role: 'Design Inspiration', name: 'Rejouice Agency' }
+      ],
+      mediaSections: [
+        {
+          items: [
+            { type: 'video', url: '/portfolio-images-work/figma-working/reel-short.mp4' }
+          ],
+          layout: 'single'
+        },
+        {
+          items: [
+            { type: 'image', url: '/portfolio-images-work/figma-working/re1.jpg' }
+          ],
+          layout: 'single'
+        },
+        {
+          items: [
+            { type: 'image', url: '/portfolio-images-work/figma-working/re2.jpg' }
+          ],
+          layout: 'single'
+        }
+      ],
+      relatedProjects: [0, 3]
     },
     { 
       image: '/images/pimg6.jpg',

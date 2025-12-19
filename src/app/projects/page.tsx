@@ -198,30 +198,54 @@ export default function ProjectsPage() {
     },
     {
       id: 5,
-      title: "Mobile Banking App",
-      category: "Mobile App",
+      title: "Rejouice – Venture Agency Experience",
+      category: "Frontend Web Development",
       year: "2024",
-      image: "/images/pimg9.jpg",
-      description: "Secure mobile banking application with biometric authentication and instant transfers.",
+      image: "/portfolio-images-work/figma-working/rejouicehome.jpg",
+      description: "Premium creative agency landing page featuring sophisticated animations, smooth scrolling, and immersive visual storytelling built with GSAP and Locomotive Scroll.",
       fullDescription: [
-        "Built a cross-platform mobile application using React Native with native performance.",
-        "Implemented offline-first architecture with local data persistence using AsyncStorage.",
-        "Created custom native modules for platform-specific financial features."
+        "Brand narrative → \"Tomorrow's Brands, Today.\" A digital brand accelerator that transforms visions into market‑defining identities. Partners with 5 select clients annually for intense, focused transformations.",
+        "Animation architecture → Locomotive Scroll for buttery‑smooth parallax and scroll‑jacking. GSAP for staggered text reveals, cursor effects, and timeline‑based sequences. Custom cursor interactions that follow mouse movement with elastic easing. Page transitions orchestrated via ScrollTrigger with precise timing.",
+        "Visual system → Full‑screen hero video with custom play reel cursor. Staggered heading animations letter‑by‑letter. Hover‑triggered video reveals in portfolio grid. Swiper carousel for client showcase. Responsive breakpoints for mobile, tablet, and desktop.",
+        "Craftsmanship → Typography with custom font loading (NB International, Rejouice Headline). Microinteractions on every scroll event. Elastic transforms and opacity shifts. Loader sequence with timed reveals. Footer with animated spans and social links."
       ],
       informationParagraphs: [
-        "This mobile app delivers native performance with JavaScript flexibility.",
-        "Used Redux for state management and integrated push notifications for transaction alerts."
+        "This project demonstrates mastery of modern frontend animation libraries and scroll‑based storytelling. Every section is meticulously timed: text stagger at 0.2s intervals, scroll scrub factors tuned for fluid perception, and cursor transforms with GSAP's Expo easing for premium feel.",
+        "Technical sophistication lives in the details: ScrollTrigger's scroller proxy syncs Locomotive with GSAP, preventing jank. Event listeners manage cursor scale and opacity states. Timeline chaining creates loader → hero → content flow. Breakpoints ensure Swiper adapts slidesPerView from 1.2 on mobile to 4 on desktop.",
+        "The result is an experience that feels expensive and intentional. Brands scroll into view with weight, videos trigger at precise thresholds, and the footer reveals with orchestrated drama. Pure frontend artistry—no backend, just impeccable timing and animation craft."
       ],
-      tech: ["React Native", "TypeScript", "AWS", "Plaid"],
-      role: "Mobile Developer",
-      duration: "4 months",
-      domains: ["Mobile", "Full Stack"],
+      tech: ["HTML5", "CSS3", "JavaScript", "GSAP", "ScrollTrigger", "Locomotive Scroll", "Swiper.js", "Remix Icons"],
+      role: "Frontend Developer",
+      duration: "1 month",
+      github: "https://github.com/Yashu9844/Project_07",
+      live: "https://yashu9844.github.io/Project_07/",
+      domains: ["Frontend", "Web Design"],
       link: "#",
       credits: [
-        { role: "Lead Developer", name: "Zubair Mallik" },
-        { role: "UI Design", name: "Design Team" }
+        { role: "Frontend Development", name: "Yashavanth R Siddesh" },
+        { role: "Design Inspiration", name: "Rejouice Agency" }
       ],
-      relatedProjects: [2, 1]
+      mediaSections: [
+        {
+          items: [
+            { type: "video" as const, url: "/portfolio-images-work/figma-working/reel-short.mp4" }
+          ],
+          layout: "single" as const
+        },
+        {
+          items: [
+            { type: "image" as const, url: "/portfolio-images-work/figma-working/re1.jpg" }
+          ],
+          layout: "single" as const
+        },
+        {
+          items: [
+            { type: "image" as const, url: "/portfolio-images-work/figma-working/re2.jpg" }
+          ],
+          layout: "single" as const
+        }
+      ],
+      relatedProjects: [1, 4]
     },
     {
       id: 6,
