@@ -105,69 +105,96 @@ export default function ProjectsPage() {
     },
     {
       id: 3,
-      title: "API Dashboard",
-      category: "SaaS Product",
-      year: "2023",
-      image: "/images/pimg5.jpg",
-      description: "Analytics dashboard for API monitoring with real-time metrics and performance tracking.",
+      title: "AI EmpowerHub – Intelligent Student Platform",
+      category: "Full Stack Web Application",
+      year: "2024",
+      image: "/portfolio-images-work/figma-working/empowerhome.png",
+      description: "An all‑in‑one student empowerment platform combining AI‑driven career guidance, educational roadmaps, counseling resources, and mental health support.",
       fullDescription: [
-        "Developed a comprehensive API monitoring dashboard with real-time metrics visualization.",
-        "Integrated GraphQL for efficient data querying and Redis for caching layer.",
-        "Created custom charts and graphs for performance analytics."
+        "Purpose → Address the fragmented landscape of student support by unifying career exploration, resource discovery, and mental wellness into a single, intuitive platform.",
+        "Core modules → AI Career Suggester analyzes interests and knowledge to generate tailored career paths. Educational Roadmap Maker visualizes academic journeys with interactive tree diagrams. Career Guidance provides exam, scholarship, and program details. Resource Finder connects students with communities, study materials, and question banks. Mental Health Chatbot offers anonymous, confidential support conversations.",
+        "Tech stack → React with Vite for fast dev cycles, TailwindCSS for responsive design, react‑spring for fluid animations, D3.js for data visualization, Headless UI for accessible components, and React Icons for consistent iconography.",
+        "Experience → Every tool prioritizes immediacy: inputs trigger instant AI responses (simulated), forms are polished with smooth focus states, and navigation flows seamlessly between sections with scroll‑driven anchors."
       ],
       informationParagraphs: [
-        "This dashboard provides developers with critical insights into their API performance and usage patterns.",
-        "Optimized for scalability to handle high-volume API calls and data processing."
+        "EmpowerHub exists because students face decision paralysis: too many paths, scattered resources, and no single place to plan, explore, and seek support. This platform reduces friction by presenting everything—career suggestions, educational planning, counseling info, mental health chat—in one cohesive interface.",
+        "What makes it distinct is the balance between functionality and empathy. The AI Career Suggester doesn't just list jobs—it explains why each field matters. The Mental Health Chatbot ensures anonymity and safety, addressing real student concerns. The Resource Finder surfaces communities and materials that are often hidden across the web.",
+        "Architecturally, the project favors component reusability and smooth interactions: gradient buttons, polished input boxes, and suggestion cards are modular and consistent. Mock data demonstrates scalability, while animations via react‑spring and D3 keep the experience engaging without sacrificing clarity."
       ],
-      tech: ["Vue.js", "GraphQL", "PostgreSQL", "Redis"],
-      role: "Frontend Lead",
+      tech: ["React", "Vite", "TypeScript", "TailwindCSS", "react-spring", "D3.js", "Headless UI", "React Icons", "Framer Motion"],
+      role: "Full Stack Developer",
       duration: "2 months",
-      domains: ["Backend", "Full Stack"],
+      github: "https://github.com/Yashu9844/EmpowerHub",
+      live: "https://empower-hub-deployed-version.vercel.app/",
+      domains: ["Full Stack", "AI/ML", "Product"],
       link: "#",
       credits: [
-        { role: "Frontend Lead", name: "Zubair Mallik" },
-        { role: "Backend Development", name: "Backend Team" }
-      ],
-      relatedProjects: [1, 6]
-    },
-    {
-      id: 4,
-      title: "Portfolio Website",
-      category: "Web Design",
-      year: "2023",
-      image: "/images/pimg7.jpg",
-      description: "Creative portfolio showcasing interactive animations and modern web design principles.",
-      fullDescription: [
-        "Designed and developed a cutting-edge portfolio website with smooth animations.",
-        "Utilized GSAP and Framer Motion for complex scroll-triggered animations.",
-        "Integrated Three.js for 3D elements and interactive experiences."
-      ],
-      informationParagraphs: [
-        "This portfolio showcases modern web design trends and cutting-edge technologies.",
-        "Built with performance in mind while maintaining stunning visual effects."
-      ],
-      tech: ["Next.js", "Framer Motion", "GSAP", "Three.js"],
-      role: "Designer & Developer",
-      duration: "1 month",
-      github: "https://github.com/username/portfolio",
-      live: "https://example.com",
-      domains: ["Web Design", "Frontend"],
-      link: "#",
-      credits: [
-        { role: "Design & Development", name: "Zubair Mallik" },
-        { role: "3D Assets", name: "Creative Team" }
+        { role: "Product & Engineering", name: "Yashavanth R Siddesh" }
       ],
       mediaSections: [
         {
           items: [
-            { type: "image" as const, url: "/images/pimg1.jpg" },
-            { type: "image" as const, url: "/images/pimg3.jpg" },
-            { type: "image" as const, url: "/images/pimg4.jpg" }
+            { type: "image" as const, url: "/portfolio-images-work/figma-working/empowerhome.png" }
           ],
-          layout: "grid-3" as const
+          layout: "single" as const
+        },
+
+        {
+          items: [
+            { type: "image" as const, url: "/portfolio-images-work/figma-working/empowerhub2.png" },
+            { type: "image" as const, url: "/portfolio-images-work/figma-working/empowerhub3.png" }
+          ],
+          layout: "grid-2" as const
         }
       ],
       relatedProjects: [1, 2]
+    },
+    {
+      id: 4,
+      title: "AI Image Editor – Smart Editing SaaS",
+      category: "Full Stack SaaS Application",
+      year: "2024",
+      image: "/portfolio-images-work/figma-working/aiedithome1.png",
+      description: "AI‑powered image editing platform with intelligent background removal, smart upscaling, and object‑focused cropping built on the T3 Stack.",
+      fullDescription: [
+        "Vision → Eliminate hours of manual editing with instant AI transformations. Designers, e‑commerce owners, and creators need fast, professional‑grade tools without the complexity.",
+        "AI capabilities → One‑click background removal using advanced computer vision. Smart upscaling that enhances resolution without artifacts. Object‑focused cropping with automatic subject detection. All processing happens in seconds, not minutes.",
+        "Architecture → Built on T3 Stack: Next.js 15 with App Router and React Server Components for optimal performance. Prisma ORM with PostgreSQL for transactional data integrity. tRPC for end‑to‑end type safety across API boundaries. Better Auth for secure OAuth flows. ImageKit for optimized delivery and transformations.",
+        "User flow → Credit‑based system with free tier (10 credits). Drag‑and‑drop upload supporting JPG, PNG, WebP. Choose AI tool, process instantly, download high‑quality results. Dashboard tracks usage, history, and remaining credits."
+      ],
+      informationParagraphs: [
+        "This SaaS exists to democratize professional image editing. What once required expensive software and expertise is now accessible through simple clicks. The AI handles complexity—users focus on results.",
+        "Technical decisions prioritize reliability and speed: typed APIs prevent runtime errors, Prisma migrations ensure schema consistency, ImageKit CDN guarantees global availability, and Better Auth secures user sessions with industry standards.",
+        "The credit system balances accessibility with sustainability: free users get meaningful trials, processing costs are transparent, and upgrades unlock unlimited creativity. Every interaction is measured, cached, and optimized for sub‑2s perceived latency."
+      ],
+      tech: ["Next.js", "TypeScript", "tRPC", "Prisma", "PostgreSQL", "Better Auth", "ImageKit", "TailwindCSS", "Zod", "Lucide Icons"],
+      role: "Full Stack Developer",
+      duration: "2 months",
+      github: "https://github.com/Yashu9844/AI-IMAGE-EDITOR",
+      live: "https://ai-image-editor-deployed.vercel.app/",
+      domains: ["Full Stack", "AI/ML", "SaaS"],
+      link: "#",
+      credits: [
+        { role: "Product & Engineering", name: "Yashavanth R Siddesh" }
+      ],
+      mediaSections: [
+        {
+          items: [
+            { type: "image" as const, url: "/portfolio-images-work/figma-working/aiedithome1.png" },
+            { type: "image" as const, url: "/portfolio-images-work/figma-working/aiedit1.png" },
+            { type: "image" as const, url: "/portfolio-images-work/figma-working/aiedit2.png" }
+          ],
+          layout: "grid-3" as const
+        },
+        {
+          items: [
+            { type: "image" as const, url: "/portfolio-images-work/figma-working/aiedit3.png" }
+          ],
+          layout: "single" as const
+        },
+
+      ],
+      relatedProjects: [1, 3]
     },
     {
       id: 5,

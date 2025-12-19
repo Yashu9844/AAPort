@@ -107,31 +107,41 @@ const Projects = () => {
       relatedProjects: [0, 2]
     },
     { 
-      image: '/portfolio-images-work/figma-working/empowerhome.png' ,
-      title: 'Task Management App',
-      category: 'Mobile & Web',
+      image: '/portfolio-images-work/figma-working/empowerhome.png',
+      title: 'AI EmpowerHub – Intelligent Student Platform',
+      category: 'Full Stack Web Application',
       year: '2024',
-      description: 'Collaborative task management application with real-time updates and team collaboration features.',
+      description: 'An all‑in‑one student empowerment platform combining AI‑driven career guidance, educational roadmaps, counseling resources, and mental health support.',
       fullDescription: [
-        'Created a full-featured task management system with real-time collaboration using Firebase.',
-        'Implemented drag-and-drop kanban boards, notifications, and team chat functionality.',
-        'Built responsive mobile and web applications with shared codebase.'
+        'Purpose → Address the fragmented landscape of student support by unifying career exploration, resource discovery, and mental wellness into a single, intuitive platform.',
+        'Core modules → AI Career Suggester analyzes interests and knowledge to generate tailored career paths. Educational Roadmap Maker visualizes academic journeys with interactive tree diagrams. Career Guidance provides exam, scholarship, and program details. Resource Finder connects students with communities, study materials, and question banks. Mental Health Chatbot offers anonymous, confidential support conversations.',
+        'Tech stack → React with Vite for fast dev cycles, TailwindCSS for responsive design, react‑spring for fluid animations, D3.js for data visualization, Headless UI for accessible components, and React Icons for consistent iconography.',
+        'Experience → Every tool prioritizes immediacy: inputs trigger instant AI responses (simulated), forms are polished with smooth focus states, and navigation flows seamlessly between sections with scroll‑driven anchors.'
       ],
-      tech: ['React', 'Firebase', 'Node.js', 'MongoDB'],
-      role: 'Lead Developer',
-      duration: '4 months',
       informationParagraphs: [
-        'This task management system was designed to streamline team collaboration and project tracking.',
-        'Built with modern technologies to ensure scalability and reliability.'
+        'EmpowerHub exists because students face decision paralysis: too many paths, scattered resources, and no single place to plan, explore, and seek support. This platform reduces friction by presenting everything—career suggestions, educational planning, counseling info, mental health chat—in one cohesive interface.',
+        'What makes it distinct is the balance between functionality and empathy. The AI Career Suggester doesn\'t just list jobs—it explains why each field matters. The Mental Health Chatbot ensures anonymity and safety, addressing real student concerns. The Resource Finder surfaces communities and materials that are often hidden across the web.',
+        'Architecturally, the project favors component reusability and smooth interactions: gradient buttons, polished input boxes, and suggestion cards are modular and consistent. Mock data demonstrates scalability, while animations via react‑spring and D3 keep the experience engaging without sacrificing clarity.'
       ],
+      tech: ['React', 'Vite', 'TypeScript', 'TailwindCSS', 'react-spring', 'D3.js', 'Headless UI', 'React Icons', 'Framer Motion'],
+      role: 'Full Stack Developer',
+      duration: '2 months',
+      github: 'https://github.com/Yashu9844/EmpowerHub',
+      live: 'https://empower-hub-deployed-version.vercel.app/',
       credits: [
-        { role: 'Lead Developer', name: 'Zubair Mallik' },
-        { role: 'UI Design', name: 'Design Team' }
+        { role: 'Product & Engineering', name: 'Yashavanth R Siddesh' }
       ],
       mediaSections: [
         {
           items: [
-            { type: 'image', url:'/portfolio-images-work/figma-working/empowerhub2.png'  },
+            { type: 'image', url: '/portfolio-images-work/figma-working/empowerhome.png' }
+          ],
+          layout: 'single'
+        },
+
+        {
+          items: [
+            { type: 'image', url: '/portfolio-images-work/figma-working/empowerhub2.png' },
             { type: 'image', url: '/portfolio-images-work/figma-working/empowerhub3.png' }
           ],
           layout: 'grid-2'
@@ -140,29 +150,48 @@ const Projects = () => {
       relatedProjects: [0, 1]
     },
     { 
-      image: '/portfolio-images-work/figma-working/empowerhome.png' ,
-      title: 'Mobile App',
-      category: 'Mobile Development',
+      image: '/portfolio-images-work/figma-working/aiedithome1.png',
+      title: 'AI Image Editor – Smart Editing SaaS',
+      category: 'Full Stack SaaS Application',
       year: '2024',
-      description: 'Native mobile application with smooth UX.',
+      description: 'AI‑powered image editing platform with intelligent background removal, smart upscaling, and object‑focused cropping built on the T3 Stack.',
       fullDescription: [
-        'Built a cross-platform mobile application using React Native.',
-        'Implemented offline-first architecture with local data persistence.',
-        'Created custom native modules for platform-specific features.'
+        'Vision → Eliminate hours of manual editing with instant AI transformations. Designers, e‑commerce owners, and creators need fast, professional‑grade tools without the complexity.',
+        'AI capabilities → One‑click background removal using advanced computer vision. Smart upscaling that enhances resolution without artifacts. Object‑focused cropping with automatic subject detection. All processing happens in seconds, not minutes.',
+        'Architecture → Built on T3 Stack: Next.js 15 with App Router and React Server Components for optimal performance. Prisma ORM with PostgreSQL for transactional data integrity. tRPC for end‑to‑end type safety across API boundaries. Better Auth for secure OAuth flows. ImageKit for optimized delivery and transformations.',
+        'User flow → Credit‑based system with free tier (10 credits). Drag‑and‑drop upload supporting JPG, PNG, WebP. Choose AI tool, process instantly, download high‑quality results. Dashboard tracks usage, history, and remaining credits.'
       ],
       informationParagraphs: [
-        'This mobile app delivers native performance with JavaScript flexibility.',
-        'Used Redux for state management and integrated push notifications.'
+        'This SaaS exists to democratize professional image editing. What once required expensive software and expertise is now accessible through simple clicks. The AI handles complexity—users focus on results.',
+        'Technical decisions prioritize reliability and speed: typed APIs prevent runtime errors, Prisma migrations ensure schema consistency, ImageKit CDN guarantees global availability, and Better Auth secures user sessions with industry standards.',
+        'The credit system balances accessibility with sustainability: free users get meaningful trials, processing costs are transparent, and upgrades unlock unlimited creativity. Every interaction is measured, cached, and optimized for sub‑2s perceived latency.'
       ],
-      tech: ['React Native', 'TypeScript', 'Redux', 'Firebase'],
-      role: 'Mobile Developer',
-      duration: '4 months',
-      github: 'https://github.com/username/mobile-app',
-      live: 'https://apps.apple.com',
+      tech: ['Next.js', 'TypeScript', 'tRPC', 'Prisma', 'PostgreSQL', 'Better Auth', 'ImageKit', 'TailwindCSS', 'Zod', 'Lucide Icons'],
+      role: 'Full Stack Developer',
+      duration: '2 months',
+      github: 'https://github.com/Yashu9844/ai-image-editor',
+      live: 'https://ai-image-editor-rosy.vercel.app/',
       credits: [
-        { role: 'Lead Developer', name: 'Zubair Mallik' },
-        { role: 'UI Design', name: 'Design Team' }
-      ]
+        { role: 'Product & Engineering', name: 'Yashavanth R Siddesh' }
+      ],
+      mediaSections: [
+        {
+          items: [
+            { type: 'image', url: '/portfolio-images-work/figma-working/aiedithome1.png' },
+            { type: 'image', url: '/portfolio-images-work/figma-working/aiedit1.png' },
+            { type: 'image', url: '/portfolio-images-work/figma-working/aiedit2.png' }
+          ],
+          layout: 'grid-3'
+        },
+        {
+          items: [
+            { type: 'image', url: '/portfolio-images-work/figma-working/aiedit3.png' }
+          ],
+          layout: 'single'
+        },
+
+      ],
+      relatedProjects: [0, 2]
     },
     { 
       image: '/images/pimg5.jpg',
