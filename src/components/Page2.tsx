@@ -97,11 +97,11 @@ const Page2 = () => {
             </div>
 
             {/* Image */}
-            <div className="overflow-hidden w-full">
+            <div className="overflow-hidden w-full aspect-[4/5] sm:aspect-[3/4] md:aspect-auto">
               <img
                 src={project.image}
                 alt={project.title}
-                className="w-full h-[500px] md:h-[580px] lg:h-[620px] object-cover group-hover:scale-105 transition-transform duration-500"
+                className="w-full h-full md:h-[580px] lg:h-[620px] object-cover group-hover:scale-105 transition-transform duration-500"
               />
             </div>
           </a>

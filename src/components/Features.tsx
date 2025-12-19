@@ -91,10 +91,23 @@ const featuredItems = [
 
 export default function FeaturedPage() {
   const swiperRef = useRef<HTMLDivElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
   const tweenRef = useRef<gsap.core.Tween | null>(null);
   const [isArrowHovered, setIsArrowHovered] = useState(false);
+  const [isDragging, setIsDragging] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
+  const dragStartX = useRef(0);
+  const scrollStartX = useRef(0);
 
   useEffect(() => {
+    // Check if mobile
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+
     if (!swiperRef.current) return;
 
     // Wait for DOM to fully render
@@ -117,6 +130,7 @@ export default function FeaturedPage() {
     }, 100);
 
     return () => {
+      window.removeEventListener('resize', checkMobile);
       clearTimeout(timer);
       tweenRef.current?.kill();
       tweenRef.current = null;
@@ -127,6 +141,66 @@ export default function FeaturedPage() {
   const handleLeave = () => {
     const tween = tweenRef.current as gsap.core.Tween & { resume?: () => void };
     tween?.resume?.() ?? tween?.play();
+  };
+
+  // Touch/Mouse drag handlers
+  const handleDragStart = (e: React.MouseEvent | React.TouchEvent) => {
+    if (!isMobile) return; // Only allow drag on mobile
+    setIsDragging(true);
+    tweenRef.current?.pause();
+    
+    const clientX = 'touches' in e ? e.touches[0].clientX : e.clientX;
+    dragStartX.current = clientX;
+    
+    if (swiperRef.current) {
+      const transform = window.getComputedStyle(swiperRef.current).transform;
+      if (transform !== 'none') {
+        const matrix = new DOMMatrix(transform);
+        scrollStartX.current = matrix.m41;
+      }
+    }
+  };
+
+  const handleDragMove = (e: React.MouseEvent | React.TouchEvent) => {
+    if (!isDragging || !swiperRef.current) return;
+    
+    const clientX = 'touches' in e ? e.touches[0].clientX : e.clientX;
+    const diff = clientX - dragStartX.current;
+    const newX = scrollStartX.current + diff;
+    
+    gsap.set(swiperRef.current, { x: newX });
+  };
+
+  const handleDragEnd = () => {
+    setIsDragging(false);
+    
+    // Resume auto-scroll after a delay
+    setTimeout(() => {
+      if (tweenRef.current && swiperRef.current) {
+        const cards = swiperRef.current.children;
+        if (cards.length === 0) return;
+        
+        const cardWidth = (cards[0] as HTMLElement).offsetWidth + 16;
+        const totalWidth = cardWidth * featuredItems.length;
+        const currentX = gsap.getProperty(swiperRef.current, 'x') as number;
+        
+        // Calculate remaining distance and time
+        const remainingDistance = -totalWidth - currentX;
+        const speed = totalWidth / 40; // pixels per second
+        const remainingDuration = Math.abs(remainingDistance / speed);
+        
+        tweenRef.current?.kill();
+        tweenRef.current = gsap.to(swiperRef.current, {
+          x: -totalWidth,
+          duration: remainingDuration,
+          ease: "none",
+          repeat: -1,
+          modifiers: {
+            x: gsap.utils.unitize((x: number) => parseFloat(x) % -totalWidth)
+          }
+        });
+      }
+    }, 300);
   };
 
   return (
@@ -151,11 +225,19 @@ export default function FeaturedPage() {
           </motion.span>
         </h1>
 
-        <div className="relative overflow-hidden" onMouseEnter={handleEnter} onMouseLeave={handleLeave}>
+        <div 
+          ref={containerRef}
+          className={`relative overflow-hidden ${isMobile ? 'cursor-grab active:cursor-grabbing' : ''}`}
+          onMouseEnter={handleEnter} 
+          onMouseLeave={handleLeave}
+          onTouchStart={isMobile ? handleDragStart : undefined}
+          onTouchMove={isMobile ? handleDragMove : undefined}
+          onTouchEnd={isMobile ? handleDragEnd : undefined}
+        >
           {/* Gradient mask on right edge only */}
           <div className="absolute right-0 top-0 bottom-0 w-32  from-black to-transparent z-10 pointer-events-none"></div>
           
-          <div ref={swiperRef} className="flex gap-4">
+          <div ref={swiperRef} className="flex gap-4" style={{ userSelect: 'none' }}>
             {/* Render cards twice for seamless loop */}
             {[...featuredItems, ...featuredItems].map((item, idx) => (
               <Link
@@ -166,7 +248,7 @@ export default function FeaturedPage() {
                 onMouseLeave={handleLeave}
               >
                 <div
-                  className={`${item.bg} flex items-center justify-center h-[420px] md:h-[460px] mb-5 overflow-hidden transition-transform duration-300 group-hover:scale-[1.02]`}
+                  className={`${item.bg} flex items-center justify-center h-[320px] sm:h-[380px] md:h-[460px] mb-5 overflow-hidden transition-transform duration-300 group-hover:scale-[1.02]`}
                 >
                   <Image
                     src={item.image}
