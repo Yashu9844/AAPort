@@ -56,43 +56,58 @@ const Projects = () => {
       relatedProjects: [1, 2]
     },
     { 
-      image: '/images/pimg2.jpg',
-      title: 'Portfolio Website',
-      category: 'Web Design',
+      image: '/portfolio-images-work/figma-working/airbnbgifhome.gif',
+      title: 'Airbnb‑style Stays – Booking Platform',
+      category: 'Full Stack Web Application',
       year: '2024',
-      description: 'Creative portfolio showcasing interactive animations.',
+      description: 'Search, host, and book stays with real authentication, geo search, Cloudinary media, and protected reservations built on Next.js 14.',
       fullDescription: [
-        'Designed and developed a cutting-edge portfolio website with smooth animations.',
-        'Utilized GSAP and Framer Motion for complex scroll-triggered animations.',
-        'Integrated Three.js for 3D elements and interactive experiences.'
+        'Core capabilities → Host onboarding, listing creation with Cloudinary uploads, wishlists, and one‑click reservations with availability checks.',
+        'Architecture → Next.js App Router with server components, Prisma on MongoDB, typed forms, and cache‑aware data fetching for snappy grids.',
+        'Trust & safety → OAuth via Google/Facebook, session‑aware APIs, and server‑side validation for listings and bookings.',
+        'Maps & search → Country + map selection with Leaflet, URL‑driven filters, and sharable deep links.',
+        'Result → Fast first interaction, consistent booking flow on mobile, and a UI that feels considered and premium.'
       ],
       informationParagraphs: [
-        'This portfolio showcases modern web design trends and cutting-edge technologies.',
-        'Built with performance in mind while maintaining stunning visual effects.'
+        'This platform is a focused take on short‑stay bookings: remove friction for guests while giving hosts a reliable way to publish high‑quality listings. Every interaction—searching, filtering, saving—stays immediate and deliberate.',
+        'Operational concerns are handled at the data layer: price, capacity, and availability are validated server‑side. Media is delivered via Cloudinary with the right sizes for each breakpoint to keep pages crisp and quick.',
+        'The stack is intentionally boring and scalable: Next.js 14, Prisma + MongoDB, NextAuth, and Tailwind. Forms are typed end‑to‑end and APIs are locked behind session checks to protect critical paths.'
       ],
-      tech: ['Next.js', 'Framer Motion', 'GSAP', 'Three.js'],
-      role: 'Designer & Developer',
-      duration: '1 month',
-      github: 'https://github.com/username/portfolio',
-      live: 'https://example.com',
+      tech: ['Next.js', 'TypeScript', 'Prisma', 'MongoDB', 'NextAuth', 'Cloudinary', 'TailwindCSS', 'Leaflet', 'React Hook Form', 'Zustand'],
+      role: 'Full Stack Developer',
+      duration: '2 months',
+      github: 'https://github.com/Yashu9844/AIRBNB_NEXT',
+      live: 'https://next-pro-3.vercel.app/',
       credits: [
-        { role: 'Design & Development', name: 'Zubair Mallik' },
-        { role: '3D Assets', name: 'Creative Team' }
+        { role: 'Product & Engineering', name: 'Yashavanth R Siddesh' }
       ],
       mediaSections: [
         {
           items: [
-            { type: 'image', url: '/images/pimg1.jpg' },
-            { type: 'image', url: '/images/pimg3.jpg' },
-            { type: 'image', url: '/images/pimg4.jpg' }
+            { type: 'image', url: '/portfolio-images-work/figma-working/airbnbgifhome.gif' }
+          ],
+          layout: 'single'
+        },
+        {
+          items: [
+            { type: 'image', url: '/portfolio-images-work/figma-working/airbnb1.png' },
+            { type: 'image', url: '/portfolio-images-work/figma-working/airbnb2.png' },
+            { type: 'image', url: '/portfolio-images-work/figma-working/airnbnb3.png' }
           ],
           layout: 'grid-3'
+        },
+        {
+          items: [
+            { type: 'image', url: '/portfolio-images-work/figma-working/airbnb4.png' },
+            { type: 'image', url: '/portfolio-images-work/figma-working/next-pro-3.vercel.app_.png' }
+          ],
+          layout: 'grid-2'
         }
       ],
       relatedProjects: [0, 2]
     },
     { 
-      image: '/images/pimg3.jpg',
+      image: '/portfolio-images-work/figma-working/empowerhome.png' ,
       title: 'Task Management App',
       category: 'Mobile & Web',
       year: '2024',
@@ -116,8 +131,8 @@ const Projects = () => {
       mediaSections: [
         {
           items: [
-            { type: 'image', url: '/images/pimg5.jpg' },
-            { type: 'image', url: '/images/pimg6.jpg' }
+            { type: 'image', url:'/portfolio-images-work/figma-working/empowerhub2.png'  },
+            { type: 'image', url: '/portfolio-images-work/figma-working/empowerhub3.png' }
           ],
           layout: 'grid-2'
         }
@@ -125,7 +140,7 @@ const Projects = () => {
       relatedProjects: [0, 1]
     },
     { 
-      image: '/images/pimg4.jpg',
+      image: '/portfolio-images-work/figma-working/empowerhome.png' ,
       title: 'Mobile App',
       category: 'Mobile Development',
       year: '2024',

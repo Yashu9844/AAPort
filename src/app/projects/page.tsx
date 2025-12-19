@@ -51,34 +51,52 @@ export default function ProjectsPage() {
     },
     {
       id: 2,
-      title: "Task Management App",
-      category: "Mobile & Web",
+      title: "Airbnb‑style Stays – Booking Platform",
+      category: "Full Stack Web Application",
       year: "2024",
-      image: "/images/pimg3.jpg",
-      description: "Collaborative task management application with real-time updates and team collaboration features.",
+      image: "/portfolio-images-work/figma-working/airbnbgifhome.gif",
+      description: "Search, host, and book stays with real authentication, geo search, Cloudinary media, and protected reservations built on Next.js 14.",
       fullDescription: [
-        "Created a full-featured task management system with real-time collaboration using Firebase.",
-        "Implemented drag-and-drop kanban boards, notifications, and team chat functionality.",
-        "Built responsive mobile and web applications with shared codebase."
+        "Core capabilities → Host onboarding, listing creation with Cloudinary uploads, wishlists, and one‑click reservations with availability checks.",
+        "Architecture → Next.js App Router with server components, Prisma on MongoDB, typed forms, and cache‑aware data fetching for snappy grids.",
+        "Trust & safety → OAuth via Google/Facebook, session‑aware APIs, and server‑side validation for listings and bookings.",
+        "Maps & search → Country + map selection with Leaflet, URL‑driven filters, and sharable deep links.",
+        "Result → Fast first interaction, consistent booking flow on mobile, and a UI that feels considered and premium."
       ],
       informationParagraphs: [
-        "This task management system was designed to streamline team collaboration and project tracking.",
-        "Built with modern technologies to ensure scalability and reliability."
+        "This platform is a focused take on short‑stay bookings: remove friction for guests while giving hosts a reliable way to publish high‑quality listings. Every interaction—searching, filtering, saving—stays immediate and deliberate.",
+        "Operational concerns are handled at the data layer: price, capacity, and availability are validated server‑side. Media is delivered via Cloudinary with the right sizes for each breakpoint to keep pages crisp and quick.",
+        "The stack is intentionally boring and scalable: Next.js 14, Prisma + MongoDB, NextAuth, and Tailwind. Forms are typed end‑to‑end and APIs are locked behind session checks to protect critical paths."
       ],
-      tech: ["React", "Firebase", "Node.js", "MongoDB"],
-      role: "Lead Developer",
-      duration: "4 months",
-      domains: ["Full Stack", "Mobile"],
+      tech: ["Next.js", "TypeScript", "Prisma", "MongoDB", "NextAuth", "Cloudinary", "TailwindCSS", "Leaflet", "React Hook Form", "Zustand"],
+      role: "Full Stack Developer",
+      duration: "2 months",
+      github: "https://github.com/Yashu9844/AIRBNB_NEXT",
+      live: "https://next-pro-3.vercel.app/",
+      domains: ["Full Stack", "Product"],
       link: "#",
       credits: [
-        { role: "Lead Developer", name: "Zubair Mallik" },
-        { role: "UI Design", name: "Design Team" }
+        { role: "Product & Engineering", name: "Yashavanth R Siddesh" }
       ],
       mediaSections: [
         {
           items: [
-            { type: "image" as const, url: "/images/pimg5.jpg" },
-            { type: "image" as const, url: "/images/pimg6.jpg" }
+            { type: "image" as const, url: "/portfolio-images-work/figma-working/airbnbgifhome.gif" }
+          ],
+          layout: "single" as const
+        },
+        {
+          items: [
+            { type: "image" as const, url: "/portfolio-images-work/figma-working/airbnb1.png" },
+            { type: "image" as const, url: "/portfolio-images-work/figma-working/airbnb2.png" },
+            { type: "image" as const, url: "/portfolio-images-work/figma-working/airnbnb3.png" }
+          ],
+          layout: "grid-3" as const
+        },
+        {
+          items: [
+            { type: "image" as const, url: "/portfolio-images-work/figma-working/airbnb4.png" },
+            { type: "image" as const, url: "/portfolio-images-work/figma-working/next-pro-3.vercel.app_.png" }
           ],
           layout: "grid-2" as const
         }
