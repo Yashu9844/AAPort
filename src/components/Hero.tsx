@@ -35,7 +35,7 @@ export default function Hero() {
               {/* Small Label */}
               <div className="flex items-center gap-2 sm:gap-3">
                 <div className="w-8 sm:w-12 h-[1px] bg-white/60"></div>
-                <span className="text-[10px] sm:text-sm text-white/70 tracking-[0.25em] uppercase font-light">Creative Developer</span>
+                <span className="text-[10px] sm:text-sm text-white/70 tracking-[0.25em] uppercase font-light">Software Engineer · Team Lead</span>
               </div>
               
               {/* Massive Name */}
@@ -51,9 +51,9 @@ export default function Hero() {
               {/* Tagline */}
               <div className="max-w-2xl">
                 <p className="text-sm leading-[1.4] sm:text-xl md:text-2xl lg:text-3xl text-white/80 font-light sm:leading-relaxed">
-                  Transforming ideas into powerful digital solutions through
-                  <span className="text-white font-normal"> innovative design</span> and
-                  <span className="text-white font-normal"> clean code</span>
+                  Building
+                  <span className="text-white font-normal"> real-time satellite telemetry platforms</span> and
+                  <span className="text-white font-normal"> production agentic AI systems</span>
                 </p>
               </div>
               
@@ -77,12 +77,12 @@ export default function Hero() {
               {/* Stats */}
               <div className="grid grid-cols-2 gap-4 sm:gap-6 lg:gap-8">
                 <div className="space-y-1 sm:space-y-2">
-                  <div className="text-3xl sm:text-5xl md:text-6xl font-bold text-white">500+</div>
-                  <div className="text-[10px] sm:text-sm text-white/60 tracking-wider uppercase">Problems Solved</div>
+                  <div className="text-3xl sm:text-5xl md:text-6xl font-bold text-white">70+</div>
+                  <div className="text-[10px] sm:text-sm text-white/60 tracking-wider uppercase">Satellites Tracked</div>
                 </div>
                 <div className="space-y-1 sm:space-y-2">
-                  <div className="text-3xl sm:text-5xl md:text-6xl font-bold text-white">50+</div>
-                  <div className="text-[10px] sm:text-sm text-white/60 tracking-wider uppercase">Projects</div>
+                  <div className="text-3xl sm:text-5xl md:text-6xl font-bold text-white">500+</div>
+                  <div className="text-[10px] sm:text-sm text-white/60 tracking-wider uppercase">Problems Solved</div>
                 </div>
               </div>
               
@@ -134,10 +134,10 @@ export default function Hero() {
                 <div className="space-y-1.5 sm:space-y-2">
                   <p className="text-[10px] sm:text-xs text-white/50 tracking-widest uppercase">Specialization</p>
                   <div className="grid grid-cols-2 gap-x-3 sm:gap-x-4 gap-y-1 sm:gap-y-2">
+                    <p className="text-xs sm:text-base text-white/90 leading-relaxed">Distributed Systems</p>
+                    <p className="text-xs sm:text-base text-white/90 leading-relaxed">Agentic AI</p>
+                    <p className="text-xs sm:text-base text-white/90 leading-relaxed">Real-Time Telemetry</p>
                     <p className="text-xs sm:text-base text-white/90 leading-relaxed">Full Stack Development</p>
-                    <p className="text-xs sm:text-base text-white/90 leading-relaxed">UI/UX Design</p>
-                    <p className="text-xs sm:text-base text-white/90 leading-relaxed">AI/ML Engineering</p>
-                    <p className="text-xs sm:text-base text-white/90 leading-relaxed">Mobile Development</p>
                   </div>
                 </div>
               </div>

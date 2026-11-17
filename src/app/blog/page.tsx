@@ -26,7 +26,7 @@ const blogPosts: BlogPost[] = [
   {
     id: '1',
     title: 'Building Scalable Systems: Lessons from SaveMe.life',
-    excerpt: 'How we improved performance by 45% and handled 1000+ monthly transactions for 500+ doctors through systematic optimization and architectural decisions.',
+    excerpt: 'How we improved performance by 45% and scaled to 2,000+ daily consultations through systematic optimization and architectural decisions.',
     date: 'Nov 2024',
     readTime: '8 min read',
     category: 'Engineering',
@@ -65,7 +65,7 @@ const blogPosts: BlogPost[] = [
   },
   {
     id: '5',
-    title: 'Solving 300+ LeetCode Problems: What I Actually Learned',
+    title: 'Solving 400+ LeetCode Problems: What I Actually Learned',
     excerpt: 'Beyond the solutions—how consistent problem-solving shaped my thinking, debugging skills, and approach to system design.',
     date: 'Jul 2024',
     readTime: '5 min read',

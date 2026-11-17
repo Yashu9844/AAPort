@@ -236,13 +236,13 @@ const blogPostsData = {
     `
   },
   'leetcode-journey': {
-    title: 'Solving 300+ LeetCode Problems: What I Actually Learned',
+    title: 'Solving 400+ LeetCode Problems: What I Actually Learned',
     date: 'July 2024',
     readTime: '5 min read',
     category: 'DSA',
     image: '/images/pimg9.jpg',
     content: `
-      <p>I've solved over 300 LeetCode problems. But this isn't a story about grinding for FAANG interviews—it's about how consistent problem-solving fundamentally changed how I think about code.</p>
+      <p>I've solved over 400 LeetCode problems. But this isn't a story about grinding for FAANG interviews—it's about how consistent problem-solving fundamentally changed how I think about code.</p>
 
       <h2>Why I Started</h2>
       <p>I didn't start LeetCode to get good at interviews. I started because I kept hitting walls in production code—situations where I knew there had to be a better solution, but I didn't know enough data structures or algorithms to find it.</p>

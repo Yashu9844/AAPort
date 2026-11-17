@@ -26,14 +26,14 @@ const Page2 = () => {
     {
       type: 'EXPERIENCE',
       title: 'FalconX Technologies',
-      subtitle: 'SDE Intern – ISRO Programs, Drone Mission Planning & Live Telemetry',
+      subtitle: 'SDE – Team Lead · Dec 2025 – Present · Leading a 4-member team building a distributed satellite telemetry & tracking platform',
       image: '/images/falcon.png',
       link: '#',
     },
     {
       type: 'EXPERIENCE',
       title: 'RoborosX Omni Tech Solutions',
-      subtitle: 'Full Stack Developer – SaveMe.life Clinic Management, 2,000+ Daily Consultations',
+      subtitle: 'Full Stack Developer · Apr – Dec 2025 · SaveMe.life clinic module (2,000+ daily consultations), real-time school-transport GPS tracking',
       image: '/images/roborosx.jpg',
       link: '#',
     },
@@ -83,7 +83,7 @@ const Page2 = () => {
             {/* Header */}
             <div className="mb-4">
               <p className="uppercase text-xs tracking-widest text-gray-400 mb-2">
-                {index === 0 ? '📸' : '📄'} {project.type}
+                {project.type}
               </p>
               <div className="flex items-center gap-2">
                 <h2 className="text-lg sm:text-xl md:text-2xl font-medium transition-all duration-300 relative">

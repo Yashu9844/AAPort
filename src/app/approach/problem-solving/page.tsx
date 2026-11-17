@@ -76,7 +76,7 @@ export default function ProblemSolving() {
                 </p>
                 
                 <p className="text-lg sm:text-xl md:text-2xl text-white/90 leading-relaxed font-light">
-                  I've solved <span className="text-white">400+ coding problems</span> (300+ on LeetCode), and the pattern is always the same: understand the constraints, identify the edge cases, find the core pattern, then optimize. This mindset transfers directly to real-world engineering.
+                  I've solved <span className="text-white">500+ coding problems</span> (400+ on LeetCode), and the pattern is always the same: understand the constraints, identify the edge cases, find the core pattern, then optimize. This mindset transfers directly to real-world engineering.
                 </p>
 
                 <p className="text-lg sm:text-xl md:text-2xl text-white/90 leading-relaxed font-light">

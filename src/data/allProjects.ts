@@ -23,6 +23,94 @@ export interface Project {
 }
 
 export const allProjects: Project[] = [
+  // ===== CURRENT WORK (from resume) =====
+  {
+    id: 51,
+    image: '/projects/crewforge.svg',
+    title: 'CrewForge – Multi‑Agent AI Workspace',
+    category: 'Agentic AI Platform',
+    year: '2026',
+    description: 'A multi‑agent workspace where users create autonomous AI bots with custom personas and goals that collaborate, hand off work, and act inside their own cloud sandboxes.',
+    fullDescription: [
+      'Problem → Single‑chat assistants can talk but rarely act. Real work needs agents that persist, use tools, delegate to each other, and stay within a budget.',
+      'Solution → Users create bots with custom personas, goals, and instructions that collaborate in one‑on‑one and group conversations, hand tasks to peer bots, and operate their own isolated computers.',
+      'Execution → Durable, long‑running agent loops on Trigger.dev using the Vercel AI SDK with token streaming, function calling, a 30‑step reasoning cap, and budget‑aware stop conditions. Each bot runs in a dedicated Daytona cloud sandbox exposing 11 tools: shell execution, file I/O, and computer‑use control (mouse, keyboard, screenshots), viewable live through noVNC.',
+      'Outcome → A working product with bot‑to‑bot handoffs (context notes, loop prevention, capped transfer depth), file‑based long‑term memory for cross‑session recall, and monetization through Clerk subscription gating plus per‑step usage metering.'
+    ],
+    informationParagraphs: [
+      'CrewForge treats agents as long‑lived workers rather than request/response calls. Every agent run is a durable Trigger.dev task, so loops survive restarts, stream tokens to the UI as they reason, and stop cleanly at the step cap or when the user\'s budget runs out.',
+      'The handoff protocol is what makes the crew work: a bot can delegate to a peer with a context note explaining why, while loop detection and a maximum transfer depth stop agents from bouncing work back and forth forever.',
+      'Billing is built in from day one. Clerk gates subscription tiers, every agent step is metered into Neon Postgres through Drizzle ORM, and cron‑scheduled jobs reconcile usage.'
+    ],
+    tech: ['Next.js 16', 'React 19', 'TypeScript', 'Vercel AI SDK', 'Trigger.dev', 'Daytona', 'DeepSeek', 'OpenRouter', 'Clerk', 'Neon Postgres', 'Drizzle ORM'],
+    role: 'Solo Founder & Engineer',
+    duration: 'Ongoing',
+    github: 'https://github.com/Yashu9844/AI_bot_temmate',
+    live: 'https://ai-bot-temmate.vercel.app',
+    credits: [
+      { role: 'Product & Engineering', name: 'Yashavanth R Siddesh' }
+    ],
+    domains: ["AI/ML", "Full Stack", "SaaS"],
+    link: "#",
+    mediaSections: [],
+    relatedProjects: [52, 4]
+  },
+  {
+    id: 52,
+    image: '/projects/dats.svg',
+    title: 'DATS – Digital Array Telemetry System',
+    category: 'Distributed Systems · Ground Station',
+    year: '2026',
+    description: 'A ground‑station platform spanning RF reception to operator dashboards: CCSDS telemetry processing, native RF decoding, and GPU‑accelerated tracking of 70+ satellites.',
+    fullDescription: [
+      'Scope → Modular platform design covering the full ground‑station mission workflow, from RF reception through decoding and storage to real‑time operator dashboards.',
+      'Telemetry pipeline → CCSDS‑compliant processing covering packet decoding, XTCE decoding, engineering‑unit conversion, alarm generation, and telemetry storage.',
+      'RF processing → A native C++20 service implementing Reed–Solomon and Viterbi decoding, frame synchronization, packet reconstruction, and carrier recovery.',
+      'Architecture → Event‑driven backend on RabbitMQ, Redis, gRPC, and WebSockets for real‑time ingestion and subsystem communication, designed for SDR integration, GPU‑accelerated processing, and tracking of 70+ satellites.'
+    ],
+    informationParagraphs: [
+      'DATS is built around clear service boundaries: RF and decoding services do the heavy signal work in native code, while ingestion, alarms, and archival communicate over a message bus so each subsystem can scale and fail independently.',
+      'Screenshots and source are not public for this professional work; the cover art is illustrative.'
+    ],
+    tech: ['Rust', 'C++20', 'CUDA', 'Next.js', 'PostgreSQL', 'Redis', 'RabbitMQ', 'gRPC', 'WebSockets'],
+    role: 'Platform Design & Engineering Lead',
+    duration: 'Ongoing',
+    credits: [
+      { role: 'Architecture & Engineering', name: 'Yashavanth R Siddesh' }
+    ],
+    domains: ["Distributed Systems", "Real-Time"],
+    link: "#",
+    mediaSections: [],
+    relatedProjects: [53, 51]
+  },
+  {
+    id: 53,
+    image: '/projects/tracking.svg',
+    title: 'Distributed Surveillance & Space Object Tracking',
+    category: 'Distributed Systems · Real‑Time',
+    year: '2025',
+    description: 'A distributed tracking system designed for 30,000+ simultaneously tracked objects, with a drone mission‑planning and control backend for low‑latency operator workflows.',
+    fullDescription: [
+      'Scale → Architected to support 30,000+ simultaneously tracked moving objects through continuous real‑time data streams.',
+      'Drone control → A distributed mission planning and control backend using MAVLink, Redis, Django Channels, and WebSockets for real‑time command execution and telemetry streaming.',
+      'Operator experience → Interfaces for live drone monitoring, mission planning, and remote command execution, enabling low‑latency control workflows.',
+      'Visualization → Interactive views for live trajectory tracking and telemetry insights.'
+    ],
+    informationParagraphs: [
+      'Developed under NDA. Source code and screens cannot be shared; the cover art is illustrative.'
+    ],
+    tech: ['Django', 'Django Channels', 'React', 'Zustand', 'Redis', 'RabbitMQ', 'WebSockets', 'MAVLink', 'CUDA'],
+    role: 'Software Engineer',
+    duration: 'Under NDA',
+    credits: [
+      { role: 'Engineering', name: 'Yashavanth R Siddesh' }
+    ],
+    domains: ["Distributed Systems", "Real-Time"],
+    link: "#",
+    mediaSections: [],
+    relatedProjects: [52, 51]
+  
+  },
   // ===== FEATURED PROJECTS (already on home page, also shown here) =====
   {
     id: 1,

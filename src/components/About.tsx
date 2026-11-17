@@ -83,23 +83,23 @@ const About = () => {
 
         <div className="space-y-4 md:space-y-6 font-kh-teka" style={{ fontSize: '18px', lineHeight: '24px', color: 'rgb(229, 229, 229)' }}>
           <p className="about-paragraph md:text-[20px] md:leading-[26px]">
-            I&apos;m Yashavanth R Siddesh, a Full Stack Developer from Bengaluru with a passion for building production-grade systems that serve real users at scale.
+            I&apos;m Yashavanth R Siddesh, a Software Development Engineer and Team Lead from Bengaluru with 1.5+ years of experience building distributed, real-time systems and production agentic AI.
           </p>
 
           <p className="about-paragraph md:text-[20px] md:leading-[26px]">
-            At FalconX Technologies, I contribute to software systems delivered for ISRO programs—building React and Django modules for mission-critical workflows, working with Redis, RabbitMQ, and MQTT for high-frequency telemetry, and owning end-to-end development of a drone mission planning platform with live telemetry visualization.
+            At FalconX Technologies, I lead a 4-member team that owns the architecture of a distributed satellite telemetry and tracking platform: GPU-accelerated telemetry processing for 70+ simultaneous satellites, an event-driven RabbitMQ layer for subsystem health monitoring, and the service boundaries and API contracts for ingestion, monitoring, and archival.
           </p>
 
           <p className="about-paragraph md:text-[20px] md:leading-[26px]">
-            At RoborosX, I engineered the Clinic Management module for SaveMe.life v2 supporting 2,000+ daily consultations, cut system load times by 45%, and delivered 3 major product upgrades with API versioning that lowered maintenance overhead by 20%.
+            At RoborosX, I designed the Clinic Management backend for SaveMe.life v2, handling 2,000+ daily consultations, built real-time GPS vehicle tracking over MQTT and RabbitMQ for a school-transport ERP, and cut system load time by 45%.
           </p>
 
           <p className="about-paragraph md:text-[20px] md:leading-[26px]">
-            As a Tech Team Member at the Software Development Club, I mentored 300+ students across 5+ workshops, built the college event website with payment integration, and performed knowledge transfer to incoming team members.
+            Outside work I build agentic AI. CrewForge is a multi-agent workspace where autonomous bots collaborate, hand off tasks, and act inside their own cloud sandboxes, running as durable agent loops on Trigger.dev.
           </p>
 
           <p className="about-paragraph md:text-[20px] md:leading-[26px]">
-            I&apos;ve solved 500+ coding problems including 400+ on LeetCode, and won multiple competitions: 1st in Web Development (30+ teams), 1st in ML NOVA (150+ participants), and 3rd in an 8-hour national hackathon (35+ teams).
+            I&apos;ve solved 500+ coding problems (400+ on LeetCode) and won 1st place in Web Development (30+ teams), ML NOVA (150+ participants), and the Vertex 2.0 Hackathon, plus 3rd in an 8-hour national hackathon. I&apos;m completing my B.Tech in Computer Science at MVJ College of Engineering (CGPA 8.7).
           </p>
 
           <p className="about-paragraph md:text-[20px] md:leading-[26px]">

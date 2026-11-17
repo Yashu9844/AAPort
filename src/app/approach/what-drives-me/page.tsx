@@ -72,7 +72,7 @@ export default function WhatDrivesMe() {
               
               <div className="lg:col-span-9 space-y-6">
                 <p className="text-lg sm:text-xl md:text-2xl text-white/90 leading-relaxed font-light">
-                  Impact. Real, measurable impact drives everything I build. At <span className="text-white">RoborosX</span>, I developed the Clinic Management module for SaveMe.life, directly serving <span className="text-white">500+ doctors</span> and thousands of patients daily.
+                  Impact. Real, measurable impact drives everything I build. At <span className="text-white">RoborosX</span>, I developed the Clinic Management module for SaveMe.life, handling <span className="text-white">2,000+ consultations</span> every day.
                 </p>
                 
                 <p className="text-lg sm:text-xl md:text-2xl text-white/90 leading-relaxed font-light">

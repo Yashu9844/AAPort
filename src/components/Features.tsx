@@ -48,11 +48,19 @@ const featuredItems = [
     link: "https://leetcode.com/u/mr_alpha",
   },
   {
-    title: "FalconX × ISRO",
+    title: "Team Lead @ FalconX",
     description:
-      "Contributing to software systems for ISRO programs at FalconX Technologies—building drone mission planning platforms and processing high‑frequency radar and telemetry data.",
+      "Leading a 4‑member team at FalconX Technologies building a distributed satellite telemetry and tracking platform with GPU‑accelerated processing for 70+ simultaneous satellites.",
     image: "/images/pimg4.jpg",
     bg: "bg-gradient-to-br from-blue-600 via-indigo-600 to-purple-600",
+    link: "#",
+  },
+  {
+    title: "1st Place – Vertex 2.0",
+    description:
+      "Won 1st place at the Vertex 2.0 Hackathon, designing and shipping a working product end‑to‑end within the hackathon window.",
+    image: "/images/pimg9.jpg",
+    bg: "bg-gradient-to-br from-amber-500 via-orange-500 to-red-500",
     link: "#",
   },
   {

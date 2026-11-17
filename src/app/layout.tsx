@@ -5,15 +5,15 @@ import Preloader, { PRELOADER_SEEN_KEY } from "@/components/Preloader";
 import SmoothScroll from "@/components/SmoothScroll";
 import { siteUrl } from "@/lib/site";
 
-const title = "Yashavanth R Siddesh | Full Stack Developer";
+const title = "Yashavanth R Siddesh | Software Engineer & Team Lead";
 const description =
-  "Full Stack Developer from Bengaluru building production systems with React, Next.js, Django and Node.js — from ISRO drone telemetry at FalconX to clinic software serving 2,000+ daily consultations.";
+  "Software Development Engineer and Team Lead in Bengaluru. Leads a team building a distributed satellite telemetry platform tracking 70+ satellites, and builds production agentic AI systems.";
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title,
   description,
-  keywords: ["Full Stack Developer", "React Developer", "Next.js", "Django", "Bengaluru", "Yashavanth R Siddesh"],
+  keywords: ["Software Engineer", "Team Lead", "Distributed Systems", "Agentic AI", "Satellite Telemetry", "Next.js", "Bengaluru", "Yashavanth R Siddesh"],
   authors: [{ name: "Yashavanth R Siddesh" }],
   creator: "Yashavanth R Siddesh",
   openGraph: {

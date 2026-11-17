@@ -22,6 +22,18 @@ Verified with `tsc` (0 errors, was 100), `eslint` (0 errors; 16 `<img>` warnings
 
 **Still to verify by hand in a browser:** the scroll feel, nav menu scrolling, modal scroll, and the preloader on first vs repeat visit.
 
+## ✅ Resume sync (2026‑11‑18)
+
+Source of truth: `public/resume.pdf` (Nov 2026 resume). Site content now matches it.
+
+- **Resume download**: new PDF; `/resume.pdf` served with `Content-Disposition: attachment` (next.config.js) so it downloads on every browser
+- **Role**: SDE – Team Lead @ FalconX (Dec 2025–present, 4‑member team, satellite telemetry, 70+ satellites); Full Stack Developer @ RoborosX (Apr–Dec 2025: SaveMe.life 2,000+ daily consultations, school‑transport GPS tracking over MQTT/RabbitMQ, −45% load time)
+- **ISRO** no longer mentioned anywhere (the resume doesn't mention it)
+- **New projects** (home featured order: CrewForge, DATS, Space Object Tracking, Phone Case, AI Image Editor, ApniSec), added to `Projects.tsx` (`featuredOrder`) and `allProjects.ts` (ids 51–53). Covers are illustrative SVGs in `public/projects/` (DATS + tracking are not public; tracking is under NDA)
+- **CrewForge** = repo `Yashu9844/AI_bot_temmate`, live https://ai-bot-temmate.vercel.app
+- **Numbers**: 500+ problems / 400+ LeetCode; 1st Web Dev, 1st ML NOVA, 1st Vertex 2.0, 3rd national hackathon; B.Tech CS @ MVJ (2022–2026, CGPA 8.7)
+- **Tech stack**: removed Vue/GraphQL/Firebase (not on resume); added C++, Rust, FastAPI, Azure, RabbitMQ, Kafka
+
 ---
 
 ## 1. Project snapshot

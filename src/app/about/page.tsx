@@ -311,7 +311,7 @@ export default function About2() {
         <div className="max-w-7xl mx-auto">
           <TextSection 
             paragraphs={[
-              "At RoborosX, I built the Clinic Management module for SaveMe.life—a live health system serving over 500 doctors and processing more than 1,000 monthly transactions. I improved load times by 45%, redesigned critical UI components, and contributed to three major product upgrades that increased appointment completion rates by 25%.",
+              "At RoborosX, I built the Clinic Management module for SaveMe.life—a live health system handling 2,000+ daily consultations. I improved load times by 45%, redesigned critical UI components, and contributed to three major product upgrades that increased appointment completion rates by 25%.",
               "Working in healthcare taught me something crucial: performance isn't just a technical metric—it's a user experience variable that can determine whether a doctor can see one more patient, or whether a booking gets completed before someone gives up. I obsessed over every millisecond, every interaction pattern, every edge case. That mindset shaped how I approach every project today."
             ]}
           />
@@ -381,7 +381,7 @@ export default function About2() {
           <InformationSection
             title="Achievements"
             paragraphs={[
-              "I've competed in some of the most intense coding arenas, solving over 400 problems (300+ on LeetCode) and taking home wins that pushed my limits. I secured 1st place in Web Development for delivering the deepest UI/UX and feature set. I won 1st place in ML NOVA by building an NLP-powered voice agent with memory.",
+              "I've competed in some of the most intense coding arenas, solving 500+ problems (400+ on LeetCode) and taking home wins that pushed my limits. I secured 1st place in Web Development for delivering the deepest UI/UX and feature set, won 1st place in ML NOVA by building an NLP-powered voice agent with memory, and took 1st at the Vertex 2.0 Hackathon.",
               "I earned 2nd place in two major DSA challenges and grabbed 3rd place in an 8-hour AI Hackathon focused on disaster management. These victories weren't just badges—they were proof that I could deliver under pressure, think strategically, and execute flawlessly when it mattered most.",
               "Problem-solving is where I thrive. Whether it's optimizing a database query, refactoring a messy codebase, or designing an entire system from scratch, I approach every challenge with curiosity and rigor."
             ]}
