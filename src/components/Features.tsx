@@ -100,28 +100,36 @@ const featuredItems = [
 export default function FeaturedPage() {
   const swiperRef = useRef<HTMLDivElement>(null);
   const tweenRef = useRef<gsap.core.Tween | null>(null);
+  const loopWidthRef = useRef(0);
+  const dragRef = useRef<{ startX: number; startOffset: number } | null>(null);
   const [isArrowHovered, setIsArrowHovered] = useState(false);
 
-  useEffect(() => {
-    if (!swiperRef.current) return;
+  // Seamless marquee: animate relative to the current x and wrap into [-loopWidth, 0],
+  // so the loop can resume from wherever a touch-drag left it.
+  const startLoop = () => {
+    const el = swiperRef.current;
+    const width = loopWidthRef.current;
+    if (!el || !width) return;
+    tweenRef.current?.kill();
+    const wrap = gsap.utils.wrap(-width, 0);
+    tweenRef.current = gsap.to(el, {
+      x: `-=${width}`,
+      duration: 40,
+      ease: "none",
+      repeat: -1,
+      modifiers: { x: gsap.utils.unitize((x: string) => wrap(parseFloat(x))) },
+    });
+  };
 
+  useEffect(() => {
     // Wait for DOM to fully render
     const timer = setTimeout(() => {
-      if (!swiperRef.current) return;
-      
-      const cards = swiperRef.current.children;
-      if (cards.length === 0) return;
-      
-      const cardWidth = (cards[0] as HTMLElement).offsetWidth + 16; // card width + gap
-      const totalWidth = cardWidth * featuredItems.length;
+      const cards = swiperRef.current?.children;
+      if (!cards || cards.length === 0) return;
 
-      // Infinite scroll animation
-      tweenRef.current = gsap.to(swiperRef.current, {
-        x: -totalWidth,
-        duration: 40,
-        ease: "none",
-        repeat: -1,
-      });
+      const cardWidth = (cards[0] as HTMLElement).offsetWidth + 16; // card width + gap
+      loopWidthRef.current = cardWidth * featuredItems.length;
+      startLoop();
     }, 100);
 
     return () => {
@@ -133,6 +141,30 @@ export default function FeaturedPage() {
 
   const handleEnter = () => tweenRef.current?.pause();
   const handleLeave = () => tweenRef.current?.resume();
+
+  // Touch drag (phones/tablets): pause the loop, follow the finger, then resume from there
+  const handleTouchStart = (e: React.TouchEvent) => {
+    if (!swiperRef.current) return;
+    tweenRef.current?.pause();
+    dragRef.current = {
+      startX: e.touches[0].clientX,
+      startOffset: gsap.getProperty(swiperRef.current, "x") as number,
+    };
+  };
+
+  const handleTouchMove = (e: React.TouchEvent) => {
+    const drag = dragRef.current;
+    const width = loopWidthRef.current;
+    if (!drag || !swiperRef.current || !width) return;
+    const x = drag.startOffset + e.touches[0].clientX - drag.startX;
+    gsap.set(swiperRef.current, { x: gsap.utils.wrap(-width, 0, x) });
+  };
+
+  const handleTouchEnd = () => {
+    if (!dragRef.current) return;
+    dragRef.current = null;
+    startLoop();
+  };
 
   return (
     <main className="bg-black text-white w-full pb-12 md:pb-16">
@@ -156,22 +188,29 @@ export default function FeaturedPage() {
           </motion.span>
         </h1>
 
-        <div className="relative overflow-hidden" onMouseEnter={handleEnter} onMouseLeave={handleLeave}>
+        <div
+          className="relative overflow-hidden touch-pan-y"
+          onMouseEnter={handleEnter}
+          onMouseLeave={handleLeave}
+          onTouchStart={handleTouchStart}
+          onTouchMove={handleTouchMove}
+          onTouchEnd={handleTouchEnd}
+        >
           {/* Gradient mask on right edge only */}
           <div className="absolute right-0 top-0 bottom-0 w-32  from-black to-transparent z-10 pointer-events-none"></div>
           
-          <div ref={swiperRef} className="flex gap-4">
+          <div ref={swiperRef} className="flex gap-4 select-none">
             {/* Render cards twice for seamless loop */}
             {[...featuredItems, ...featuredItems].map((item, idx) => (
               <Link
                 key={idx}
                 href={item.link}
-                className="group cursor-pointer flex-shrink-0 w-[360px] md:w-[420px] block"
+                className="group cursor-pointer flex-shrink-0 w-[80vw] sm:w-[360px] md:w-[420px] block"
                 onMouseEnter={handleEnter}
                 onMouseLeave={handleLeave}
               >
                 <div
-                  className={`${item.bg} flex items-center justify-center h-[420px] md:h-[460px] mb-5 overflow-hidden transition-transform duration-300 group-hover:scale-[1.02]`}
+                  className={`${item.bg} flex items-center justify-center h-[320px] sm:h-[380px] md:h-[460px] mb-5 overflow-hidden transition-transform duration-300 group-hover:scale-[1.02]`}
                 >
                   <Image
                     src={item.image}
@@ -197,4 +236,4 @@ export default function FeaturedPage() {
       </div>
     </main>
   );
-}
+}
