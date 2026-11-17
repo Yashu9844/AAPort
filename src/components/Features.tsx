@@ -48,9 +48,9 @@ const featuredItems = [
     link: "https://leetcode.com/u/mr_alpha",
   },
   {
-    title: "Team Lead @ FalconX",
+    title: "FalconX × ISRO",
     description:
-      "Leading a 4‑member team at FalconX Technologies building a distributed satellite telemetry and tracking platform with GPU‑accelerated processing for 70+ simultaneous satellites.",
+      "Leading a 4‑member team at FalconX Technologies, building a distributed satellite telemetry and tracking platform for ISRO programs with GPU‑accelerated processing for 70+ simultaneous satellites.",
     image: "/images/pimg4.jpg",
     bg: "bg-gradient-to-br from-blue-600 via-indigo-600 to-purple-600",
     link: "#",

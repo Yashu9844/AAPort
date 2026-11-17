@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 1000" width="1600" height="1000">
+<defs>
+<radialGradient id="g" cx="70%" cy="40%" r="75%"><stop offset="0" stop-color="#1c1c1c"/><stop offset="1" stop-color="#050505"/></radialGradient>
+<pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse"><path d="M40 0H0V40" fill="none" stroke="#ffffff" stroke-opacity="0.04"/></pattern>
+</defs>
+<rect width="1600" height="1000" fill="url(#g)"/><rect width="1600" height="1000" fill="url(#grid)"/>
+<rect x="700" y="180" width="800" height="520" rx="16" fill="#0b0b0b" stroke="#fff" stroke-opacity="0.35" stroke-width="2"/><rect x="740" y="220" width="120" height="14" rx="7" fill="#fff" fill-opacity="0.6"/><rect x="1160" y="222" width="56" height="10" rx="5" fill="#fff" fill-opacity="0.25"/><rect x="1240" y="222" width="56" height="10" rx="5" fill="#fff" fill-opacity="0.25"/><rect x="1320" y="222" width="56" height="10" rx="5" fill="#fff" fill-opacity="0.25"/><rect x="1400" y="222" width="56" height="10" rx="5" fill="#fff" fill-opacity="0.25"/><rect x="740" y="300" width="420" height="44" rx="6" fill="#fff" fill-opacity="0.9"/><rect x="740" y="360" width="320" height="44" rx="6" fill="#fff" fill-opacity="0.35"/><rect x="740" y="440" width="140" height="40" rx="20" fill="none" stroke="#fff" stroke-opacity="0.7"/><rect x="740" y="530" width="220" height="130" rx="10" fill="#fff" fill-opacity="0.06" stroke="#fff" stroke-opacity="0.15"/><rect x="990" y="530" width="220" height="130" rx="10" fill="#fff" fill-opacity="0.10" stroke="#fff" stroke-opacity="0.15"/><rect x="1240" y="530" width="220" height="130" rx="10" fill="#fff" fill-opacity="0.14" stroke="#fff" stroke-opacity="0.15"/><circle cx="1340" cy="380" r="110" fill="none" stroke="#fff" stroke-opacity="0.2"/><circle cx="1340" cy="380" r="60" fill="#fff" fill-opacity="0.08"/>
+<g font-family="Helvetica, Arial, sans-serif" fill="#fff">
+<text x="96" y="120" font-size="22" letter-spacing="6" fill-opacity="0.55">WEB DESIGN &amp; DEVELOPMENT</text>
+<text x="96" y="830" font-size="96" font-weight="700" letter-spacing="-2">Agency Website</text>
+<text x="96" y="890" font-size="30" fill-opacity="0.6">Design-led studio site · Next.js · GSAP · Lenis</text>
+</g></svg>

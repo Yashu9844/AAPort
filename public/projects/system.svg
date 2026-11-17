@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 1000" width="1600" height="1000">
+<defs>
+<radialGradient id="g" cx="70%" cy="40%" r="75%"><stop offset="0" stop-color="#1c1c1c"/><stop offset="1" stop-color="#050505"/></radialGradient>
+<pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse"><path d="M40 0H0V40" fill="none" stroke="#ffffff" stroke-opacity="0.04"/></pattern>
+</defs>
+<rect width="1600" height="1000" fill="url(#g)"/><rect width="1600" height="1000" fill="url(#grid)"/>
+<rect x="760" y="560" width="70" height="60" fill="#fff" fill-opacity="0.08"/><rect x="870" y="515" width="70" height="105" fill="#fff" fill-opacity="0.18"/><rect x="980" y="470" width="70" height="150" fill="#fff" fill-opacity="0.28"/><rect x="1090" y="425" width="70" height="195" fill="#fff" fill-opacity="0.38"/><rect x="1200" y="380" width="70" height="240" fill="#fff" fill-opacity="0.48"/><rect x="1310" y="335" width="70" height="285" fill="#fff" fill-opacity="0.58"/><rect x="1420" y="290" width="70" height="330" fill="#fff" fill-opacity="0.68"/><rect x="760" y="660" width="730" height="10" rx="5" fill="#fff" fill-opacity="0.12"/><rect x="760" y="660" width="480" height="10" rx="5" fill="#fff" fill-opacity="0.85"/>
+<g font-family="Helvetica, Arial, sans-serif" fill="#fff">
+<text x="96" y="120" font-size="22" letter-spacing="6" fill-opacity="0.55">PERSONAL GROWTH TRACKER</text>
+<text x="96" y="830" font-size="96" font-weight="700" letter-spacing="-2">SYSTEM</text>
+<text x="96" y="890" font-size="30" fill-opacity="0.6">Evidence-based leveling app · React · Dexie · PWA</text>
+</g></svg>

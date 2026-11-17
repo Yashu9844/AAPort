@@ -26,7 +26,7 @@ const Page2 = () => {
     {
       type: 'EXPERIENCE',
       title: 'FalconX Technologies',
-      subtitle: 'SDE – Team Lead · Dec 2025 – Present · Leading a 4-member team building a distributed satellite telemetry & tracking platform',
+      subtitle: 'SDE – Team Lead · Dec 2025 – Present · Leading a 4-member team building a distributed satellite telemetry & tracking platform for ISRO programs',
       image: '/images/falcon.png',
       link: '#',
     },

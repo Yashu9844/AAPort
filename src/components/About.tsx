@@ -87,7 +87,7 @@ const About = () => {
           </p>
 
           <p className="about-paragraph md:text-[20px] md:leading-[26px]">
-            At FalconX Technologies, I lead a 4-member team that owns the architecture of a distributed satellite telemetry and tracking platform: GPU-accelerated telemetry processing for 70+ simultaneous satellites, an event-driven RabbitMQ layer for subsystem health monitoring, and the service boundaries and API contracts for ingestion, monitoring, and archival.
+            At FalconX Technologies, which delivers software for ISRO programs, I lead a 4-member team that owns the architecture of a distributed satellite telemetry and tracking platform: GPU-accelerated telemetry processing for 70+ simultaneous satellites, an event-driven RabbitMQ layer for subsystem health monitoring, and the service boundaries and API contracts for ingestion, monitoring, and archival.
           </p>
 
           <p className="about-paragraph md:text-[20px] md:leading-[26px]">

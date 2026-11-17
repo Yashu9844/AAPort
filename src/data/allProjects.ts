@@ -111,6 +111,116 @@ export const allProjects: Project[] = [
     relatedProjects: [52, 51]
   
   },
+  // ===== RECENT BUILDS =====
+  {
+    id: 54,
+    title: "JAAS – Multi‑Tenant Company OS",
+    category: "Full Stack SaaS Platform",
+    year: "2026",
+    image: "/projects/ajaas.svg",
+    description: "A multi‑tenant SaaS operating system for companies: identity and access plus 12 product modules, with a Go backend and a Next.js frontend.",
+    fullDescription: [
+      "Scope → Identity & access core plus 12 modules: HR management, projects & tasks, meetings, assets & inventory, finance, reports & analytics, approvals, documents, AI assistant, notifications, a company knowledge base, and settings.",
+      "Backend → Go with Gin, GORM/pgx on PostgreSQL, Redis, and RabbitMQ for asynchronous work across modules.",
+      "Frontend → Next.js, React, and TypeScript, with a verification console for exercising every feature by hand.",
+      "Engineering → Documentation‑driven: an architecture authority, per‑module status, security rules, a generated system reference, and an autonomous agent workflow for development."
+    ],
+    tech: ["Go", "Gin", "PostgreSQL", "Redis", "RabbitMQ", "Next.js", "React", "TypeScript", "Docker"],
+    role: "Full Stack Developer",
+    github: "https://github.com/Yashu9844/AJAAS",
+    domains: ["Full Stack", "SaaS"],
+    link: "#",
+    credits: [{ role: "Product & Engineering", name: "Yashavanth R Siddesh" }],
+    mediaSections: [{ items: [{ type: "image" as const, url: "/projects/ajaas.svg" }], layout: "single" as const }],
+    relatedProjects: [51, 52]
+  },
+  {
+    id: 55,
+    title: "AI Instagram Marketing Automation",
+    category: "AI Automation",
+    year: "2026",
+    image: "/projects/autoinsta.svg",
+    description: "An n8n + AI pipeline that turns multi‑day content plans into brand‑consistent, quality‑checked Instagram posts every morning for an education institute.",
+    fullDescription: [
+      "Problem → Posting consistent, on‑brand content every day takes a marketing team hours of writing, design, and review.",
+      "Pipeline → At 09:00 IST n8n resolves the day's plan, an LLM writes the content, a creative‑director prompt shapes the visual, an image model generates it, and a deterministic overlay adds the logo.",
+      "Quality → A vision model checks every image against brand rules; failures are regenerated automatically before an approval or auto‑publish step.",
+      "Infrastructure → Plans and brand rules live in Git (plan, brand, courses, rules), assets are stored in MinIO, and the whole system ships with Docker."
+    ],
+    tech: ["n8n", "Python", "TypeScript", "LLMs", "Image Generation", "Vision Models", "Instagram Graph API", "MinIO", "Docker"],
+    role: "AI Engineer",
+    github: "https://github.com/Yashu9844/Auto_insta",
+    domains: ["AI/ML", "Automation"],
+    link: "#",
+    credits: [{ role: "Product & Engineering", name: "Yashavanth R Siddesh" }],
+    mediaSections: [{ items: [{ type: "image" as const, url: "/projects/autoinsta.svg" }], layout: "single" as const }],
+    relatedProjects: [51, 54]
+  },
+  {
+    id: 56,
+    title: "SYSTEM – Evidence‑Based Leveling App",
+    category: "Product · Frontend",
+    year: "2026",
+    image: "/projects/system.svg",
+    description: "A game‑style personal growth app where level measures effort but rank measures real‑world evidence, so the numbers can't flatter you.",
+    fullDescription: [
+      "Idea → Most habit trackers let you level up while nothing in your life changes. SYSTEM separates the two: XP and level reward effort, while rank can only rise with external evidence.",
+      "Product → Built from a written product‑discovery pass: strategy, behavioral evidence, game systems and XP formulas, data model, risks, and a 120‑day experiment protocol.",
+      "Engineering → React + Vite with Zustand state and Dexie (IndexedDB) for an offline‑first PWA, Framer Motion for the interface, and Vitest + Playwright tests."
+    ],
+    tech: ["React", "TypeScript", "Vite", "Zustand", "Dexie", "PWA", "Framer Motion", "Vitest", "Playwright"],
+    role: "Product & Engineering",
+    github: "https://github.com/Yashu9844/Solo_Leveling_Ev",
+    live: "https://solo-leveling-ev.vercel.app",
+    domains: ["Frontend", "Product"],
+    link: "#",
+    credits: [{ role: "Product & Engineering", name: "Yashavanth R Siddesh" }],
+    mediaSections: [{ items: [{ type: "image" as const, url: "/projects/system.svg" }], layout: "single" as const }],
+    relatedProjects: [51, 55]
+  },
+  {
+    id: 57,
+    title: "Sri Sai Baba Tool Rental – Shop Operations App",
+    category: "Full Stack · Mobile",
+    year: "2026",
+    image: "/projects/toolrental.jpg",
+    description: "A mobile‑first operations and point‑of‑sale app for a real tool‑rental shop: inventory, rentals, returns, and payments from a phone, shipped to Android with Capacitor.",
+    fullDescription: [
+      "Client → Built for Sri Sai Baba Tool Rentals so staff can run the shop counter from a phone or tablet without losing track of tools or money.",
+      "Workflow → Inventory of tool models and individual units, customers, rentals with deposits and payment methods, returns, overdue flags, and an activity log of every change.",
+      "Engineering → Next.js with Prisma, Cloudinary for tool photos, and Zustand; packaged as an Android app via Capacitor with on‑device SQLite."
+    ],
+    tech: ["Next.js", "TypeScript", "Prisma", "Cloudinary", "Zustand", "Capacitor", "SQLite", "Android"],
+    role: "Freelance Full Stack Developer",
+    github: "https://github.com/Yashu9844/Adesai",
+    live: "https://srisaibabastore.vercel.app",
+    domains: ["Full Stack", "Mobile"],
+    link: "#",
+    credits: [{ role: "Product & Engineering", name: "Yashavanth R Siddesh" }],
+    mediaSections: [{ items: [{ type: "image" as const, url: "/projects/toolrental.jpg" }], layout: "single" as const }],
+    relatedProjects: [54, 58]
+  },
+  {
+    id: 58,
+    title: "Agency Website – Design‑Led Web Experiences",
+    category: "Frontend Web Development",
+    year: "2026",
+    image: "/projects/adesign.svg",
+    description: "A design‑led website for a web studio serving founders and modern brands, built around motion, smooth scrolling, and performance.",
+    fullDescription: [
+      "Goal → Present a studio that designs and builds premium web experiences, with clarity, performance, and long‑term value as the message.",
+      "Execution → Next.js with GSAP and Lenis for scroll‑driven motion, Framer Motion for interactions, and Tailwind CSS, with documented wireframes and light‑mode strategy."
+    ],
+    tech: ["Next.js", "TypeScript", "GSAP", "Lenis", "Framer Motion", "TailwindCSS"],
+    role: "Design & Frontend",
+    github: "https://github.com/Yashu9844/Adesign",
+    live: "https://adesign-beta.vercel.app",
+    domains: ["Frontend"],
+    link: "#",
+    credits: [{ role: "Product & Engineering", name: "Yashavanth R Siddesh" }],
+    mediaSections: [{ items: [{ type: "image" as const, url: "/projects/adesign.svg" }], layout: "single" as const }],
+    relatedProjects: [57, 56]
+  },
   // ===== FEATURED PROJECTS (already on home page, also shown here) =====
   {
     id: 1,
