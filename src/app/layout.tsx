@@ -1,47 +1,40 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import ClickSparkles from "@/components/ClickSparkles";
-import Preloader from "@/components/Preloader";
-import SheryScripts from "@/components/SheryScripts";
+import Preloader, { PRELOADER_SEEN_KEY } from "@/components/Preloader";
+import SmoothScroll from "@/components/SmoothScroll";
+import { siteUrl } from "@/lib/site";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
+const title = "Yashavanth R Siddesh | Full Stack Developer";
+const description =
+  "Full Stack Developer from Bengaluru building production systems with React, Next.js, Django and Node.js — from ISRO drone telemetry at FalconX to clinic software serving 2,000+ daily consultations.";
 
 export const metadata: Metadata = {
-  title: "Yashavanth R Siddesh | Full Stack Developer & UI/UX Designer",
-  description: "Full Stack Developer from Bengaluru specializing in React, Next.js, and AI/ML. View my portfolio of 50+ projects including e-commerce platforms, AI assistants, and mobile apps.",
-  keywords: ["Full Stack Developer", "React Developer", "Next.js", "Bengaluru", "UI/UX Designer"],
+  metadataBase: new URL(siteUrl),
+  title,
+  description,
+  keywords: ["Full Stack Developer", "React Developer", "Next.js", "Django", "Bengaluru", "Yashavanth R Siddesh"],
   authors: [{ name: "Yashavanth R Siddesh" }],
   creator: "Yashavanth R Siddesh",
   openGraph: {
     type: "website",
     locale: "en_US",
-    url: "https://your-domain.com",
-    siteName: "Yashavanth R Siddesh Portfolio",
-    title: "Yashavanth R Siddesh | Full Stack Developer",
-    description: "Full Stack Developer from Bengaluru specializing in React, Next.js, and AI/ML.",
-    images: [{ url: "/og-image.jpg", width: 1200, height: 630 }],
+    url: "/",
+    siteName: "Yashavanth R Siddesh",
+    title,
+    description,
   },
   twitter: {
     card: "summary_large_image",
-    title: "Yashavanth R Siddesh | Full Stack Developer",
-    description: "Full Stack Developer from Bengaluru specializing in React, Next.js, and AI/ML.",
-    images: ["/og-image.jpg"],
+    title,
+    description,
   },
   robots: {
     index: true,
     follow: true,
   },
   alternates: {
-    canonical: "https://your-domain.com",
+    canonical: "/",
   },
   icons: {
     icon: [
@@ -54,18 +47,22 @@ export const metadata: Metadata = {
   manifest: "/site.webmanifest",
 };
 
+// Runs before first paint so returning visitors never see the preloader flash.
+const skipPreloaderScript = `try{if(sessionStorage.getItem("${PRELOADER_SEEN_KEY}"))document.documentElement.classList.add("skip-preloader")}catch(e){}`;
+
 export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
+    <html lang="en" suppressHydrationWarning>
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: skipPreloaderScript }} />
+      </head>
+      <body className="antialiased">
         <Preloader />
-        <SheryScripts />
+        <SmoothScroll />
         {children}
         <ClickSparkles />
       </body>

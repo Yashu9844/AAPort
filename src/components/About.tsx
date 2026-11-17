@@ -21,13 +21,8 @@ const About = () => {
 
       const paragraphs = document.querySelectorAll('.about-paragraph');
       
-      if (paragraphs.length === 0) {
-        console.error('About paragraphs not found!');
-        return;
-      }
+      if (paragraphs.length === 0) return;
 
-      console.log('Initializing About word highlight animation');
-      
       // Split text into words and wrap each in a span
       paragraphs.forEach((paragraph) => {
         const text = paragraph.textContent || '';
@@ -60,10 +55,7 @@ const About = () => {
       trigger: '#about-section',
       start: 'top bottom',
       once: true,
-      onEnter: () => {
-        console.log('Near About section, initializing animation');
-        initAnimation();
-      },
+      onEnter: initAnimation,
     });
   });
 
@@ -116,7 +108,7 @@ const About = () => {
 
           <div className="pt-4">
             <Link 
-              href="/about2"
+              href="/about"
               className="inline-flex items-center gap-2 text-white/70 hover:text-white transition-colors duration-300 font-light tracking-wide border-b border-white/30 pb-0.5 text-base md:text-lg"
               onMouseEnter={() => setIsButtonHovered(true)}
               onMouseLeave={() => setIsButtonHovered(false)}

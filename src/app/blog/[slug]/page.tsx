@@ -12,7 +12,7 @@ if (typeof window !== 'undefined') {
 }
 
 // Mock blog data - In production, fetch from CMS/API
-const blogPostsData: { [key: string]: any } = {
+const blogPostsData = {
   'building-scalable-systems': {
     title: 'Building Scalable Systems: Lessons from SaveMe.life',
     date: 'November 2024',
@@ -312,7 +312,7 @@ const blogPostsData: { [key: string]: any } = {
 export default function BlogPost() {
   const params = useParams();
   const slug = params?.slug as string;
-  const post = blogPostsData[slug];
+  const post = blogPostsData[slug as keyof typeof blogPostsData];
   const contentRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {

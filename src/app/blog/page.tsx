@@ -127,7 +127,7 @@ export default function BlogPage() {
       );
 
       // Blog card animations
-      gsap.utils.toArray('.blog-card').forEach((card: any, index: number) => {
+      gsap.utils.toArray<HTMLElement>('.blog-card').forEach((card) => {
         gsap.fromTo(
           card,
           { 
@@ -208,7 +208,7 @@ export default function BlogPage() {
       <div className="px-6 sm:px-8 md:px-12 lg:px-16 mb-12">
         <div className="max-w-7xl mx-auto">
           <div className="flex flex-wrap gap-3">
-            {categories.map((category, index) => (
+            {categories.map((category) => (
               <button
                 key={category}
                 onClick={() => setSelectedCategory(category)}
@@ -229,7 +229,7 @@ export default function BlogPage() {
       <div ref={gridRef} className="px-6 sm:px-8 md:px-12 lg:px-16 pb-20">
         <div className="max-w-7xl mx-auto">
           <div className="space-y-12 md:space-y-16">
-            {filteredPosts.map((post, index) => (
+            {filteredPosts.map((post) => (
               <article
                 key={post.id}
                 className="blog-card group cursor-pointer"

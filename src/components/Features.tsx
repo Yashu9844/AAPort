@@ -124,10 +124,7 @@ export default function FeaturedPage() {
   }, []);
 
   const handleEnter = () => tweenRef.current?.pause();
-  const handleLeave = () => {
-    const tween = tweenRef.current as gsap.core.Tween & { resume?: () => void };
-    tween?.resume?.() ?? tween?.play();
-  };
+  const handleLeave = () => tweenRef.current?.resume();
 
   return (
     <main className="bg-black text-white w-full pb-12 md:pb-16">

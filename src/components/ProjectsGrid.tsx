@@ -1,7 +1,9 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import Link from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';
+import { lockScroll } from '@/lib/lenis';
 
 interface Project {
   id: number;
@@ -68,20 +70,17 @@ export default function ProjectsGrid({ projects, allProjects }: ProjectsGridProp
 
   // Prevent body scroll when modal is open & handle ESC key
   useEffect(() => {
+    if (selectedProject === null) return;
+
     const handleEsc = (e: KeyboardEvent) => {
       if (e.key === 'Escape') setSelectedProject(null);
     };
-    
-    if (selectedProject !== null) {
-      window.addEventListener('keydown', handleEsc);
-      document.body.style.overflow = 'hidden';
-    } else {
-      document.body.style.overflow = '';
-    }
-    
+    window.addEventListener('keydown', handleEsc);
+    lockScroll(true);
+
     return () => {
       window.removeEventListener('keydown', handleEsc);
-      document.body.style.overflow = '';
+      lockScroll(false);
     };
   }, [selectedProject]);
 
@@ -89,12 +88,12 @@ export default function ProjectsGrid({ projects, allProjects }: ProjectsGridProp
     <div className="min-h-screen bg-black text-white pt-32 pb-16 px-6 sm:px-8 md:px-12 lg:px-16">
       <div className="max-w-7xl mx-auto">
         {/* Home Link - Above Projects */}
-        <a
+        <Link
           href="/"
           className="inline-block mb-8 text-sm sm:text-base md:text-lg lg:text-xl text-gray-400 hover:text-white transition-colors font-light tracking-wide"
         >
           ← Home
-        </a>
+        </Link>
 
         {/* Header with Filters on Same Line */}
         <div className="mb-12 flex items-start justify-between gap-12">
@@ -103,7 +102,7 @@ export default function ProjectsGrid({ projects, allProjects }: ProjectsGridProp
               Projects
             </h1>
             <p className="text-xl text-gray-400 font-light">
-              {projects.length}+ selected works from 2023–2025
+              {projects.length} projects · {Math.min(...projects.map(p => Number(p.year)))}–{Math.max(...projects.map(p => Number(p.year)))}
             </p>
           </div>
           
@@ -189,7 +188,7 @@ export default function ProjectsGrid({ projects, allProjects }: ProjectsGridProp
               className="group cursor-pointer relative border-b border-white/10 pb-8"
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: index * 0.1, duration: 0.6 }}
+              transition={{ delay: Math.min(index, 5) * 0.1, duration: 0.6 }}
             >
               {/* Project Number & Meta */}
               <div className="flex items-start justify-between mb-6 gap-4">
@@ -267,7 +266,7 @@ export default function ProjectsGrid({ projects, allProjects }: ProjectsGridProp
               exit={{ opacity: 0 }}
               className="fixed inset-0 bg-black z-[9999] overflow-y-scroll"
               onClick={() => setSelectedProject(null)}
-              onWheel={(e) => e.stopPropagation()}
+              data-lenis-prevent
             >
               <div className="min-h-screen px-6 sm:px-8 md:px-12 lg:px-16 py-32">
                 <div className="max-w-[1920px] mx-auto" onClick={(e) => e.stopPropagation()}>

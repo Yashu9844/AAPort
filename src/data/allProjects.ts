@@ -75,7 +75,7 @@ export const allProjects: Project[] = [
     role: "Full Stack Developer",
     duration: "2 months",
     github: "https://github.com/Yashu9844/AIRBNB_NEXT",
-    live: "https://next-pro-3.vercel.app/",
+    // live: "https://next-pro-3.vercel.app/", // returned HTTP 500 on 2026-10-24; restore once fixed
     domains: ["Full Stack", "Product"],
     link: "#",
     credits: [{ role: "Product & Engineering", name: "Yashavanth R Siddesh" }],
@@ -127,7 +127,7 @@ export const allProjects: Project[] = [
     role: "Full Stack Developer",
     duration: "2 months",
     github: "https://github.com/Yashu9844/AI-IMAGE-EDITOR",
-    live: "https://ai-image-editor-deployed.vercel.app/",
+    live: "https://ai-image-editor-rosy.vercel.app/",
     domains: ["Full Stack", "AI/ML", "SaaS"],
     link: "#",
     credits: [{ role: "Product & Engineering", name: "Yashavanth R Siddesh" }],
@@ -532,7 +532,7 @@ export const allProjects: Project[] = [
     tech: ["Laravel 11", "PHP", "Redis", "WhatsApp API", "PhonePe", "DomPDF", "Sanctum", "Socialite", "MySQL"],
     role: "Backend Developer (Intern)",
     duration: "3 months",
-    live: "https://saveme.life",
+    // live: "https://saveme.life", // SSL certificate expired on 2026-10-24; restore once renewed
     domains: ["Backend", "SaaS", "Product"],
     link: "#",
     credits: [{ role: "Backend Development (Intern)", name: "Yashavanth R Siddesh" }],

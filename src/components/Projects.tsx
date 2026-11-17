@@ -1,12 +1,12 @@
 'use client'
 
 import React, { useState, useEffect } from 'react'
-import ProjectCard from './ProjectCard'
 import { useGSAP } from '@gsap/react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { motion, AnimatePresence } from 'framer-motion'
 import Link from 'next/link'
+import { lockScroll } from '@/lib/lenis'
 
 const Projects = () => {
   const [selectedProject, setSelectedProject] = useState<number | null>(null)
@@ -77,7 +77,7 @@ const Projects = () => {
       role: 'Full Stack Developer',
       duration: '2 months',
       github: 'https://github.com/Yashu9844/AIRBNB_NEXT',
-      live: 'https://next-pro-3.vercel.app/',
+      // live: 'https://next-pro-3.vercel.app/', // returned HTTP 500 on 2026-10-24; restore once fixed
       credits: [
         { role: 'Product & Engineering', name: 'Yashavanth R Siddesh' }
       ],
@@ -350,23 +350,17 @@ const Projects = () => {
 
   // ESC key to close modal & prevent body scroll
   useEffect(() => {
-  
+    if (selectedProject === null) return
 
-    
     const handleEsc = (e: KeyboardEvent) => {
       if (e.key === 'Escape') setSelectedProject(null)
     }
-    
-    if (selectedProject !== null) {
-      window.addEventListener('keydown', handleEsc)
-      document.body.style.overflow = 'hidden'
-    } else {
-      document.body.style.overflow = ''
-    }
-    
+    window.addEventListener('keydown', handleEsc)
+    lockScroll(true)
+
     return () => {
       window.removeEventListener('keydown', handleEsc)
-      document.body.style.overflow = ''
+      lockScroll(false)
     }
   }, [selectedProject])
 
@@ -377,7 +371,7 @@ const Projects = () => {
     
     // Only apply animation on non-mobile devices
     if (window.innerWidth > 768) {
-      const animation = gsap.fromTo('.hero', 
+      gsap.fromTo('.hero', 
         {
           height: '100px',
           opacity: 0.3
@@ -401,7 +395,7 @@ const Projects = () => {
 
     // Listen for programmatic scroll and instantly expand all cards
     const handleProgrammaticScroll = () => {
-      const scrollTarget = (window as any).__scrollTarget;
+      const scrollTarget = window.__scrollTarget;
       if (scrollTarget && ['testimonials', 'featured', 'approach', 'tech-stack'].includes(scrollTarget)) {
         // Instantly expand all cards
         gsap.set('.hero', { height: 'auto', opacity: 1 });
@@ -507,7 +501,7 @@ const Projects = () => {
           exit={{ opacity: 0 }}
           className='fixed inset-0 bg-black z-[9999] overflow-y-scroll'
           onClick={() => setSelectedProject(null)}
-          onWheel={(e) => e.stopPropagation()}
+          data-lenis-prevent
         >
           <div className='min-h-screen px-6 sm:px-8 md:px-12 lg:px-16 py-32'>
             <div className='max-w-[1920px] mx-auto' onClick={(e) => e.stopPropagation()}>

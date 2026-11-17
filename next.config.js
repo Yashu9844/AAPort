@@ -1,7 +1,8 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  typescript: {
-    ignoreBuildErrors: true,
+  turbopack: { root: __dirname },
+  async redirects() {
+    return [{ source: "/about2", destination: "/about", permanent: true }];
   },
 };
 

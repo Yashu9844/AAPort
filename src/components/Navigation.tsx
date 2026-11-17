@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import EyeFollower from './EyeFollower';
 import { useScrollToSection } from '@/hooks/useScrollToSection';
+import { profile } from '@/lib/site';
 
 export default function Navigation() {
   const [isMenuHovered, setIsMenuHovered] = useState(false);
@@ -175,14 +176,13 @@ export default function Navigation() {
                 setForceClosed(false);
                 setFastOpen(false);
               }}
-              onWheel={(e) => e.stopPropagation()}
-              onScroll={(e) => e.stopPropagation()}
+              data-lenis-prevent
             >
               <div className="p-4 sm:p-6 md:p-8 lg:p-10">
                 {/* Download Resume Button - Mobile Only */}
                 <a 
-                  href="/Resume-YashavanthRSiddesh.pdf" 
-                  download="Yashavanth_R_Siddesh_Resume.pdf"
+                  href={profile.resumeUrl}
+                  download={profile.resumeFileName}
                   className={`lg:hidden w-full bg-white/15 backdrop-blur-sm text-white py-2 rounded-full border border-white/30 text-xs font-accent transition-all duration-200 mb-6 flex items-center justify-center gap-1.5 ${
                   isMenuHovered 
                     ? 'opacity-100 translate-y-0 delay-[100ms]' 
@@ -229,12 +229,12 @@ export default function Navigation() {
                             transitionProperty: isMenuHovered ? 'opacity, transform' : 'opacity, transform, color'
                           }}
                           onMouseEnter={(e) => {
-                            e.target.style.transform = 'translateX(8px)';
-                            e.target.style.transition = 'transform 0.1s ease-out, color 0.1s ease-out';
+                            e.currentTarget.style.transform = 'translateX(8px)';
+                            e.currentTarget.style.transition = 'transform 0.1s ease-out, color 0.1s ease-out';
                           }}
                           onMouseLeave={(e) => {
-                            e.target.style.transform = 'translateX(0px)';
-                            e.target.style.transition = 'transform 0.1s ease-out, color 0.1s ease-out';
+                            e.currentTarget.style.transform = 'translateX(0px)';
+                            e.currentTarget.style.transition = 'transform 0.1s ease-out, color 0.1s ease-out';
                           }}
                         >
                           {item.label}
@@ -258,7 +258,7 @@ export default function Navigation() {
                     {[
                       { label: 'Home', href: '/' },
                       { label: 'Works', href: '/projects' },
-                      { label: 'About', href: '/about2' },
+                      { label: 'About', href: '/about' },
                       { label: 'Playground', href: '/playground' },
                       { label: 'Blogs', href: '/blog' },
                       { label: 'Contact', href: '/contact' }
@@ -276,12 +276,12 @@ export default function Navigation() {
                           transitionProperty: isMenuHovered ? 'opacity, transform' : 'opacity, transform, color'
                         }}
                         onMouseEnter={(e) => {
-                          e.target.style.transform = 'translateX(8px)';
-                          e.target.style.transition = 'transform 0.1s ease-out, color 0.1s ease-out';
+                          e.currentTarget.style.transform = 'translateX(8px)';
+                          e.currentTarget.style.transition = 'transform 0.1s ease-out, color 0.1s ease-out';
                         }}
                         onMouseLeave={(e) => {
-                          e.target.style.transform = 'translateX(0px)';
-                          e.target.style.transition = 'transform 0.1s ease-out, color 0.1s ease-out';
+                          e.currentTarget.style.transform = 'translateX(0px)';
+                          e.currentTarget.style.transition = 'transform 0.1s ease-out, color 0.1s ease-out';
                         }}
                       >
                         {item.label}
@@ -299,8 +299,8 @@ export default function Navigation() {
       {/* Download Resume Button - Desktop Only */}
       <div className="hidden lg:block fixed top-6 md:top-8 right-6 md:right-8 z-50">
         <a 
-          href="/Resume-YashavanthRSiddesh.pdf" 
-          download="Yashavanth_R_Siddesh_Resume.pdf"
+          href={profile.resumeUrl}
+          download={profile.resumeFileName}
           className="bg-black/30 backdrop-blur-md text-white px-4 py-3 rounded-lg md:rounded-[0.5vw] border border-white/10 transition-all duration-300 hover:bg-black/40 flex items-center gap-2"
         >
           {/* Download Icon */}

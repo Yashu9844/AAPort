@@ -12,6 +12,12 @@ const compat = new FlatCompat({
 const eslintConfig = [
   ...compat.extends("next/core-web-vitals", "next/typescript"),
   {
+    rules: {
+      // Apostrophes in prose render fine in React; escaping them all hurts readability.
+      "react/no-unescaped-entities": "off",
+    },
+  },
+  {
     ignores: [
       "node_modules/**",
       ".next/**",

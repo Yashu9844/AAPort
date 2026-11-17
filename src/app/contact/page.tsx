@@ -1,11 +1,10 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import Link from 'next/link';
-import { useState, useRef } from 'react';
+import { useState } from 'react';
 import { Github, Linkedin, Mail, ArrowUpRight, Send } from 'lucide-react';
 import Navigation from '@/components/Navigation';
-import Footer from '@/components/Footer';
+import { profile } from '@/lib/site';
 
 export default function ContactPage() {
   const [name, setName] = useState('');
@@ -17,8 +16,9 @@ export default function ContactPage() {
   const [statusMessage, setStatusMessage] = useState('');
   const [focusedField, setFocusedField] = useState<string | null>(null);
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    const website = new FormData(e.currentTarget).get('website');
     setLoading(true);
     setStatusMessage('');
 
@@ -32,6 +32,7 @@ export default function ContactPage() {
           name,
           email,
           message: `Company: ${company}\nBudget: ${budget}\n\nMessage:\n${message}`,
+          website,
         }),
       });
 
@@ -114,10 +115,10 @@ export default function ContactPage() {
                 <div className="group">
                   <p className="text-xs text-white/40 mb-2 tracking-wider uppercase">Email</p>
                   <a 
-                    href="mailto:yashavanth.siddesh@example.com"
+                    href={`mailto:${profile.email}`}
                     className="text-white text-lg sm:text-xl font-light hover:text-white/70 transition-colors flex items-center gap-2"
                   >
-                    yashavanth.siddesh@example.com
+                    {profile.email}
                     <ArrowUpRight className="w-4 h-4 opacity-0 group-hover:opacity-100 transition-opacity" />
                   </a>
                 </div>
@@ -154,7 +155,7 @@ export default function ContactPage() {
                 <p className="text-xs text-white/40 tracking-wider uppercase">Connect</p>
                 <div className="flex gap-4">
                   <a
-                    href="https://github.com/YashavanthR"
+                    href={profile.github}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="w-12 h-12 rounded-lg border border-white/10 bg-white/5 flex items-center justify-center hover:border-white/30 hover:bg-white/10 transition-all duration-300 group"
@@ -170,7 +171,7 @@ export default function ContactPage() {
                     <Linkedin className="w-5 h-5 text-white/70 group-hover:text-white transition-colors" />
                   </a>
                   <a
-                    href="https://leetcode.com/u/yashavanth_r_siddesh"
+                    href={profile.leetcode}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="w-12 h-12 rounded-lg border border-white/10 bg-white/5 flex items-center justify-center hover:border-white/30 hover:bg-white/10 transition-all duration-300 group"
@@ -203,6 +204,7 @@ export default function ContactPage() {
                 {/* Form Container */}
                 <div className="bg-white/[0.02] backdrop-blur-sm border border-white/10 p-8 sm:p-10 md:p-12">
                   <form onSubmit={handleSubmit} className="space-y-8">
+                    <input type="text" name="website" tabIndex={-1} autoComplete="off" aria-hidden="true" className="hidden" />
                     
                     {/* Name & Email Row */}
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
@@ -372,7 +374,7 @@ export default function ContactPage() {
               </p>
               <div className="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-8">
                 <a
-                  href="mailto:yashavanth.siddesh@example.com"
+                  href={`mailto:${profile.email}`}
                   className="group flex items-center gap-2 text-white/70 hover:text-white transition-colors"
                 >
                   <Mail className="w-5 h-5" />

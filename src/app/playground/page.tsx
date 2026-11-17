@@ -2,7 +2,7 @@
 
 import { useState, useRef, useEffect } from 'react';
 import Link from 'next/link';
-import { motion, useMotionValue, useTransform } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { ArrowLeft, Play, RotateCcw, Trophy, Target, Zap } from 'lucide-react';
 
 // Game 1: Click Precision - Premium accuracy game
@@ -14,7 +14,7 @@ const ClickPrecisionGame = () => {
   const [combo, setCombo] = useState(0);
   const [missClick, setMissClick] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
-  const timerRef = useRef<NodeJS.Timeout>();
+  const timerRef = useRef<NodeJS.Timeout | undefined>(undefined);
   const gameActiveRef = useRef(false);
 
   const startGame = () => {
@@ -63,17 +63,13 @@ const ClickPrecisionGame = () => {
     // Outer ring (60-100% radius) = 40% points (0.4x)
     const normalizedDistance = distance / maxDistance;
     let precisionMultiplier = 1.0;
-    let hitZone = 'perfect';
     
     if (normalizedDistance <= 0.25) {
       precisionMultiplier = 1.0;
-      hitZone = 'perfect';
     } else if (normalizedDistance <= 0.60) {
       precisionMultiplier = 0.7;
-      hitZone = 'good';
     } else {
       precisionMultiplier = 0.4;
-      hitZone = 'hit';
     }
     
     const earnedPoints = Math.round(target.points * precisionMultiplier);
@@ -85,7 +81,6 @@ const ClickPrecisionGame = () => {
     setTargets([]);
     
     // Show hit feedback (optional: you can enhance this later)
-    console.log(`Hit: ${hitZone} | Points: ${earnedPoints} | Distance: ${normalizedDistance.toFixed(2)}`);
     
     // Spawn next target immediately
     setTimeout(() => {
@@ -265,7 +260,7 @@ const ReactionGame = () => {
   const [reactionTime, setReactionTime] = useState<number | null>(null);
   const [bestTime, setBestTime] = useState<number | null>(null);
   const [startTime, setStartTime] = useState(0);
-  const timeoutRef = useRef<NodeJS.Timeout>();
+  const timeoutRef = useRef<NodeJS.Timeout | undefined>(undefined);
 
   const startGame = () => {
     setGameState('waiting');

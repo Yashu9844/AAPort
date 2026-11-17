@@ -2,8 +2,8 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Github, Linkedin, Mail, ExternalLink } from "lucide-react";
-import { useState, useRef, useLayoutEffect, useCallback } from "react";
-import { motion, useInView } from "framer-motion";
+import { useState, useRef, useLayoutEffect } from "react";
+import { motion, type Variants } from "framer-motion";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
@@ -32,8 +32,9 @@ const Footer = () => {
   const contentRef = useRef<HTMLDivElement>(null);
   const backgroundRef = useRef<HTMLDivElement>(null);
 
-  const handleNewsletterSubmit = async (e: React.FormEvent) => {
+  const handleNewsletterSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    const website = new FormData(e.currentTarget).get('website');
     setLoading(true);
     setStatusMessage("");
 
@@ -49,6 +50,7 @@ const Footer = () => {
           email,
           name,
           message: htmlContent || message,
+          website,
         }),
       });
 
@@ -122,9 +124,6 @@ const Footer = () => {
   };
 
   const handleFormatClick = (command: string) => {
-    // Store the current selection
-    const selection = window.getSelection();
-    
     // Ensure the editor is focused
     if (messageRef.current) {
       messageRef.current.focus();
@@ -176,7 +175,7 @@ const Footer = () => {
     };
   }, []);
 
-  const containerVariants = {
+  const containerVariants: Variants = {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
@@ -189,7 +188,7 @@ const Footer = () => {
     },
   };
 
-  const sectionVariants = {
+  const sectionVariants: Variants = {
     hidden: { opacity: 0, y: 30 },
     visible: {
       opacity: 1,
@@ -198,7 +197,7 @@ const Footer = () => {
     },
   };
 
-  const itemVariants = {
+  const itemVariants: Variants = {
     hidden: { opacity: 0, y: 10 },
     visible: {
       opacity: 1,
@@ -211,7 +210,7 @@ const Footer = () => {
     },
   };
 
-  const socialIconVariants = {
+  const socialIconVariants: Variants = {
     hidden: { opacity: 0, scale: 0.8 },
     visible: {
       opacity: 1,
@@ -312,6 +311,7 @@ const Footer = () => {
                 className="space-y-3"
                 variants={sectionVariants}
               >
+                <input type="text" name="website" tabIndex={-1} autoComplete="off" aria-hidden="true" className="hidden" />
                 <div className="grid grid-cols-2 gap-3">
                   <motion.div variants={itemVariants}>
                     <Input
@@ -457,10 +457,15 @@ const Footer = () => {
                 Navigation
               </h3>
               <nav className="space-y-4">
-                {['Home', 'Work', 'About', 'Contact'].map((item) => (
+                {[
+                  { label: 'Home', href: '/' },
+                  { label: 'Work', href: '/projects' },
+                  { label: 'About', href: '/about' },
+                  { label: 'Contact', href: '/contact' },
+                ].map(({ label: item, href }) => (
                   <motion.a
                     key={item}
-                    href={`/${item.toLowerCase() === 'home' ? '' : item.toLowerCase()}`}
+                    href={href}
                     className="group block text-lg text-white hover:text-white/70 transition-all duration-300"
                     variants={itemVariants}
                     whileHover="hover"

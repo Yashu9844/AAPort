@@ -1,9 +1,7 @@
 "use client";
 
-import { motion, MotionValue, useScroll, useTransform } from "framer-motion";
-import Lenis from "lenis";
+import { motion, MotionValue, PanInfo, useScroll, useTransform } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
-import gsap from "gsap";
 
 const images = [
   "/images/testimonial1.png",
@@ -22,15 +20,11 @@ const images = [
 
 const CircleCarousel = () => {
   const gallery = useRef<HTMLDivElement>(null);
-  const mobileCarouselRef = useRef<HTMLDivElement>(null);
   const [dimension, setDimension] = useState({ width: 0, height: 0 });
   const [isArrowHovered, setIsArrowHovered] = useState(false);
   const [isMobile, setIsMobile] = useState(true); // Start as true to prevent hydration issues
   const [currentIndex, setCurrentIndex] = useState(0);
-  const dragX = useRef(0);
   const autoSwipeRef = useRef<NodeJS.Timeout | null>(null);
-  const touchStartX = useRef(0);
-  const lastManualSwipeRef = useRef<number>(Date.now());
 
   const { scrollYProgress } = useScroll({
     target: !isMobile ? gallery : undefined,
@@ -44,13 +38,6 @@ const CircleCarousel = () => {
   const y4 = useTransform(scrollYProgress, [0, 1], [0, height * 3]);
 
   useEffect(() => {
-    const lenis = new Lenis();
-
-    const raf = (time: number) => {
-      lenis.raf(time);
-      requestAnimationFrame(raf);
-    };
-
     const resize = () => {
       const width = window.innerWidth;
       const isMobileView = width < 1024; // Show mobile version on tablets too (< 1024px)
@@ -59,7 +46,6 @@ const CircleCarousel = () => {
     };
 
     window.addEventListener("resize", resize);
-    requestAnimationFrame(raf);
     resize();
 
     return () => {
@@ -83,10 +69,10 @@ const CircleCarousel = () => {
     return () => {
       if (autoSwipeRef.current) clearInterval(autoSwipeRef.current);
     };
-  }, [isMobile, images.length]);
+  }, [isMobile]);
 
   // Handle drag end
-  const handleDragEnd = (event: any, info: any) => {
+  const handleDragEnd = (_event: unknown, info: PanInfo) => {
     if (!isMobile) return;
     
     const offset = info.offset.x;
