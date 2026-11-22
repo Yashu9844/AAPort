@@ -26,7 +26,7 @@ export const allProjects: Project[] = [
   // ===== CURRENT WORK (from resume) =====
   {
     id: 51,
-    image: '/projects/crewforge/chat-with-screen.webp',
+    image: '/projects/covers/crewforge.webp',
     title: 'CrewForge – Multi‑Agent AI Workspace',
     category: 'Agentic AI Platform',
     year: '2026',
@@ -63,7 +63,7 @@ export const allProjects: Project[] = [
   },
   {
     id: 52,
-    image: '/projects/dats.svg',
+    image: '/projects/covers/dats.webp',
     title: 'DATS – Digital Array Telemetry System',
     category: 'Distributed Systems · Ground Station',
     year: '2026',
@@ -91,7 +91,7 @@ export const allProjects: Project[] = [
   },
   {
     id: 53,
-    image: '/projects/tracking.svg',
+    image: '/projects/covers/tracking.webp',
     title: 'Distributed Surveillance & Space Object Tracking',
     category: 'Distributed Systems · Real‑Time',
     year: '2025',
@@ -189,7 +189,7 @@ export const allProjects: Project[] = [
     title: "Sri Sai Baba Tool Rental – Shop Operations App",
     category: "Full Stack · Mobile",
     year: "2026",
-    image: "/projects/toolrental.jpg",
+    image: "/projects/covers/toolrental.webp",
     description: "A mobile‑first operations and point‑of‑sale app for a real tool‑rental shop: inventory, rentals, returns, and payments from a phone, shipped to Android with Capacitor.",
     fullDescription: [
       "Client → Built for Sri Sai Baba Tool Rentals so staff can run the shop counter from a phone or tablet without losing track of tools or money.",
@@ -203,7 +203,7 @@ export const allProjects: Project[] = [
     domains: ["Full Stack", "Mobile"],
     link: "#",
     credits: [{ role: "Product & Engineering", name: "Yashavanth R Siddesh" }],
-    mediaSections: [{ items: [{ type: "image" as const, url: "/projects/toolrental.jpg" }], layout: "single" as const }],
+    mediaSections: [{ items: [{ type: "image" as const, url: "/projects/toolrental/home.webp" }, { type: "image" as const, url: "/projects/toolrental/inventory.webp" }], layout: "grid-2" as const }, { items: [{ type: "image" as const, url: "/projects/toolrental.jpg" }], layout: "single" as const }],
     relatedProjects: [54, 58]
   },
   {

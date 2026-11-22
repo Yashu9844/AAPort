@@ -83,27 +83,27 @@ const About = () => {
 
         <div className="space-y-4 md:space-y-6 font-kh-teka" style={{ fontSize: '18px', lineHeight: '24px', color: 'rgb(229, 229, 229)' }}>
           <p className="about-paragraph md:text-[20px] md:leading-[26px]">
-            I&apos;m Yashavanth R Siddesh, a Software Development Engineer and Team Lead from Bengaluru with 1.5+ years of experience building distributed, real-time systems and production agentic AI.
+            I&apos;m Yashavanth R Siddesh, a software engineer from Bengaluru. I wrote my first real program in December 2022, the month I started my B.Tech at MVJ College of Engineering, and I haven&apos;t stopped shipping since.
           </p>
 
           <p className="about-paragraph md:text-[20px] md:leading-[26px]">
-            At FalconX Technologies, which delivers software for ISRO programs, I lead a 4-member team that owns the architecture of a distributed satellite telemetry and tracking platform: GPU-accelerated telemetry processing for 70+ simultaneous satellites, an event-driven RabbitMQ layer for subsystem health monitoring, and the service boundaries and API contracts for ingestion, monitoring, and archival.
+            2023 was the grind: data structures every single day until 500+ problems were behind me, 400+ of them on LeetCode. Then came the proving ground: 1st in Web Development out of 30+ teams, 1st at ML NOVA out of 150+ participants, and 1st at the Vertex 2.0 Hackathon. In 2024 alone I pushed 724 public contributions to GitHub.
           </p>
 
           <p className="about-paragraph md:text-[20px] md:leading-[26px]">
-            At RoborosX, I designed the Clinic Management backend for SaveMe.life v2, handling 2,000+ daily consultations, built real-time GPS vehicle tracking over MQTT and RabbitMQ for a school-transport ERP, and cut system load time by 45%.
+            While still a student I took my first engineering job at RoborosX. I designed the clinic backend behind SaveMe.life, now handling 2,000+ consultations a day, built live GPS tracking for school buses over MQTT and RabbitMQ, and cut load times by 45%. Lectures by day, production systems by night.
           </p>
 
           <p className="about-paragraph md:text-[20px] md:leading-[26px]">
-            Outside work I build agentic AI. CrewForge is a multi-agent workspace where autonomous bots collaborate, hand off tasks, and act inside their own cloud sandboxes, running as durable agent loops on Trigger.dev.
+            In December 2025 I joined FalconX Technologies, which builds software for ISRO programs, and went straight into the deep end: a distributed system tracking 30,000+ space objects in real time. I earned my place there, and in June 2026, before I had even graduated, I was made Software Lead for DATS, our ground-station telemetry platform: a team of four, 70+ satellites, from RF signal to operator dashboard.
           </p>
 
           <p className="about-paragraph md:text-[20px] md:leading-[26px]">
-            I&apos;ve solved 500+ coding problems (400+ on LeetCode) and won 1st place in Web Development (30+ teams), ML NOVA (150+ participants), and the Vertex 2.0 Hackathon, plus 3rd in an 8-hour national hackathon. I&apos;m completing my B.Tech in Computer Science at MVJ College of Engineering (CGPA 8.7).
+            Nights and weekends go to agentic AI. CrewForge gives every AI teammate its own cloud computer, a desktop it can browse, code and click around in while you watch.
           </p>
 
           <p className="about-paragraph md:text-[20px] md:leading-[26px]">
-            I build systems that scale, experiences that resonate, and solutions that last—with clarity, craft, and intention.
+            None of it was luck. It was four years of showing up every day. I build systems that scale, and I&apos;m only getting started.
           </p>
 
           <div className="pt-4">

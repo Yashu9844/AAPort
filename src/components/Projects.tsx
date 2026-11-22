@@ -347,7 +347,7 @@ const Projects = () => {
       relatedProjects: [1, 5]
     },
     {
-      image: '/projects/crewforge/chat-with-screen.webp',
+      image: '/projects/covers/crewforge.webp',
       title: 'CrewForge – Multi‑Agent AI Workspace',
       category: 'Agentic AI Platform',
       year: '2026',
@@ -381,7 +381,7 @@ const Projects = () => {
       relatedProjects: [9, 3]
     },
     {
-      image: '/projects/dats.svg',
+      image: '/projects/covers/dats.webp',
       title: 'DATS – Digital Array Telemetry System',
       category: 'Distributed Systems · Ground Station',
       year: '2026',
@@ -406,7 +406,7 @@ const Projects = () => {
       relatedProjects: [10, 8]
     },
     {
-      image: '/projects/tracking.svg',
+      image: '/projects/covers/tracking.webp',
       title: 'Distributed Surveillance & Space Object Tracking',
       category: 'Distributed Systems · Real‑Time',
       year: '2025',
@@ -428,11 +428,44 @@ const Projects = () => {
       ],
       mediaSections: [],
       relatedProjects: [9, 8]
+    },
+    {
+      image: '/projects/covers/toolrental.webp',
+      title: 'Sri Sai Baba Tool Rental – Shop Operations App',
+      category: 'Full Stack · Mobile · Client Project',
+      year: '2026',
+      description: 'A mobile‑first operations and point‑of‑sale app for a real tool‑rental shop: inventory, rentals, returns, and payments from a phone, shipped to Android with Capacitor.',
+      fullDescription: [
+        'Client → Built for Sri Sai Baba Tool Rentals so staff can run the shop counter from a phone or tablet without losing track of tools or money.',
+        'Workflow → Inventory of tool models and individual units, customers, rentals with deposits and payment methods, returns, overdue flags, and an activity log of every change.',
+        'Engineering → Next.js with Prisma, Cloudinary for tool photos, and Zustand; packaged as an Android app via Capacitor with on‑device SQLite.'
+      ],
+      informationParagraphs: [
+        'Designed for the counter, not the office: big touch targets, minimal typing, and clear status colours so a busy shop can hand out and take back tools in seconds.'
+      ],
+      tech: ['Next.js', 'TypeScript', 'Prisma', 'Cloudinary', 'Zustand', 'Capacitor', 'SQLite', 'Android'],
+      role: 'Freelance Full Stack Developer',
+      duration: 'Client project',
+      github: 'https://github.com/Yashu9844/Adesai',
+      live: 'https://srisaibabastore.vercel.app',
+      credits: [
+        { role: 'Product & Engineering', name: 'Yashavanth R Siddesh' }
+      ],
+      mediaSections: [
+        {
+          items: [
+            { type: 'image', url: '/projects/toolrental/home.webp' },
+            { type: 'image', url: '/projects/toolrental/inventory.webp' }
+          ],
+          layout: 'grid-2'
+        }
+      ],
+      relatedProjects: [8, 0]
     }
   ]
 
   // Order shown on the home page (indices into `projects`); the first six are displayed
-  const featuredOrder = [8, 9, 10, 0, 3, 5]
+  const featuredOrder = [8, 9, 10, 11, 0, 3]
 
   // ESC key to close modal & prevent body scroll
   useEffect(() => {

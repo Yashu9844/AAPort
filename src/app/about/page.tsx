@@ -262,81 +262,111 @@ const ProcessSection = () => {
   );
 };
 
-export default function About2() {
+export default function AboutPage() {
   return (
     <div className="min-h-screen bg-black text-white">
       {/* Hero Section */}
       <div className="pt-32 pb-16 px-6 sm:px-8 md:px-12 lg:px-16">
         <div className="max-w-7xl mx-auto">
           <p className="text-xs tracking-widest text-gray-500 mb-6 uppercase font-kh-teka">
-            📖 ABOUT
+            About
           </p>
           <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold mb-6 leading-none font-kh-teka">
             Yashavanth R Siddesh
           </h1>
           <p className="text-xl text-gray-400 font-light font-kh-teka">
-            Full Stack Developer · Bengaluru
+            Software Engineer &amp; Team Lead, Bengaluru
           </p>
         </div>
       </div>
 
-      {/* Hero Image */}
+      {/* Journey */}
       <div className="px-6 sm:px-8 md:px-12 lg:px-16">
         <div className="max-w-7xl mx-auto">
-          <MediaSection imageSrc="/image1pro.png" alt="Yashavanth R Siddesh" />
+          <MediaSection imageSrc="/about/journey.webp" alt="Timeline from first code in 2022 to Software Lead in 2026" />
         </div>
       </div>
 
-      {/* Introduction Text */}
       <div className="px-6 sm:px-8 md:px-12 lg:px-16">
         <div className="max-w-7xl mx-auto">
-          <TextSection 
+          <TextSection
             paragraphs={[
-              "I'm Yashavanth R Siddesh, a Full Stack Developer from Bengaluru. I focus on clean engineering, strong product thinking, and purposeful interfaces that solve meaningful problems. My work lives at the intersection of design and code—where technical precision meets human experience.",
-              "I started coding a year and a half ago, but my journey has been anything but conventional. I didn't take the traditional computer science path. Instead, I learned by building—real projects with real users, real deadlines, and real consequences. Every line of code I write is a reflection of my belief that technology should empower people, not complicate their lives."
+              "I'm Yashavanth R Siddesh, a software engineer from Bengaluru. I lead a team building satellite telemetry software, and I build AI agents that work on their own computers.",
+              "None of that was the plan in December 2022, when I started my B.Tech in Computer Science at MVJ College of Engineering and wrote my first real program. I didn't know what an API was. What I did have was a stubborn habit: open the laptop every day and build something, even when it was small, even when it was broken.",
             ]}
           />
         </div>
       </div>
 
-      {/* Project Image 1 */}
-      <div className="px-6 sm:px-8 md:px-12 lg:px-16">
-        <div className="max-w-7xl mx-auto space-y-1">
-          <MediaSection imageSrc="/image1pro.png" alt="RoborosX Project" />
-        </div>
-      </div>
-
-      {/* Experience Section */}
+      {/* The grind */}
       <div className="px-6 sm:px-8 md:px-12 lg:px-16">
         <div className="max-w-7xl mx-auto">
-          <TextSection 
+          <SectionSeparator />
+          <InformationSection
+            title="The grind"
             paragraphs={[
-              "At RoborosX, I built the Clinic Management module for SaveMe.life—a live health system handling 2,000+ daily consultations. I improved load times by 45%, redesigned critical UI components, and contributed to three major product upgrades that increased appointment completion rates by 25%.",
-              "Working in healthcare taught me something crucial: performance isn't just a technical metric—it's a user experience variable that can determine whether a doctor can see one more patient, or whether a booking gets completed before someone gives up. I obsessed over every millisecond, every interaction pattern, every edge case. That mindset shaped how I approach every project today."
+              "2023 was about fundamentals. Data structures and algorithms every single day until 500+ problems were behind me, 400+ of them on LeetCode. Then I pointed that habit at real products: blogs, chat apps, e-commerce stores, clones of the apps I used, each one a little harder than the last.",
+              "2024 is when it compounded. I pushed 724 public contributions to GitHub that year and started winning: 1st in Web Development out of 30+ teams, 1st at ML NOVA out of 150+ participants with an NLP voice agent that had memory, and 1st at the Vertex 2.0 Hackathon. The heatmap below isn't a claim, it's the receipt.",
             ]}
           />
-        </div>
-      </div>
-
-      {/* Project Image 2 */}
-      <div className="px-6 sm:px-8 md:px-12 lg:px-16">
-        <div className="max-w-7xl mx-auto space-y-1">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-1">
-            <MediaSection imageSrc="/image1pro.png" alt="SDC Experience" />
-            <MediaSection imageSrc="/image1pro.png" alt="Teaching Students" />
+          <div className="mt-12">
+            <MediaSection imageSrc="/about/github-activity.webp" alt="GitHub contribution heatmap, 2023 to 2025" />
           </div>
         </div>
       </div>
 
-      {/* SDC Experience */}
+      {/* RoborosX */}
       <div className="px-6 sm:px-8 md:px-12 lg:px-16">
         <div className="max-w-7xl mx-auto">
-          <TextSection 
+          <SectionSeparator />
+          <InformationSection
+            title="First real job"
             paragraphs={[
-              "At SDC (Student Developer Community), I worked with a six-member team and mentored over 300 students through the fundamentals of web development. We built internal tools that improved workflows by 40%, making operations smoother and more efficient.",
-              "Teaching forced me to simplify complex concepts, and leading a team taught me how to balance technical excellence with empathy and clear communication. It's one thing to build something yourself—it's another to teach someone else how to build it."
+              "While I was still a student, RoborosX trusted me with production. I designed the Clinic Management backend for SaveMe.life v2, which now handles 2,000+ consultations a day. I built live GPS tracking for a school-transport ERP, streaming every bus's location over MQTT and RabbitMQ, and I refactored queries, routing, and controllers until the system loaded 45% faster.",
+              "Lectures by day, production systems by night. Healthcare taught me that performance isn't a vanity metric: a faster page is a doctor seeing one more patient, a booking that gets finished instead of abandoned.",
             ]}
           />
+          <div className="mt-12">
+            <MediaSection imageSrc="/about/roborosx.webp" alt="SaveMe.life: 2,000+ consultations a day, 45% faster load times" />
+          </div>
+        </div>
+      </div>
+
+      {/* FalconX */}
+      <div className="px-6 sm:px-8 md:px-12 lg:px-16">
+        <div className="max-w-7xl mx-auto">
+          <SectionSeparator />
+          <InformationSection
+            title="Into space tech"
+            paragraphs={[
+              "In December 2025 I joined FalconX Technologies, which builds software for ISRO programs, and went straight into the deep end: a distributed surveillance and space-object tracking system designed to follow 30,000+ objects in real time, plus a drone mission-planning backend on MAVLink, Redis, and Django Channels.",
+              "I earned my place there. In June 2026, before I had even graduated, I was made Software Lead for DATS, our Digital Array Telemetry System. I now lead a team of four through the whole ground-station chain: CCSDS telemetry decoding, native C++ RF processing with Reed–Solomon and Viterbi, an event-driven RabbitMQ backbone, and GPU-accelerated processing for 70+ satellites.",
+            ]}
+          />
+          <div className="mt-12 space-y-1">
+            <MediaSection imageSrc="/about/falconx.webp" alt="FalconX Electro Technologies: Software Lead for DATS since June 2026" />
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-1">
+              <MediaSection imageSrc="/projects/covers/tracking.webp" alt="Space object tracking system" />
+              <MediaSection imageSrc="/projects/covers/dats.webp" alt="DATS ground-station telemetry platform" />
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* SDC */}
+      <div className="px-6 sm:px-8 md:px-12 lg:px-16">
+        <div className="max-w-7xl mx-auto">
+          <SectionSeparator />
+          <InformationSection
+            title="Giving back"
+            paragraphs={[
+              "At the Software Development Club I mentored 300+ students through web fundamentals across 5+ workshops, and built the college event website with payment integration. Teaching forced me to understand things properly: you can't explain what you only half know.",
+            ]}
+          />
+          <div className="mt-12 grid grid-cols-1 md:grid-cols-2 gap-1">
+            <MediaSection imageSrc="/about/sdc-mentoring.webp" alt="300+ students mentored" />
+            <MediaSection imageSrc="/about/sdc-workshops.webp" alt="5+ workshops led" />
+          </div>
         </div>
       </div>
 
@@ -353,39 +383,22 @@ export default function About2() {
         <div className="max-w-7xl mx-auto">
           <SectionSeparator />
           <InformationSection
-            title="Projects"
+            title="Building after hours"
             paragraphs={[
-              "The projects I've built reflect my hunger to tackle meaningful challenges. I designed and launched an Interactive Phone Case eCommerce Platform using Next.js, Stripe, Kinde Auth, and Cloudinary—a fully custom configurator that allowed users to submit over 50 unique designs. The platform maintains 99% uptime, with automated email workflows and seamless order processing.",
-              "Then there's my Agentic AI for Career Guidance—a RAG-powered mentorship system featuring five AI-driven workflows and intelligent scheduling that boosted beta user engagement by 30%. This project pushed me into the world of machine learning, natural language processing, and conversational AI.",
-              "With SaveMe.life, I didn't just contribute—I reshaped the product experience. Using Laravel and Blade, I built systems that now serve 500+ active doctors and handle thousands of appointments. I added modules that transformed how patients and doctors interact with the platform, improving appointment booking speed by 25%."
+              "Nights and weekends go to my own products. CrewForge is a multi-agent workspace where every AI teammate gets its own cloud computer, a full Linux desktop it can browse, code, and click around in while you watch, with durable agent loops on Trigger.dev and real billing on Clerk and Neon.",
+              "I also ship for real clients. The Sri Sai Baba tool-rental app runs an actual shop's counter from a phone: inventory, rentals, returns, and payments, packaged as an Android app. And the custom phone-case store, with a live on-canvas editor and Stripe checkout, is live for anyone to try.",
             ]}
           />
         </div>
       </div>
 
-      {/* Project Grid */}
       <div className="px-6 sm:px-8 md:px-12 lg:px-16">
         <div className="max-w-7xl mx-auto space-y-1 my-12">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-1">
-            <MediaSection imageSrc="/image1pro.png" alt="Case eCommerce" />
-            <MediaSection imageSrc="/image1pro.png" alt="Agentic AI" />
-            <MediaSection imageSrc="/image1pro.png" alt="SaveMe.life" />
+            <MediaSection imageSrc="/projects/covers/crewforge.webp" alt="CrewForge multi-agent AI workspace" />
+            <MediaSection imageSrc="/projects/covers/toolrental.webp" alt="Sri Sai Baba tool rental app" />
+            <MediaSection imageSrc="/portfolio-images-work/figma-working/phonecasehome.png" alt="Custom phone case store" />
           </div>
-        </div>
-      </div>
-
-      {/* Achievements Section */}
-      <div className="px-6 sm:px-8 md:px-12 lg:px-16">
-        <div className="max-w-7xl mx-auto">
-          <SectionSeparator />
-          <InformationSection
-            title="Achievements"
-            paragraphs={[
-              "I've competed in some of the most intense coding arenas, solving 500+ problems (400+ on LeetCode) and taking home wins that pushed my limits. I secured 1st place in Web Development for delivering the deepest UI/UX and feature set, won 1st place in ML NOVA by building an NLP-powered voice agent with memory, and took 1st at the Vertex 2.0 Hackathon.",
-              "I earned 2nd place in two major DSA challenges and grabbed 3rd place in an 8-hour AI Hackathon focused on disaster management. These victories weren't just badges—they were proof that I could deliver under pressure, think strategically, and execute flawlessly when it mattered most.",
-              "Problem-solving is where I thrive. Whether it's optimizing a database query, refactoring a messy codebase, or designing an entire system from scratch, I approach every challenge with curiosity and rigor."
-            ]}
-          />
         </div>
       </div>
 
@@ -394,11 +407,10 @@ export default function About2() {
         <div className="max-w-7xl mx-auto">
           <SectionSeparator />
           <InformationSection
-            title="Philosophy"
+            title="What I believe"
             paragraphs={[
-              "Today, I'm not just building projects—I'm building systems that scale, experiences that resonate, and solutions that last. Whether it's optimizing backend performance with Laravel and Blade, crafting responsive interfaces with Next.js and TailwindCSS, or architecting AI-powered workflows with Python and RAG pipelines, I approach every challenge with the same relentless focus: make it work, make it better, make it matter.",
-              "I'm driven by the moments where technical precision meets human experience. I believe the best products feel invisible—they just work. And I'm here to keep building them, one line of code, one pixel, one user interaction at a time.",
-              "I believe the best solutions are often the simplest ones—the ones that feel obvious in hindsight but require deep thinking to discover. That's what drives me: clarity, craft, and intention."
+              "Consistency beats talent that doesn't show up. Four years ago I couldn't write an API; today I lead a team shipping software for satellites. The difference was never one big leap, it was a thousand ordinary days of building.",
+              "I care about systems that keep working when it matters: clean service boundaries, honest metrics, and interfaces that feel obvious. Make it work, make it fast, make it matter. I'm only getting started.",
             ]}
           />
         </div>
@@ -416,11 +428,11 @@ export default function About2() {
             </div>
             <div className="lg:col-span-10">
               <div className="space-y-2">
-                <p className="text-lg text-white font-normal font-kh-teka">Frontend → Next.js, React, TailwindCSS</p>
-                <p className="text-lg text-white font-normal font-kh-teka">Backend → Laravel, Node.js, Python</p>
-                <p className="text-lg text-white font-normal font-kh-teka">Database → MySQL, PostgreSQL, MongoDB</p>
-                <p className="text-lg text-white font-normal font-kh-teka">AI/ML → RAG, NLP, OpenAI APIs</p>
-                <p className="text-lg text-white font-normal font-kh-teka">Tools → Git, Docker, Stripe, Cloudinary</p>
+                <p className="text-lg text-white font-normal font-kh-teka">Systems → Rust, C++, CUDA, RabbitMQ, Kafka, MQTT, gRPC, WebSockets</p>
+                <p className="text-lg text-white font-normal font-kh-teka">Backend → Django, Node.js, Laravel, FastAPI, Go</p>
+                <p className="text-lg text-white font-normal font-kh-teka">Frontend → Next.js, React, TypeScript, TailwindCSS</p>
+                <p className="text-lg text-white font-normal font-kh-teka">Agentic AI → Vercel AI SDK, Trigger.dev, Daytona, LangChain, LangGraph, MCP</p>
+                <p className="text-lg text-white font-normal font-kh-teka">Data &amp; Cloud → PostgreSQL, Redis, MongoDB, Neon, AWS, Azure, Docker</p>
               </div>
             </div>
           </div>
@@ -431,7 +443,7 @@ export default function About2() {
       <div className="px-6 sm:px-8 md:px-12 lg:px-16 pb-16">
         <div className="max-w-7xl mx-auto">
           <SectionSeparator />
-          <Link 
+          <Link
             href="/"
             className="inline-flex items-center gap-2 text-white/70 hover:text-white transition-colors duration-300 font-light tracking-wide border-b border-white/30 pb-0.5 font-kh-teka"
           >
