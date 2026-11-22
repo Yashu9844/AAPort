@@ -51,7 +51,7 @@ const Page2 = () => {
       type: 'EXPERIENCE',
       title: 'Freelance Web Developer',
       subtitle: 'E‑commerce Stores, Business Dashboards & Custom Landing Pages for Clients',
-      image: '/projects/toolrental.jpg',
+      image: '/experience/freelance.webp',
       link: '#',
     },
   ];
