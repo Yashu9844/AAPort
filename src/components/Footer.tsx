@@ -1,598 +1,297 @@
 "use client";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Github, Linkedin, Mail, ExternalLink } from "lucide-react";
-import { useState, useRef, useLayoutEffect } from "react";
-import { motion, type Variants } from "framer-motion";
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
 
-if (typeof window !== "undefined") {
-  gsap.registerPlugin(ScrollTrigger);
+import Link from "next/link";
+import { useEffect, useState } from "react";
+import { motion } from "framer-motion";
+import { ArrowUpRight, Check, Code2, Copy, Download, Github, Linkedin, Mail, MapPin } from "lucide-react";
+import { getLenis } from "@/lib/lenis";
+import { profile } from "@/lib/site";
+
+const navLinks = [
+  { label: "Home", href: "/" },
+  { label: "Work", href: "/projects" },
+  { label: "About", href: "/about" },
+  { label: "Blog", href: "/blog" },
+  { label: "Contact", href: "/contact" },
+];
+
+const socials = [
+  { label: "LinkedIn", href: profile.linkedin, icon: Linkedin },
+  { label: "GitHub", href: profile.github, icon: Github },
+  { label: "LeetCode", href: profile.leetcode, icon: Code2 },
+];
+
+const fieldClass =
+  "w-full bg-transparent border-0 border-b border-white/20 px-0 py-3 text-base text-white placeholder:text-white/35 font-light focus:outline-none focus:border-white transition-colors";
+
+// Live local time in Bengaluru, rendered only on the client to avoid hydration mismatch
+function useBengaluruTime() {
+  const [time, setTime] = useState<string | null>(null);
+  useEffect(() => {
+    const format = () =>
+      new Intl.DateTimeFormat("en-IN", { hour: "2-digit", minute: "2-digit", hour12: true, timeZone: "Asia/Kolkata" }).format(new Date());
+    setTime(format());
+    const id = setInterval(() => setTime(format()), 30_000);
+    return () => clearInterval(id);
+  }, []);
+  return time;
 }
 
 const Footer = () => {
-  const [email, setEmail] = useState("");
   const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
+  const [status, setStatus] = useState<{ ok: boolean; text: string } | null>(null);
   const [loading, setLoading] = useState(false);
-  const [statusMessage, setStatusMessage] = useState("");
-  const [activeFormats, setActiveFormats] = useState<{
-    bold: boolean;
-    italic: boolean;
-    underline: boolean;
-  }>({
-    bold: false,
-    italic: false,
-    underline: false,
-  });
-  const messageRef = useRef<HTMLDivElement>(null);
+  const [copied, setCopied] = useState(false);
+  const [isArrowHovered, setIsArrowHovered] = useState(false);
+  const time = useBengaluruTime();
 
-  const footerRef = useRef<HTMLElement>(null);
-  const contentRef = useRef<HTMLDivElement>(null);
-  const backgroundRef = useRef<HTMLDivElement>(null);
-
-  const handleNewsletterSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const website = new FormData(e.currentTarget).get('website');
+    const website = new FormData(e.currentTarget).get("website");
     setLoading(true);
-    setStatusMessage("");
-
+    setStatus(null);
     try {
-      const htmlContent = messageRef.current?.innerHTML || message;
-
-      const response = await fetch('/api/send-email', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          email,
-          name,
-          message: htmlContent || message,
-          website,
-        }),
+      const response = await fetch("/api/send-email", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ name, email, message, website }),
       });
-
-      const data = await response.json();
-
       if (response.ok) {
-        setStatusMessage('✓ Email sent successfully! I\'ll get back to you soon.');
-        setEmail('');
-        setName('');
-        setMessage('');
-        if (messageRef.current) {
-          messageRef.current.innerHTML = '';
-        }
+        setStatus({ ok: true, text: "Message sent. I'll get back to you soon." });
+        setName("");
+        setEmail("");
+        setMessage("");
       } else {
-        setStatusMessage('✗ Failed to send email. Please try again.');
-        console.error('Error:', data.error);
+        setStatus({ ok: false, text: `Couldn't send that. Email me directly at ${profile.email}.` });
       }
-    } catch (error) {
-      setStatusMessage('✗ An error occurred. Please try again.');
-      console.error('Submission error:', error);
+    } catch {
+      setStatus({ ok: false, text: `Couldn't send that. Email me directly at ${profile.email}.` });
     } finally {
       setLoading(false);
-      setTimeout(() => setStatusMessage(''), 5000);
     }
   };
 
-  const applyFormat = (command: string, value?: string) => {
+  const copyEmail = async () => {
     try {
-      // Ensure editor is focused
-      if (messageRef.current) {
-        messageRef.current.focus();
-      }
-      
-      // Execute the command
-      const success = document.execCommand(command, false, value);
-      
-      if (!success && (command === 'insertUnorderedList' || command === 'insertOrderedList')) {
-        // Fallback: try alternative approach
-        document.execCommand(command);
-      }
-    } catch (error) {
-      console.error('Format command failed:', command, error);
+      await navigator.clipboard.writeText(profile.email);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    } catch {
+      window.location.href = `mailto:${profile.email}`;
     }
   };
 
-  const handleMessageChange = () => {
-    if (messageRef.current) {
-      const textContent = messageRef.current.textContent?.trim() || '';
-      setMessage(textContent);
-      
-      // If all text is removed, clear list formatting
-      if (!textContent) {
-        // Remove list formatting
-        document.execCommand('insertUnorderedList', false);
-        document.execCommand('insertOrderedList', false);
-        // Clear the content to ensure clean state
-        messageRef.current.innerHTML = '';
-        setMessage('');
-      }
-      
-      updateActiveFormats();
-    }
-  };
-
-  const updateActiveFormats = () => {
-    setActiveFormats({
-      bold: document.queryCommandState('bold'),
-      italic: document.queryCommandState('italic'),
-      underline: document.queryCommandState('underline'),
-    });
-  };
-
-  const handleFormatClick = (command: string) => {
-    // Ensure the editor is focused
-    if (messageRef.current) {
-      messageRef.current.focus();
-    }
-    
-    // Apply the formatting
-    applyFormat(command);
-    
-    // Update active formats
-    setTimeout(() => {
-      updateActiveFormats();
-    }, 10);
-  };
-
-  useLayoutEffect(() => {
-    if (typeof window === "undefined") return;
-
-    // Skip animation on mobile devices
-    if (window.innerWidth < 768) return;
-
-    const footer = footerRef.current;
-    const content = contentRef.current;
-    const background = backgroundRef.current;
-
-    if (!footer || !content || !background) return;
-
-    gsap.registerPlugin(ScrollTrigger);
-
-    gsap.set(footer, { minHeight: "100vh" });
-    gsap.set(content, { scale: 1.15, opacity: 0.4, y: 0, paddingTop: 0 });
-    gsap.set(background, { opacity: 0.6 });
-
-    const tl = gsap.timeline({
-      scrollTrigger: {
-        trigger: footer,
-        start: "top bottom",
-        end: "center center",
-        scrub: 1,
-      },
-    });
-
-    tl.to(footer, { minHeight: "auto" })
-      .to(content, { scale: 1, opacity: 1, y: 0, paddingTop: "5rem" }, 0)
-      .to(background, { opacity: 0.6 }, 0);
-
-    return () => {
-      tl.kill();
-      ScrollTrigger.getAll().forEach((t) => t.kill());
-    };
-  }, []);
-
-  const containerVariants: Variants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        duration: 0.8,
-        ease: "easeOut",
-        when: "beforeChildren",
-        staggerChildren: 0.15,
-      },
-    },
-  };
-
-  const sectionVariants: Variants = {
-    hidden: { opacity: 0, y: 30 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: { duration: 0.6, ease: "easeOut" },
-    },
-  };
-
-  const itemVariants: Variants = {
-    hidden: { opacity: 0, y: 10 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: { duration: 0.4, ease: "easeOut" },
-    },
-    hover: {
-      x: 8,
-      transition: { duration: 0.2, ease: "easeOut" },
-    },
-  };
-
-  const socialIconVariants: Variants = {
-    hidden: { opacity: 0, scale: 0.8 },
-    visible: {
-      opacity: 1,
-      scale: 1,
-      transition: { duration: 0.4, ease: "easeOut" },
-    },
-    hover: {
-      scale: 1.2,
-      y: -2,
-      transition: { duration: 0.2, ease: "easeOut" },
-    },
+  const backToTop = () => {
+    const lenis = getLenis();
+    if (lenis) lenis.scrollTo(0);
+    else window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
   return (
-    <footer ref={footerRef} className="relative bg-black text-gray-200 overflow-hidden md:min-h-screen">
-      {/* Background */}
-      <div ref={backgroundRef} className="absolute inset-0 w-full h-full">
-        <video 
-          autoPlay 
-          loop 
-          muted 
-          playsInline
-          className="absolute top-0 left-0 w-full h-full object-cover"
-        >
-          <source src="/hero-video.mp4" type="video/mp4" />
-          Your browser does not support the video tag.
-        </video>
-        <div className="absolute top-0 left-0 w-full h-full bg-black/20"></div>
-      </div>
+    <footer className="relative overflow-hidden bg-black text-white font-kh-teka">
+      {/* Background: faint grid + soft glows, same language as the project covers */}
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-0 opacity-[0.06]"
+        style={{
+          backgroundImage:
+            "linear-gradient(to right, #fff 1px, transparent 1px), linear-gradient(to bottom, #fff 1px, transparent 1px)",
+          backgroundSize: "48px 48px",
+          maskImage: "linear-gradient(to bottom, transparent, black 25%, black 75%, transparent)",
+          WebkitMaskImage: "linear-gradient(to bottom, transparent, black 25%, black 75%, transparent)",
+        }}
+      />
+      <div aria-hidden className="pointer-events-none absolute -top-40 right-[-10%] h-[560px] w-[560px] rounded-full bg-indigo-600/20 blur-[140px]" />
+      <div aria-hidden className="pointer-events-none absolute bottom-[-20%] left-[-10%] h-[520px] w-[520px] rounded-full bg-teal-500/10 blur-[140px]" />
 
-      {/* Footer Content */}
-      <motion.div
-        ref={contentRef}
-        className="relative z-10 w-full bg-gradient-to-b from-black/40 via-black/80 to-black/95 backdrop-blur-[2px]"
-        initial={false}
-        whileInView="visible"
-        viewport={{ once: true, amount: 0.1 }}
-        variants={containerVariants}
-      >
-        <div className="max-w-full px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16 py-6 sm:py-8 md:py-12">
-          
-          {/* Hero CTA Section + Contact Form */}
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 mb-12 lg:mb-16 xl:mb-20">
-            {/* Left: Heading and Button */}
+      <div className="relative px-5 sm:px-8 md:px-12 lg:px-16 pt-20 sm:pt-24 md:pt-32">
+        {/* Heading */}
+        <div>
+          <div className="flex items-center gap-3 mb-8">
+            <span className="relative flex h-2.5 w-2.5">
+              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-60" />
+              <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-emerald-400" />
+            </span>
+            <span className="text-xs sm:text-sm uppercase tracking-[0.25em] text-white/60">Available for freelance projects</span>
+          </div>
+          <h2
+            className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl font-normal leading-[0.95] tracking-[-0.02em] flex items-center gap-3 sm:gap-4"
+            onMouseEnter={() => setIsArrowHovered(true)}
+            onMouseLeave={() => setIsArrowHovered(false)}
+          >
+            <span>Let&apos;s talk</span>
+            <motion.span
+              className="text-white/30"
+              animate={{ x: isArrowHovered ? 8 : 0, y: isArrowHovered ? 8 : 0, rotate: isArrowHovered ? 45 : 0 }}
+              transition={{ duration: 0.3, ease: "easeOut" }}
+            >
+              ↘
+            </motion.span>
+          </h2>
+          <p className="mt-6 max-w-2xl text-lg sm:text-xl text-white/60 font-light leading-relaxed">
+            Building something ambitious: real-time systems, agentic AI, or a product that has to ship? Tell me about it.
+          </p>
+        </div>
+
+        {/* Contact + form */}
+        <div className="mt-14 sm:mt-20 grid grid-cols-1 lg:grid-cols-12 gap-14 lg:gap-16 pb-16 sm:pb-20 border-b border-white/10">
+          {/* Direct contact */}
+          <div className="lg:col-span-5 space-y-10">
             <div>
-              <motion.h2 
-                className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold text-white leading-tight mb-6 lg:mb-8"
-                variants={sectionVariants}
-                style={{ fontFamily: 'KH Teka, sans-serif' }}
-              >
-                Let's Create
-                <br />
-                <span className="text-white/40">Something Great</span>
-              </motion.h2>
-              
-              <div className="flex flex-col sm:flex-row gap-4 sm:gap-6 items-start sm:items-center">
-                <motion.a 
-                  href="/contact"
-                  variants={itemVariants}
-                  whileHover="hover"
+              <p className="text-xs uppercase tracking-[0.25em] text-white/40 mb-4">Email</p>
+              <div className="flex flex-wrap items-center gap-3">
+                <a
+                  href={`mailto:${profile.email}`}
+                  className="text-xl sm:text-2xl md:text-3xl text-white break-all hover:text-white/70 transition-colors"
                 >
-                  <button 
-                    className="group bg-white text-black px-8 sm:px-10 py-4 sm:py-5 text-sm sm:text-base font-medium tracking-wider uppercase hover:bg-white/90 transition-all duration-300 flex items-center gap-2 sm:gap-3 w-full sm:w-auto justify-center"
-                    style={{ fontFamily: 'KH Teka, sans-serif' }}
-                  >
-                    Get In Touch
-                    <ExternalLink className="w-4 h-4 sm:w-5 sm:h-5 transform group-hover:translate-x-1 transition-transform duration-300" />
-                  </button>
-                </motion.a>
-                <motion.p 
-                  className="text-sm sm:text-base text-white/60 text-center sm:text-left mt-2 sm:mt-0"
-                  variants={itemVariants}
-                  style={{ fontFamily: 'KH Teka, sans-serif' }}
+                  {profile.email}
+                </a>
+                <button
+                  type="button"
+                  onClick={copyEmail}
+                  aria-label="Copy email address"
+                  className="inline-flex items-center gap-1.5 rounded-full border border-white/15 px-3 py-1.5 text-xs text-white/70 hover:text-white hover:border-white/40 transition-colors"
                 >
-                  Available for freelance projects
-                </motion.p>
+                  {copied ? <Check className="h-3.5 w-3.5" /> : <Copy className="h-3.5 w-3.5" />}
+                  {copied ? "Copied" : "Copy"}
+                </button>
               </div>
             </div>
 
-            {/* Right: Contact Form */}
-            <motion.div 
-              className="hidden md:block lg:pl-8" 
-              variants={sectionVariants}
-            >
-              <h3 className="text-xs font-bold mb-4 tracking-widest uppercase text-white/60" style={{ fontFamily: 'KH Teka, sans-serif' }}>
-                Start a Project
-              </h3>
-              <motion.p 
-                className="text-base sm:text-lg md:text-xl font-light mb-6 text-white/80 leading-relaxed"
-                variants={itemVariants}
-                style={{ fontFamily: 'KH Teka, sans-serif' }}
-              >
-                Ready to bring your ideas to life? Let's discuss your next project.
-              </motion.p>
-              
-              <motion.form 
-                onSubmit={handleNewsletterSubmit} 
-                className="space-y-3"
-                variants={sectionVariants}
-              >
+            <div>
+              <p className="text-xs uppercase tracking-[0.25em] text-white/40 mb-4">Elsewhere</p>
+              <ul className="divide-y divide-white/10 border-y border-white/10">
+                {socials.map(({ label, href, icon: Icon }) => (
+                  <li key={label}>
+                    <a
+                      href={href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="group flex items-center justify-between py-4 text-lg text-white/85 hover:text-white transition-colors"
+                    >
+                      <span className="flex items-center gap-3">
+                        <Icon className="h-5 w-5 text-white/50 group-hover:text-white transition-colors" />
+                        {label}
+                      </span>
+                      <ArrowUpRight className="h-5 w-5 text-white/30 transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1 group-hover:text-white" />
+                    </a>
+                  </li>
+                ))}
+                <li>
+                  <a
+                    href={profile.resumeUrl}
+                    download={profile.resumeFileName}
+                    className="group flex items-center justify-between py-4 text-lg text-white/85 hover:text-white transition-colors"
+                  >
+                    <span className="flex items-center gap-3">
+                      <Download className="h-5 w-5 text-white/50 group-hover:text-white transition-colors" />
+                      Resume
+                    </span>
+                    <span className="text-xs uppercase tracking-[0.2em] text-white/35 group-hover:text-white/70 transition-colors">PDF</span>
+                  </a>
+                </li>
+              </ul>
+            </div>
+
+            <div className="flex items-center gap-3 text-white/60">
+              <MapPin className="h-4 w-4" />
+              <span>Bengaluru, India</span>
+              {time && (
+                <>
+                  <span className="text-white/20">/</span>
+                  <span suppressHydrationWarning>{time} IST</span>
+                </>
+              )}
+            </div>
+          </div>
+
+          {/* Form */}
+          <div className="lg:col-span-7">
+            <div className="rounded-2xl border border-white/10 bg-white/[0.02] backdrop-blur-sm p-6 sm:p-8 md:p-10">
+              <div className="flex items-center gap-3 mb-8">
+                <Mail className="h-4 w-4 text-white/50" />
+                <p className="text-xs uppercase tracking-[0.25em] text-white/50">Send a message</p>
+              </div>
+              <form onSubmit={handleSubmit} className="space-y-6">
                 <input type="text" name="website" tabIndex={-1} autoComplete="off" aria-hidden="true" className="hidden" />
-                <div className="grid grid-cols-2 gap-3">
-                  <motion.div variants={itemVariants}>
-                    <Input
-                      type="text"
-                      placeholder="Your Name"
-                      value={name}
-                      onChange={(e) => setName(e.target.value)}
-                      required
-                      className="px-0 h-10 placeholder-gray-400 bg-transparent border-0 border-b border-white/30 text-white font-light focus:border-white hover:border-white/60 transition-colors focus:outline-none focus-visible:ring-0 rounded-none text-base"
-                      style={{ fontFamily: 'KH Teka, sans-serif' }}
-                    />
-                  </motion.div>
-                  <motion.div variants={itemVariants}>
-                    <Input
-                      type="email"
-                      placeholder="Your Email"
-                      value={email}
-                      onChange={(e) => setEmail(e.target.value)}
-                      required
-                      className="px-0 h-10 placeholder-gray-400 bg-transparent border-0 border-b border-white/30 text-white font-light focus:border-white hover:border-white/60 transition-colors focus:outline-none focus-visible:ring-0 rounded-none text-base"
-                      style={{ fontFamily: 'KH Teka, sans-serif' }}
-                    />
-                  </motion.div>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                  <label className="block">
+                    <span className="sr-only">Your name</span>
+                    <input type="text" required maxLength={100} placeholder="Your name" value={name} onChange={(e) => setName(e.target.value)} className={fieldClass} />
+                  </label>
+                  <label className="block">
+                    <span className="sr-only">Your email</span>
+                    <input type="email" required maxLength={200} placeholder="Your email" value={email} onChange={(e) => setEmail(e.target.value)} className={fieldClass} />
+                  </label>
                 </div>
-                <motion.div variants={itemVariants}>
-                  <div className="relative border-0 border-b border-white/30 focus-within:border-white transition-colors">
-                    {/* Formatting Toolbar - Inside, top right, only show if there's content */}
-                    {message && (
-                      <div className="absolute top-0 right-0 flex gap-2 z-10 pr-1">
-                        <button
-                          type="button"
-                          onMouseDown={(e) => e.preventDefault()}
-                          onClick={() => handleFormatClick('bold')}
-                          className={`py-2 px-1.5 transition-all duration-200 text-xs font-semibold ${
-                            activeFormats.bold
-                              ? 'text-white bg-white/10 rounded'
-                              : 'text-white/60 hover:text-white'
-                          }`}
-                          title="Bold (Ctrl+B)"
-                        >
-                          B
-                        </button>
-                        <button
-                          type="button"
-                          onMouseDown={(e) => e.preventDefault()}
-                          onClick={() => handleFormatClick('italic')}
-                          className={`py-2 px-1.5 transition-all duration-200 text-xs italic ${
-                            activeFormats.italic
-                              ? 'text-white bg-white/10 rounded'
-                              : 'text-white/60 hover:text-white'
-                          }`}
-                          title="Italic (Ctrl+I)"
-                        >
-                          I
-                        </button>
-                        <button
-                          type="button"
-                          onMouseDown={(e) => e.preventDefault()}
-                          onClick={() => handleFormatClick('underline')}
-                          className={`py-2 px-1.5 transition-all duration-200 text-xs underline ${
-                            activeFormats.underline
-                              ? 'text-white bg-white/10 rounded'
-                              : 'text-white/60 hover:text-white'
-                          }`}
-                          title="Underline (Ctrl+U)"
-                        >
-                          U
-                        </button>
-                        <span className="w-px bg-white/20"></span>
-                        <button
-                          type="button"
-                          onMouseDown={(e) => e.preventDefault()}
-                          onClick={() => handleFormatClick('insertUnorderedList')}
-                          className="py-2 px-1.5 hover:text-white transition-all duration-200 text-white/60 text-xs"
-                          title="Bullet List"
-                        >
-                          •
-                        </button>
-                        <button
-                          type="button"
-                          onMouseDown={(e) => e.preventDefault()}
-                          onClick={() => handleFormatClick('insertOrderedList')}
-                          className="py-2 px-1.5 hover:text-white transition-all duration-200 text-white/60 text-xs font-semibold"
-                          title="Numbered List"
-                        >
-                          1.
-                        </button>
-                      </div>
-                    )}
-                    {/* Editor */}
-                    <div
-                      ref={messageRef}
-                      contentEditable
-                      onInput={handleMessageChange}
-                      suppressContentEditableWarning
-                      className="w-full px-0 py-2 bg-transparent text-white font-light focus:outline-none text-base min-h-[100px] max-h-[150px] overflow-y-auto whitespace-pre-wrap break-words [&_ul]:list-disc [&_ul]:pl-6 [&_ol]:list-decimal [&_ol]:pl-6 [&_li]:my-1"
-                      style={{
-                        fontFamily: 'KH Teka, sans-serif',
-                        paddingTop: message ? '32px' : '8px',
-                        backgroundImage: message ? 'none' : `url('data:image/svg+xml;utf8,<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"100%\" height=\"100%\"><text x=\"0\" y=\"14\" font-size=\"16\" fill=\"rgba(255,255,255,0.3)\" font-family=\"KH Teka, sans-serif\" font-weight=\"300\">Your Message</text></svg>')`,
-                        backgroundRepeat: 'no-repeat',
-                      }}
-                    />
-                  </div>
-                </motion.div>
-                <motion.div variants={itemVariants}>
-                  <Button
+                <label className="block">
+                  <span className="sr-only">Message</span>
+                  <textarea
+                    required
+                    rows={4}
+                    maxLength={5000}
+                    placeholder="What are you building?"
+                    value={message}
+                    onChange={(e) => setMessage(e.target.value)}
+                    className={`${fieldClass} resize-none`}
+                  />
+                </label>
+                <div className="flex flex-col sm:flex-row sm:items-center gap-4 pt-2">
+                  <button
                     type="submit"
                     disabled={loading}
-                    className="group bg-white text-black px-6 py-2.5 font-medium uppercase text-xs tracking-widest hover:bg-white/90 transition-all duration-300 w-auto disabled:opacity-50 disabled:cursor-not-allowed"
+                    className="group inline-flex items-center justify-center gap-3 bg-white text-black px-8 py-4 text-sm font-medium uppercase tracking-[0.2em] hover:bg-white/90 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
                   >
-                    {loading ? 'Sending...' : 'Send Message'}
-                    <ExternalLink className="ml-2 w-3.5 h-3.5 transform group-hover:translate-x-1 transition-transform duration-300" />
-                  </Button>
-                </motion.div>
-                {statusMessage && (
-                  <motion.p 
-                    className={`text-xs mt-4 ${statusMessage.includes('✓') ? 'text-green-400' : 'text-red-400'}`}
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                  >
-                    {statusMessage}
-                  </motion.p>
-                )}
-              </motion.form>
-              
-              <motion.p 
-                className="text-xs mt-4 text-gray-500 font-light"
-                variants={itemVariants}
-              >
-                Your information is secure and will never be shared with third parties.
-              </motion.p>
-            </motion.div>
-          </div>
-
-          {/* Main Content Grid - Navigation, Expertise, and Social */}
-          <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-2 gap-6 sm:gap-8 lg:gap-12 mb-8 lg:mb-16">
-            
-            {/* Quick Links */}
-            <motion.div variants={sectionVariants} className="mb-8 md:mb-0">
-              <div className="h-px w-8 bg-white/50 mb-4"></div>
-              <h3 className="text-xs font-medium mb-6 uppercase text-white/40 tracking-widest" style={{ fontFamily: 'KH Teka, sans-serif' }}>
-                Navigation
-              </h3>
-              <nav className="space-y-4">
-                {[
-                  { label: 'Home', href: '/' },
-                  { label: 'Work', href: '/projects' },
-                  { label: 'About', href: '/about' },
-                  { label: 'Contact', href: '/contact' },
-                ].map(({ label: item, href }) => (
-                  <motion.a
-                    key={item}
-                    href={href}
-                    className="group block text-lg text-white hover:text-white/70 transition-all duration-300"
-                    variants={itemVariants}
-                    whileHover="hover"
-                    style={{ fontFamily: 'KH Teka, sans-serif' }}
-                  >
-                    <span className="border-b border-transparent group-hover:border-white/30 transition-all duration-300">
-                      {item}
-                    </span>
-                  </motion.a>
-                ))}
-              </nav>
-            </motion.div>
-
-            {/* Expertise */}
-            <motion.div variants={sectionVariants} className="hidden md:block mb-8 md:mb-0">
-              <div className="h-px w-8 bg-white/50 mb-4"></div>
-              <h3 className="text-xs font-medium mb-6 uppercase text-white/40 tracking-widest" style={{ fontFamily: 'KH Teka, sans-serif' }}>
-                Expertise
-              </h3>
-              <div className="space-y-4">
-                {['Web Development', 'UI/UX Design', 'Full Stack Apps', 'API Solutions'].map((skill) => (
-                  <motion.p
-                    key={skill}
-                    className="text-lg text-white/80"
-                    variants={itemVariants}
-                    style={{ fontFamily: 'KH Teka, sans-serif' }}
-                  >
-                    {skill}
-                  </motion.p>
-                ))}
-              </div>
-            </motion.div>
-
-            {/* Social Links - Mobile Only */}
-            <motion.div variants={sectionVariants} className="md:hidden">
-              <div className="h-px w-8 bg-white/50 mb-4"></div>
-              <h3 className="text-xs font-medium mb-6 uppercase text-white/40 tracking-widest" style={{ fontFamily: 'KH Teka, sans-serif' }}>
-                Follow
-              </h3>
-              <div className="flex flex-col gap-4">
-                {[
-                  { icon: Github, href: "https://github.com/Yashu9844", label: "GitHub" },
-                  { icon: Linkedin, href: "https://www.linkedin.com/in/yashavanth-r-siddesh", label: "LinkedIn" },
-                  { icon: Mail, href: "mailto:yashavanthrsiddesh@gmail.com", label: "Email" },
-                ].map((social, index) => (
-                  <motion.a
-                    key={social.label}
-                    href={social.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex items-center gap-3 text-white/70 hover:text-white transition-all duration-300 p-2 w-fit"
-                    aria-label={social.label}
-                    variants={socialIconVariants}
-                    whileHover="hover"
-                    whileTap="tap"
-                    custom={index}
-                  >
-                    <social.icon className="w-5 h-5" />
-                    <span className="text-lg" style={{ fontFamily: 'KH Teka, sans-serif' }}>{social.label}</span>
-                  </motion.a>
-                ))}
-              </div>
-            </motion.div>
-          </div>
-
-          {/* Bottom Bar - Stacked on mobile, row on desktop */}
-          <motion.div 
-            className="pt-8 border-t border-white/10 flex flex-col md:flex-row justify-between items-start md:items-center gap-6"
-            variants={sectionVariants}
-          >
-            {/* Copyright */}
-            <div className="flex flex-col gap-2 order-2 md:order-1">
-              <motion.p 
-                className="text-sm font-light text-gray-400"
-                variants={itemVariants}
-              >
-                © {new Date().getFullYear()} Yashavanth R Siddesh. All rights reserved.
-              </motion.p>
-              <motion.p 
-                className="text-xs font-light text-gray-500"
-                variants={itemVariants}
-              >
-                Crafted with precision and passion
-              </motion.p>
+                    {loading ? "Sending…" : "Send message"}
+                    <ArrowUpRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                  </button>
+                  {status && (
+                    <p role="status" className={`text-sm ${status.ok ? "text-emerald-400" : "text-red-400"}`}>
+                      {status.text}
+                    </p>
+                  )}
+                </div>
+              </form>
             </div>
-
-            {/* Social Links - Desktop Only */}
-            <motion.div 
-              className="hidden md:flex md:flex-row md:items-center gap-6 order-1 md:order-2"
-              variants={sectionVariants}
-            >
-              <motion.span 
-                className="text-xs font-bold uppercase tracking-widest text-white/40"
-                variants={itemVariants}
-                style={{ fontFamily: 'KH Teka, sans-serif' }}
-              >
-                Follow
-              </motion.span>
-              <div className="flex flex-row items-center gap-4">
-                {[
-                  { icon: Github, href: "https://github.com/Yashu9844", label: "GitHub" },
-                  { icon: Linkedin, href: "https://www.linkedin.com/in/yashavanth-r-siddesh", label: "LinkedIn" },
-                  { icon: Mail, href: "mailto:yashavanthrsiddesh@gmail.com", label: "Email" },
-                ].map((social, index) => (
-                  <motion.a
-                    key={social.label}
-                    href={social.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-white/70 hover:text-white transition-all duration-300 p-2"
-                    aria-label={social.label}
-                    variants={socialIconVariants}
-                    whileHover="hover"
-                    whileTap="tap"
-                    custom={index}
-                  >
-                    <social.icon className="w-5 h-5" />
-                  </motion.a>
-                ))}
-              </div>
-            </motion.div>
-          </motion.div>
+          </div>
         </div>
-      </motion.div>
 
-      {/* Bottom spacer */}
-      <div className="h-0"></div>
+        {/* Navigation + back to top */}
+        <div className="py-10 flex flex-col md:flex-row md:items-center md:justify-between gap-8">
+          <nav aria-label="Footer" className="flex flex-wrap gap-x-8 gap-y-3">
+            {navLinks.map(({ label, href }) => (
+              <Link key={label} href={href} className="text-white/60 hover:text-white transition-colors">
+                {label}
+              </Link>
+            ))}
+          </nav>
+          <button
+            type="button"
+            onClick={backToTop}
+            className="group inline-flex items-center gap-2 self-start md:self-auto text-white/60 hover:text-white transition-colors"
+          >
+            Back to top
+            <span className="inline-block transition-transform duration-300 group-hover:-translate-y-1">↑</span>
+          </button>
+        </div>
+      </div>
+
+      {/* Oversized name, echoing the hero */}
+      <div aria-hidden className="relative select-none px-3 sm:px-5 overflow-hidden">
+        <p
+          className="font-accent font-black leading-[0.8] tracking-[-0.04em] text-transparent bg-clip-text bg-gradient-to-b from-white/[0.14] to-white/[0.01] whitespace-nowrap"
+          style={{ fontSize: "clamp(2.5rem, 15vw, 17rem)" }}
+        >
+          YASHAVANTH
+        </p>
+      </div>
+
+      <div className="relative px-5 sm:px-8 md:px-12 lg:px-16 py-6 border-t border-white/10 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 text-sm text-white/40">
+        <p>© {new Date().getFullYear()} Yashavanth R Siddesh</p>
+        <p>Designed &amp; built in Bengaluru</p>
+      </div>
     </footer>
   );
 };
