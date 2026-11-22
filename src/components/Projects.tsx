@@ -347,23 +347,24 @@ const Projects = () => {
       relatedProjects: [1, 5]
     },
     {
-      image: '/projects/crewforge.svg',
+      image: '/projects/crewforge/chat-with-screen.webp',
       title: 'CrewForge – Multi‑Agent AI Workspace',
       category: 'Agentic AI Platform',
       year: '2026',
-      description: 'A multi‑agent workspace where users create autonomous AI bots with custom personas and goals that collaborate, hand off work, and act inside their own cloud sandboxes.',
+      description: 'A multi‑agent AI workspace where every bot gets its own always‑available cloud computer: a full Linux desktop it can browse, code and click around in, with memory that persists across chats.',
       fullDescription: [
-        'Problem → Single‑chat assistants can talk but rarely act. Real work needs agents that persist, use tools, delegate to each other, and stay within a budget.',
-        'Solution → Users create bots with custom personas, goals, and instructions that collaborate in one‑on‑one and group conversations, hand tasks to peer bots, and operate their own isolated computers.',
-        'Execution → Durable, long‑running agent loops on Trigger.dev using the Vercel AI SDK with token streaming, function calling, a 30‑step reasoning cap, and budget‑aware stop conditions. Each bot runs in a dedicated Daytona cloud sandbox exposing 11 tools: shell execution, file I/O, and computer‑use control (mouse, keyboard, screenshots), viewable live through noVNC.',
-        'Outcome → A working product with bot‑to‑bot handoffs (context notes, loop prevention, capped transfer depth), file‑based long‑term memory for cross‑session recall, and monetization through Clerk subscription gating plus per‑step usage metering.'
+        'Idea → Like having your own Grok or ChatGPT, except every bot also gets its own computer. You create bots with a persona, goals and instructions, then chat with them one‑on‑one or in group chats where they collaborate and hand work to each other.',
+        'Its own computer → Every bot owns a dedicated Daytona cloud sandbox: a full Linux desktop with a browser, terminal and file system. The bot drives it with 11 tools (shell commands, file read/write/list, mouse click/move/scroll, keyboard typing and screenshots), and you can watch it work live in a noVNC panel next to the chat.',
+        'Always available, never billed while idle → The sandbox belongs to the bot permanently, but it auto‑stops after 5 quiet minutes and archives after a day. The next message wakes it automatically with every file and memory intact, so bots feel always‑on while costing nothing when nobody is talking to them.',
+        'Durable agent loop → Each reply runs as a Trigger.dev task with the Vercel AI SDK: token streaming, function calling, a 30‑step cap and a token‑budget stop condition. Runs survive restarts and retry on failure instead of dying with a web request.',
+        'Business → Clerk‑gated Free and Pro plans ($20/month: 25 bots, 2M AI tokens, 20 sandbox hours). Every model call is written to a usage ledger, and a per‑minute cron meters each running sandbox from Daytona\'s own state, all in Neon Postgres via Drizzle ORM.'
       ],
       informationParagraphs: [
-        'CrewForge treats agents as long‑lived workers rather than request/response calls. Every agent run is a durable Trigger.dev task, so loops survive restarts, stream tokens to the UI as they reason, and stop cleanly at the step cap or when the user\'s budget runs out.',
-        'The handoff protocol is what makes the crew work: a bot can delegate to a peer with a context note explaining why, while loop detection and a maximum transfer depth stop agents from bouncing work back and forth forever.',
-        'Billing is built in from day one. Clerk gates subscription tiers, every agent step is metered into Neon Postgres through Drizzle ORM, and cron‑scheduled jobs reconcile usage.'
+        'Memory → A bot remembers nothing between chats on its own, so it keeps notes in a MEMORY.md file on its computer. Because all of a bot\'s chats share one sandbox, what you tell it in a private chat it can recall later in a group chat.',
+        'Handoffs → In a group only one bot works at a time. A bot can pass the latest message to a better‑suited peer with a short note explaining why. A message can\'t go back to a bot that already held it and the number of handoffs per message is capped, so bots can\'t bounce work around in a loop.',
+        'Isolation → Bots can\'t see or touch each other\'s files, screens or programs. Collaboration happens only through the conversation and explicit handoffs.'
       ],
-      tech: ['Next.js 16', 'React 19', 'TypeScript', 'Vercel AI SDK', 'Trigger.dev', 'Daytona', 'DeepSeek', 'OpenRouter', 'Clerk', 'Neon Postgres', 'Drizzle ORM'],
+      tech: ['Next.js 16', 'React 19', 'TypeScript', 'Vercel AI SDK', 'Trigger.dev', 'Daytona', 'noVNC', 'DeepSeek', 'OpenRouter', 'Clerk', 'Neon Postgres', 'Drizzle ORM'],
       role: 'Solo Founder & Engineer',
       duration: 'Ongoing',
       github: 'https://github.com/Yashu9844/AI_bot_temmate',
@@ -371,7 +372,12 @@ const Projects = () => {
       credits: [
         { role: 'Product & Engineering', name: 'Yashavanth R Siddesh' }
       ],
-      mediaSections: [],
+      mediaSections: [
+        { items: [{ type: 'image', url: '/projects/crewforge/chat-with-screen.webp' }], layout: 'single' },
+        { items: [{ type: 'image', url: '/projects/crewforge/bot-desktop-terminal.webp' }, { type: 'image', url: '/projects/crewforge/bot-desktop-files.webp' }], layout: 'grid-2' },
+        { items: [{ type: 'image', url: '/projects/crewforge/chat-computer-use.webp' }, { type: 'image', url: '/projects/crewforge/home.webp' }], layout: 'grid-2' },
+        { items: [{ type: 'image', url: '/projects/crewforge/usage.webp' }, { type: 'image', url: '/projects/crewforge/pricing.webp' }], layout: 'grid-2' }
+      ],
       relatedProjects: [9, 3]
     },
     {

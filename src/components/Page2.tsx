@@ -22,12 +22,14 @@ const ArrowUpRight = (props: React.SVGProps<SVGSVGElement>) => (
 const Page2 = () => {
   const [isArrowHovered, setIsArrowHovered] = useState(false);
   
-  const projects = [
+  // `logo: true` shows the image centred on a dark tile instead of cropping it to fill the frame
+  const projects: { type: string; title: string; subtitle: string; image: string; logo?: boolean; link: string }[] = [
     {
       type: 'EXPERIENCE',
       title: 'FalconX Technologies',
       subtitle: 'SDE – Team Lead · Dec 2025 – Present · Leading a 4-member team building a distributed satellite telemetry & tracking platform for ISRO programs',
-      image: '/images/falcon.png',
+      image: '/images/falconx-logo.png',
+      logo: true,
       link: '#',
     },
     {
@@ -35,6 +37,7 @@ const Page2 = () => {
       title: 'RoborosX Omni Tech Solutions',
       subtitle: 'Full Stack Developer · Apr – Dec 2025 · SaveMe.life clinic module (2,000+ daily consultations), real-time school-transport GPS tracking',
       image: '/images/roborosx.jpg',
+      logo: true,
       link: '#',
     },
     {
@@ -48,7 +51,7 @@ const Page2 = () => {
       type: 'EXPERIENCE',
       title: 'Freelance Web Developer',
       subtitle: 'E‑commerce Stores, Business Dashboards & Custom Landing Pages for Clients',
-      image: '/images/pimg13.jpg',
+      image: '/projects/toolrental.jpg',
       link: '#',
     },
   ];
@@ -98,11 +101,21 @@ const Page2 = () => {
 
             {/* Image */}
             <div className="overflow-hidden w-full aspect-[4/5] sm:aspect-[3/4] md:aspect-auto">
-              <img
-                src={project.image}
-                alt={project.title}
-                className="w-full h-full md:h-[580px] lg:h-[620px] object-cover group-hover:scale-105 transition-transform duration-500"
-              />
+              {project.logo ? (
+                <div className="w-full h-full md:h-[580px] lg:h-[620px] flex items-center justify-center bg-gradient-to-br from-neutral-900 via-neutral-950 to-black border border-white/10 p-10 sm:p-16">
+                  <img
+                    src={project.image}
+                    alt={`${project.title} logo`}
+                    className="max-w-[80%] max-h-[45%] object-contain group-hover:scale-105 transition-transform duration-500"
+                  />
+                </div>
+              ) : (
+                <img
+                  src={project.image}
+                  alt={project.title}
+                  className="w-full h-full md:h-[580px] lg:h-[620px] object-cover object-top group-hover:scale-105 transition-transform duration-500"
+                />
+              )}
             </div>
           </a>
         ))}
