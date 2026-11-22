@@ -1135,3 +1135,25 @@ export const allProjects: Project[] = [
     relatedProjects: [36, 37]
   },
 ];
+
+// ===== PROJECT SECTIONS (tabs on /projects) =====
+// A project can belong to several sections; it matches a section when one of its
+// `domains` is listed or its `category` matches the pattern.
+export const PROJECT_SECTIONS = [
+  { id: 'agentic-ai', label: 'Agentic AI', domains: ['AI/ML'], category: /\bAI\b|AI\/ML|Agentic/i },
+  { id: 'full-stack', label: 'Full Stack', domains: ['Full Stack'], category: /^Full Stack/i },
+  { id: 'backend', label: 'Backend', domains: ['Backend', 'DevOps', 'Web3'], category: /^Backend/i },
+  { id: 'frontend', label: 'Frontend', domains: ['Frontend'], category: /Frontend/i },
+  { id: 'distributed-systems', label: 'Distributed Systems', domains: ['Distributed Systems'], category: /Distributed Systems/i },
+  { id: 'mobile', label: 'Mobile', domains: ['Mobile'], category: /Mobile/i },
+] as const;
+
+export type ProjectSectionId = (typeof PROJECT_SECTIONS)[number]['id'];
+
+export function getProjectSections(project: Pick<Project, 'category' | 'domains'>): ProjectSectionId[] {
+  return PROJECT_SECTIONS.filter(
+    (s) =>
+      (project.domains ?? []).some((d) => (s.domains as readonly string[]).includes(d)) ||
+      s.category.test(project.category),
+  ).map((s) => s.id);
+}

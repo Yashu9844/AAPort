@@ -1,9 +1,11 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
+import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
-import { lockScroll } from '@/lib/lenis';
+import { lockScroll, getLenis } from '@/lib/lenis';
+import { PROJECT_SECTIONS, getProjectSections } from '@/data/allProjects';
 
 interface Project {
   id: number;
@@ -34,39 +36,81 @@ interface ProjectsGridProps {
   allProjects?: Project[]; // All projects for related projects section
 }
 
+const PAGE_SIZE = 6;
+
+// Page numbers to render, with '…' gaps when there are many pages.
+function getPageItems(current: number, total: number): Array<number | '…'> {
+  if (total <= 7) return Array.from({ length: total }, (_, i) => i + 1);
+  const items: Array<number | '…'> = [1];
+  const start = Math.max(2, current - 1);
+  const end = Math.min(total - 1, current + 1);
+  if (start > 2) items.push('…');
+  for (let p = start; p <= end; p++) items.push(p);
+  if (end < total - 1) items.push('…');
+  items.push(total);
+  return items;
+}
+
+const controlClass = (active: boolean) =>
+  `px-4 py-2 text-sm font-medium transition-all duration-300 border focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white ${
+    active
+      ? 'bg-white text-black border-white'
+      : 'bg-transparent text-white border-white/30 hover:border-white/50'
+  }`;
+
 export default function ProjectsGrid({ projects, allProjects }: ProjectsGridProps) {
   const projectsList = allProjects || projects;
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
-  const [selectedDomains, setSelectedDomains] = useState<Set<string>>(new Set());
+  const listRef = useRef<HTMLDivElement>(null);
+  const router = useRouter();
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
 
-  // Get all unique domains from projects
-  const allDomains = Array.from(
-    new Set(projects.flatMap(p => p.domains || []))
-  ).sort();
+  // Sections with their projects; empty sections are hidden.
+  const tabs = [
+    { id: 'all', label: 'All', items: projects },
+    ...PROJECT_SECTIONS.map(s => ({
+      id: s.id as string,
+      label: s.label as string,
+      items: projects.filter(p => getProjectSections(p).includes(s.id)),
+    })),
+  ].filter(t => t.items.length > 0);
 
-  // Filter projects based on selected domains
-  const filteredProjects = selectedDomains.size === 0 
-    ? projects 
-    : projects.filter(project => {
-        const projectDomains = project.domains || [];
-        return projectDomains.some(domain => selectedDomains.has(domain));
-      });
+  // URL is the source of truth: ?section=agentic-ai&page=2
+  const activeTab = tabs.find(t => t.id === searchParams.get('section')) ?? tabs[0];
+  const sectionProjects = activeTab.items;
+  const totalPages = Math.max(1, Math.ceil(sectionProjects.length / PAGE_SIZE));
+  const requestedPage = Number.parseInt(searchParams.get('page') ?? '1', 10);
+  const currentPage = Math.min(Math.max(Number.isNaN(requestedPage) ? 1 : requestedPage, 1), totalPages);
+  const pageStart = (currentPage - 1) * PAGE_SIZE;
+  const pageProjects = sectionProjects.slice(pageStart, pageStart + PAGE_SIZE);
+  const pageItems = getPageItems(currentPage, totalPages);
 
-  const toggleDomain = (domain: string) => {
-    const newDomains = new Set(selectedDomains);
-    if (newDomains.has(domain)) {
-      newDomains.delete(domain);
-    } else {
-      newDomains.add(domain);
-    }
-    setSelectedDomains(newDomains);
+  const years = sectionProjects.map(p => Number(p.year));
+  const minYear = Math.min(...years);
+  const maxYear = Math.max(...years);
+
+  const updateUrl = (section: string, page: number) => {
+    const params = new URLSearchParams();
+    if (section !== 'all') params.set('section', section);
+    if (page > 1) params.set('page', String(page));
+    const query = params.toString();
+    router.replace(query ? `${pathname}?${query}` : pathname, { scroll: false });
   };
 
-  const clearFilters = () => {
-    setSelectedDomains(new Set());
+  const selectSection = (id: string) => {
+    if (id !== activeTab.id) updateUrl(id, 1);
   };
 
-  const noProjectsFound = selectedDomains.size > 0 && filteredProjects.length === 0;
+  const goToPage = (page: number) => {
+    if (page < 1 || page > totalPages || page === currentPage) return;
+    updateUrl(activeTab.id, page);
+    const el = listRef.current;
+    if (!el) return;
+    const lenis = getLenis();
+    if (lenis) lenis.scrollTo(el, { offset: -120 });
+    else el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  };
 
   // Prevent body scroll when modal is open & handle ESC key
   useEffect(() => {
@@ -95,92 +139,38 @@ export default function ProjectsGrid({ projects, allProjects }: ProjectsGridProp
           ← Home
         </Link>
 
-        {/* Header with Filters on Same Line */}
-        <div className="mb-12 flex items-start justify-between gap-12">
-          <div>
-            <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold mb-6 leading-none">
-              Projects
-            </h1>
-            <p className="text-xl text-gray-400 font-light">
-              {projects.length} projects · {Math.min(...projects.map(p => Number(p.year)))}–{Math.max(...projects.map(p => Number(p.year)))}
-            </p>
-          </div>
-          
-          {/* Filters */}
-          <div className="hidden lg:block pt-2">
-            <p className="text-sm uppercase tracking-wider text-gray-500 mb-4">Filter by domain</p>
-            <div className="flex flex-wrap gap-3 justify-end items-center min-h-[44px]">
-              {allDomains.map(domain => (
-                <button
-                  key={domain}
-                  onClick={() => toggleDomain(domain)}
-                  className={`px-4 py-2 text-sm font-medium transition-all duration-300 border ${
-                    selectedDomains.has(domain)
-                      ? 'bg-white text-black border-white'
-                      : 'bg-transparent text-white border-white/30 hover:border-white/50'
-                  }`}
-                >
-                  {domain}
-                </button>
-              ))}
-              {/* Reserve space for Clear button to avoid layout shift */}
-              <button
-                onClick={clearFilters}
-                className={`px-4 py-2 text-sm font-medium transition-all duration-300 border ${
-                  selectedDomains.size > 0 
-                    ? 'border-white/30 hover:border-white/50 text-white/70 hover:text-white' 
-                    : 'border-transparent text-transparent cursor-default'
-                }`}
-                disabled={selectedDomains.size === 0}
-              >
-                Clear
-              </button>
-            </div>
-          </div>
+        {/* Header */}
+        <div className="mb-10">
+          <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold mb-6 leading-none">
+            Projects
+          </h1>
+          <p className="text-xl text-gray-400 font-light">
+            {sectionProjects.length} projects · {minYear}–{maxYear}
+          </p>
         </div>
 
-        {/* Mobile Filters */}
-        <div className="lg:hidden mb-12 pb-8 border-b border-white/10">
-          <p className="text-sm uppercase tracking-wider text-gray-500 mb-4">Filter by domain</p>
-          <div className="flex flex-wrap gap-3 items-center min-h-[44px]">
-            {allDomains.map(domain => (
-              <button
-                key={domain}
-                onClick={() => toggleDomain(domain)}
-                className={`px-4 py-2 text-sm font-medium transition-all duration-300 border ${
-                  selectedDomains.has(domain)
-                    ? 'bg-white text-black border-white'
-                    : 'bg-transparent text-white border-white/30 hover:border-white/50'
-                }`}
-              >
-                {domain}
-              </button>
-            ))}
-            {/* Reserve space for Clear button to avoid layout shift */}
+        {/* Section Tabs - single scrollable row */}
+        <div
+          role="group"
+          aria-label="Project sections"
+          className="mb-12 pb-8 border-b border-white/10 flex gap-3 overflow-x-auto whitespace-nowrap pt-1 px-1 -mx-1 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+        >
+          {tabs.map(tab => (
             <button
-              onClick={clearFilters}
-              className={`px-4 py-2 text-sm font-medium transition-all duration-300 border ${
-                selectedDomains.size > 0 
-                  ? 'border-white/30 hover:border-white/50 text-white/70 hover:text-white' 
-                  : 'border-transparent text-transparent cursor-default'
-              }`}
-              disabled={selectedDomains.size === 0}
+              key={tab.id}
+              type="button"
+              onClick={() => selectSection(tab.id)}
+              aria-pressed={tab.id === activeTab.id}
+              className={`shrink-0 ${controlClass(tab.id === activeTab.id)}`}
             >
-              Clear
+              {tab.label} ({tab.items.length})
             </button>
-          </div>
+          ))}
         </div>
-
-        {/* No Projects Found Message */}
-        {noProjectsFound && (
-          <div className="text-center py-20">
-            <p className="text-xl text-gray-400">No projects found for the selected domains.</p>
-          </div>
-        )}
 
         {/* Projects List - Awwwards Style */}
-        <div className="space-y-16 md:space-y-20">
-          {filteredProjects.map((project, index) => (
+        <div ref={listRef} className="space-y-16 md:space-y-20">
+          {pageProjects.map((project, index) => (
             <motion.div
               key={project.id}
               layoutId={`project-${project.id}`}
@@ -194,7 +184,7 @@ export default function ProjectsGrid({ projects, allProjects }: ProjectsGridProp
               <div className="flex items-start justify-between mb-6 gap-4">
                 <div className="flex items-baseline gap-6">
                   <span className="text-sm text-gray-500 font-light">
-                    {String(index + 1).padStart(2, '0')}
+                    {String(pageStart + index + 1).padStart(2, '0')}
                   </span>
                   <div className="flex items-center gap-4 text-xs text-gray-400 tracking-wider uppercase">
                     <span>{project.category}</span>
@@ -256,6 +246,49 @@ export default function ProjectsGrid({ projects, allProjects }: ProjectsGridProp
             </motion.div>
           ))}
         </div>
+
+        {/* Pagination */}
+        <nav aria-label="Projects pagination" className="mt-16 flex flex-col items-center gap-6">
+          <p className="text-sm text-gray-400 font-light">
+            Showing {pageStart + 1}–{pageStart + pageProjects.length} of {sectionProjects.length}
+          </p>
+          {totalPages > 1 && (
+            <div className="flex flex-wrap items-center justify-center gap-2">
+              <button
+                type="button"
+                onClick={() => goToPage(currentPage - 1)}
+                disabled={currentPage === 1}
+                className={`${controlClass(false)} disabled:opacity-30 disabled:cursor-not-allowed disabled:hover:border-white/30`}
+              >
+                Previous
+              </button>
+              {pageItems.map((item, i) =>
+                item === '…' ? (
+                  <span key={`gap-${i}`} className="px-2 text-gray-500" aria-hidden="true">…</span>
+                ) : (
+                  <button
+                    key={item}
+                    type="button"
+                    onClick={() => goToPage(item)}
+                    aria-current={item === currentPage ? 'page' : undefined}
+                    aria-label={`Page ${item}`}
+                    className={`min-w-[44px] ${controlClass(item === currentPage)}`}
+                  >
+                    {item}
+                  </button>
+                )
+              )}
+              <button
+                type="button"
+                onClick={() => goToPage(currentPage + 1)}
+                disabled={currentPage === totalPages}
+                className={`${controlClass(false)} disabled:opacity-30 disabled:cursor-not-allowed disabled:hover:border-white/30`}
+              >
+                Next
+              </button>
+            </div>
+          )}
+        </nav>
 
         {/* Project Detail Modal */}
         <AnimatePresence>

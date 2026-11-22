@@ -77,12 +77,12 @@ export default function Hero() {
               {/* Stats */}
               <div className="grid grid-cols-2 gap-4 sm:gap-6 lg:gap-8">
                 <div className="space-y-1 sm:space-y-2">
-                  <div className="text-3xl sm:text-5xl md:text-6xl font-bold text-white">70+</div>
-                  <div className="text-[10px] sm:text-sm text-white/60 tracking-wider uppercase">Satellites Tracked</div>
-                </div>
-                <div className="space-y-1 sm:space-y-2">
                   <div className="text-3xl sm:text-5xl md:text-6xl font-bold text-white">500+</div>
                   <div className="text-[10px] sm:text-sm text-white/60 tracking-wider uppercase">Problems Solved</div>
+                </div>
+                <div className="space-y-1 sm:space-y-2">
+                  <div className="text-3xl sm:text-5xl md:text-6xl font-bold text-white">50+</div>
+                  <div className="text-[10px] sm:text-sm text-white/60 tracking-wider uppercase">Projects</div>
                 </div>
               </div>
               
