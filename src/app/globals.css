@@ -352,3 +352,52 @@ body {
 .skip-preloader #preloader {
   display: none;
 }
+
+/* Blog article body (src/app/blog/[slug]/page.tsx renders trusted HTML into .post-content) */
+.post-content {
+  color: rgba(255, 255, 255, 0.82);
+  font-size: 1.125rem;
+  line-height: 1.8;
+}
+.post-content > * + * {
+  margin-top: 1.25em;
+}
+.post-content h2 {
+  margin-top: 2.2em;
+  font-size: 1.75rem;
+  line-height: 1.25;
+  font-weight: 700;
+  color: #fff;
+}
+.post-content ul {
+  list-style: disc;
+  padding-left: 1.4em;
+}
+.post-content li + li {
+  margin-top: 0.6em;
+}
+.post-content li::marker {
+  color: rgba(255, 255, 255, 0.4);
+}
+.post-content strong {
+  color: #fff;
+  font-weight: 600;
+}
+.post-content a {
+  color: #fff;
+  text-decoration: underline;
+  text-decoration-color: rgba(255, 255, 255, 0.35);
+  text-underline-offset: 4px;
+  transition: text-decoration-color 0.2s;
+}
+.post-content a:hover {
+  text-decoration-color: #fff;
+}
+.post-content code {
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace !important;
+  font-size: 0.9em;
+  padding: 0.15em 0.4em;
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}

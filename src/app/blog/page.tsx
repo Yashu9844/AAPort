@@ -6,74 +6,11 @@ import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import Navigation from '@/components/Navigation';
 import Footer from '@/components/Footer';
+import { blogPosts } from '@/data/blog';
 
 if (typeof window !== 'undefined') {
   gsap.registerPlugin(ScrollTrigger);
 }
-
-interface BlogPost {
-  id: string;
-  title: string;
-  excerpt: string;
-  date: string;
-  readTime: string;
-  category: string;
-  image: string;
-  slug: string;
-}
-
-const blogPosts: BlogPost[] = [
-  {
-    id: '1',
-    title: 'Building Scalable Systems: Lessons from SaveMe.life',
-    excerpt: 'How we improved performance by 45% and scaled to 2,000+ daily consultations through systematic optimization and architectural decisions.',
-    date: 'Nov 2024',
-    readTime: '8 min read',
-    category: 'Engineering',
-    image: '/images/pimg1.jpg',
-    slug: 'building-scalable-systems'
-  },
-  {
-    id: '2',
-    title: 'The Art of Learning in Public: My Journey from Zero to Full Stack',
-    excerpt: 'Reflections on learning full-stack development in 18 months—from building my first API to architecting production systems serving thousands of users.',
-    date: 'Oct 2024',
-    readTime: '6 min read',
-    category: 'Career',
-    image: '/images/pimg3.jpg',
-    slug: 'learning-in-public'
-  },
-  {
-    id: '3',
-    title: 'RAG & AI Agents: Building My Career Guidance System',
-    excerpt: 'Technical deep dive into building an AI-powered mentorship platform using Retrieval Augmented Generation, LangChain, and custom workflows.',
-    date: 'Sep 2024',
-    readTime: '10 min read',
-    category: 'AI/ML',
-    image: '/images/pimg5.jpg',
-    slug: 'rag-ai-agents'
-  },
-  {
-    id: '4',
-    title: 'Performance Optimization: Making Every Millisecond Count',
-    excerpt: 'Why I obsess over performance metrics and how reducing load times by 45% directly improved user experience and conversion rates.',
-    date: 'Aug 2024',
-    readTime: '7 min read',
-    category: 'Performance',
-    image: '/images/pimg7.jpg',
-    slug: 'performance-optimization'
-  },
-  {
-    id: '5',
-    title: 'Solving 400+ LeetCode Problems: What I Actually Learned',
-    excerpt: 'Beyond the solutions—how consistent problem-solving shaped my thinking, debugging skills, and approach to system design.',
-    date: 'Jul 2024',
-    readTime: '5 min read',
-    category: 'DSA',
-    image: '/images/pimg9.jpg',
-    slug: 'leetcode-journey'
-  }
-];
 
 export default function BlogPage() {
   const heroRef = useRef<HTMLDivElement>(null);
@@ -88,6 +25,8 @@ export default function BlogPage() {
 
   useEffect(() => {
     if (typeof window === 'undefined') return;
+    // Respect reduced motion: content stays fully visible without the intro animations
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
     const ctx = gsap.context(() => {
       // Hero section animations
@@ -231,7 +170,7 @@ export default function BlogPage() {
           <div className="space-y-12 md:space-y-16">
             {filteredPosts.map((post) => (
               <article
-                key={post.id}
+                key={post.slug}
                 className="blog-card group cursor-pointer"
               >
                 <Link href={`/blog/${post.slug}`}>

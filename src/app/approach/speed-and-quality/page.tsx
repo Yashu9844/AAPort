@@ -57,7 +57,7 @@ export default function SpeedAndQuality() {
             {/* Image */}
             <div className="relative w-full h-[400px] sm:h-[500px] md:h-[600px] overflow-hidden">
               <Image
-                src="/images/pimg3.jpg"
+                src="/approach/speed-and-quality.webp"
                 alt="Speed and quality balance"
                 fill
                 className="object-cover"

@@ -57,7 +57,7 @@ export default function FutureOfWeb() {
             {/* Image */}
             <div className="relative w-full h-[400px] sm:h-[500px] md:h-[600px] overflow-hidden">
               <Image
-                src="/images/pimg14.jpg"
+                src="/approach/future-of-web.webp"
                 alt="Future of web development"
                 fill
                 className="object-cover"

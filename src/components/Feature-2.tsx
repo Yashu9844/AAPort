@@ -24,22 +24,22 @@ const ArrowUpRight = (props: React.SVGProps<SVGSVGElement>) => (
 const questions = [
   {
     question: 'What drives your development approach?',
-    image: '/images/pimg1.jpg',
+    image: '/approach/what-drives-me.webp',
     link: '/approach/what-drives-me',
   },
   {
     question: 'How do you balance speed and quality?',
-    image: '/images/pimg3.jpg',
+    image: '/approach/speed-and-quality.webp',
     link: '/approach/speed-and-quality',
   },
   {
     question: 'What\'s your problem-solving philosophy?',
-    image: '/images/pimg10.jpg',
+    image: '/approach/problem-solving.webp',
     link: '/approach/problem-solving',
   },
   {
     question: 'Where do you see web development heading?',
-    image: '/images/pimg14.jpg',
+    image: '/approach/future-of-web.webp',
     link: '/approach/future-of-web',
   },
 ];

@@ -44,7 +44,7 @@ const Page2 = () => {
       type: 'EXPERIENCE',
       title: 'Software Development Club',
       subtitle: 'Tech Team Member – Mentored 300+ Students, Built Event Payment Integration',
-      image: '/images/pimg9.jpg',
+      image: '/about/sdc-mentoring.webp',
       link: '#',
     },
     {

@@ -2,7 +2,15 @@
 const nextConfig = {
   turbopack: { root: __dirname },
   async redirects() {
-    return [{ source: "/about2", destination: "/about", permanent: true }];
+    return [
+      { source: "/about2", destination: "/about", permanent: true },
+      // Retired blog posts -> closest current post
+      { source: "/blog/building-scalable-systems", destination: "/blog/saveme-45-percent-faster", permanent: true },
+      { source: "/blog/performance-optimization", destination: "/blog/saveme-45-percent-faster", permanent: true },
+      { source: "/blog/learning-in-public", destination: "/blog/student-to-software-lead", permanent: true },
+      { source: "/blog/leetcode-journey", destination: "/blog/student-to-software-lead", permanent: true },
+      { source: "/blog/rag-ai-agents", destination: "/blog/every-agent-needs-a-computer", permanent: true },
+    ];
   },
   async headers() {
     return [

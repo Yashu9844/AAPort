@@ -57,7 +57,7 @@ export default function WhatDrivesMe() {
             {/* Image */}
             <div className="relative w-full h-[400px] sm:h-[500px] md:h-[600px] overflow-hidden">
               <Image
-                src="/images/pimg1.jpg"
+                src="/approach/what-drives-me.webp"
                 alt="Development approach"
                 fill
                 className="object-cover"

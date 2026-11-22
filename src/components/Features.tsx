@@ -2,9 +2,9 @@
 
 import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
-import Link from "next/link";
 import gsap from "gsap";
-import { motion } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
+import { lockScroll } from "@/lib/lenis";
 
 const ArrowUpRight = (props: React.SVGProps<SVGSVGElement>) => (
   <svg
@@ -22,78 +22,78 @@ const ArrowUpRight = (props: React.SVGProps<SVGSVGElement>) => (
   </svg>
 );
 
-const featuredItems = [
+type Achievement = {
+  title: string;
+  description: string;
+  image: string;
+  highlights: string[];
+  link?: { label: string; href: string };
+};
+
+const featuredItems: Achievement[] = [
   {
     title: "1st Place – Web Dev",
     description:
       "Secured 1st place in a Web Development competition among 30+ teams, demonstrating outstanding skills in building responsive, full‑stack web applications under time constraints.",
-    image: "/images/pimg1.jpg",
-    bg: "bg-gradient-to-br from-purple-500 via-pink-500 to-blue-500",
-    link: "#",
+    image: "/achievements/web-dev.webp",
+    highlights: ["Out of 30+ competing teams", "Judged on the depth of UI/UX and feature set", "A responsive full‑stack app built inside the time limit"],
   },
   {
     title: "1st Place – ML NOVA",
     description:
       "Won 1st place at ML NOVA (150+ participants) by building an NLP‑powered AI agent with memory and a voice assistant for real‑time interaction during the college tech fest.",
-    image: "/images/pimg2.jpg",
-    bg: "bg-gradient-to-br from-green-500 via-teal-500 to-cyan-500",
-    link: "#",
+    image: "/achievements/ml-nova.webp",
+    highlights: ["150+ participants at the college tech fest", "NLP‑powered AI agent with conversational memory", "Voice assistant for real‑time spoken interaction"],
   },
   {
     title: "500+ Problems Solved",
     description:
       "Solved 500+ coding problems including 400+ on LeetCode, demonstrating deep proficiency in data structures, algorithms, and competitive programming.",
-    image: "/images/pimg3.jpg",
-    bg: "bg-[#1a1a1a]",
-    link: "https://leetcode.com/u/mr_alpha",
+    image: "/achievements/problems-500.webp",
+    highlights: ["400+ of them on LeetCode", "Daily practice from 2023 onwards", "Data structures, algorithms and competitive programming"],
+    link: { label: "LeetCode profile", href: "https://leetcode.com/u/mr_alpha" },
   },
   {
     title: "FalconX × ISRO",
     description:
       "Leading a 4‑member team at FalconX Technologies, building a distributed satellite telemetry and tracking platform for ISRO programs with GPU‑accelerated processing for 70+ simultaneous satellites.",
-    image: "/images/pimg4.jpg",
-    bg: "bg-gradient-to-br from-blue-600 via-indigo-600 to-purple-600",
-    link: "#",
+    image: "/achievements/falconx-isro.webp",
+    highlights: ["Software Lead for DATS since June 2026", "4‑member engineering team", "GPU‑accelerated telemetry for 70+ satellites", "Event‑driven RabbitMQ backbone for subsystem health"],
   },
   {
     title: "1st Place – Vertex 2.0",
     description:
       "Won 1st place at the Vertex 2.0 Hackathon, designing and shipping a working product end‑to‑end within the hackathon window.",
-    image: "/images/pimg9.jpg",
-    bg: "bg-gradient-to-br from-amber-500 via-orange-500 to-red-500",
-    link: "#",
+    image: "/achievements/vertex.webp",
+    highlights: ["Idea to working product within the event", "Designed, built and demoed end‑to‑end"],
   },
   {
     title: "3rd Place – Hackathon",
     description:
       "Achieved 3rd place in an 8‑hour national hackathon with 150+ participants and 35+ teams, showcasing rapid prototyping and strong collaborative problem‑solving.",
-    image: "/images/pimg5.jpg",
-    bg: "bg-gradient-to-br from-red-500 via-orange-500 to-yellow-500",
-    link: "#",
+    image: "/achievements/hackathon-3rd.webp",
+    highlights: ["8‑hour national hackathon", "150+ participants across 35+ teams", "Rapid prototyping under a hard deadline"],
   },
   {
     title: "2nd Place – DSA",
     description:
       "Secured 2nd place in a DSA competition with 50 participants, demonstrating strong algorithmic problem‑solving skills in timed, competitive conditions.",
-    image: "/images/pimg6.jpg",
-    bg: "bg-orange-500",
-    link: "#",
+    image: "/achievements/dsa-2nd.webp",
+    highlights: ["50 participants", "Timed algorithmic problem solving"],
   },
   {
     title: "SaveMe.life",
     description:
       "Engineered the Clinic Management module serving 2,000+ daily consultations at RoborosX, reducing load times by 45% and shipping 3 major product upgrades.",
-    image: "/images/pimg7.jpg",
-    bg: "bg-blue-600",
-    link: "#",
+    image: "/achievements/saveme.webp",
+    highlights: ["Clinic Management backend for SaveMe.life v2", "2,000+ consultations a day", "System load time cut by 45%", "Built while still a student"],
   },
   {
     title: "300+ Students Mentored",
     description:
       "Led 5+ workshops and mentored 300+ students at the Software Development Club, contributing to event websites and payment integration modules.",
-    image: "/images/pimg8.jpg",
-    bg: "bg-pink-500",
-    link: "#",
+    image: "/achievements/mentoring.webp",
+    highlights: ["300+ students mentored in web fundamentals", "5+ workshops led", "College event website with payment integration"],
   },
 ];
 
@@ -101,8 +101,10 @@ export default function FeaturedPage() {
   const swiperRef = useRef<HTMLDivElement>(null);
   const tweenRef = useRef<gsap.core.Tween | null>(null);
   const loopWidthRef = useRef(0);
-  const dragRef = useRef<{ startX: number; startOffset: number } | null>(null);
+  const dragRef = useRef<{ startX: number; startOffset: number; moved: boolean } | null>(null);
+  const draggedRef = useRef(false);
   const [isArrowHovered, setIsArrowHovered] = useState(false);
+  const [selected, setSelected] = useState<Achievement | null>(null);
 
   // Seamless marquee: animate relative to the current x and wrap into [-loopWidth, 0],
   // so the loop can resume from wherever a touch-drag left it.
@@ -139,16 +141,36 @@ export default function FeaturedPage() {
     };
   }, []);
 
+  // Detail view: pause the carousel, lock page scroll, close on ESC
+  useEffect(() => {
+    if (!selected) return;
+    tweenRef.current?.pause();
+    lockScroll(true);
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setSelected(null);
+    };
+    window.addEventListener("keydown", onKey);
+    return () => {
+      window.removeEventListener("keydown", onKey);
+      lockScroll(false);
+      tweenRef.current?.resume();
+    };
+  }, [selected]);
+
   const handleEnter = () => tweenRef.current?.pause();
-  const handleLeave = () => tweenRef.current?.resume();
+  const handleLeave = () => {
+    if (!selected) tweenRef.current?.resume();
+  };
 
   // Touch drag (phones/tablets): pause the loop, follow the finger, then resume from there
   const handleTouchStart = (e: React.TouchEvent) => {
     if (!swiperRef.current) return;
     tweenRef.current?.pause();
+    draggedRef.current = false;
     dragRef.current = {
       startX: e.touches[0].clientX,
       startOffset: gsap.getProperty(swiperRef.current, "x") as number,
+      moved: false,
     };
   };
 
@@ -156,26 +178,37 @@ export default function FeaturedPage() {
     const drag = dragRef.current;
     const width = loopWidthRef.current;
     if (!drag || !swiperRef.current || !width) return;
-    const x = drag.startOffset + e.touches[0].clientX - drag.startX;
-    gsap.set(swiperRef.current, { x: gsap.utils.wrap(-width, 0, x) });
+    const dx = e.touches[0].clientX - drag.startX;
+    if (Math.abs(dx) > 8) drag.moved = true;
+    gsap.set(swiperRef.current, { x: gsap.utils.wrap(-width, 0, drag.startOffset + dx) });
   };
 
   const handleTouchEnd = () => {
     if (!dragRef.current) return;
+    // A swipe shouldn't also count as a tap on the card under the finger
+    draggedRef.current = dragRef.current.moved;
     dragRef.current = null;
     startLoop();
+  };
+
+  const openCard = (item: Achievement) => {
+    if (draggedRef.current) {
+      draggedRef.current = false;
+      return;
+    }
+    setSelected(item);
   };
 
   return (
     <main className="bg-black text-white w-full pb-12 md:pb-16">
       <div className="px-3 sm:px-4 md:px-5 lg:px-6">
-        <h1 
+        <h1
           className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-primary text-white font-normal leading-[0.95] tracking-[-0.01em] mb-12 md:mb-16 flex items-center gap-3 sm:gap-4"
           onMouseEnter={() => setIsArrowHovered(true)}
           onMouseLeave={() => setIsArrowHovered(false)}
         >
           <span>Achievements</span>
-          <motion.span 
+          <motion.span
             className="text-white/30"
             animate={{
               x: isArrowHovered ? 8 : 0,
@@ -196,28 +229,31 @@ export default function FeaturedPage() {
           onTouchMove={handleTouchMove}
           onTouchEnd={handleTouchEnd}
         >
-          {/* Gradient mask on right edge only */}
-          <div className="absolute right-0 top-0 bottom-0 w-32  from-black to-transparent z-10 pointer-events-none"></div>
-          
           <div ref={swiperRef} className="flex gap-4 select-none">
             {/* Render cards twice for seamless loop */}
             {[...featuredItems, ...featuredItems].map((item, idx) => (
-              <Link
+              <div
                 key={idx}
-                href={item.link}
-                className="group cursor-pointer flex-shrink-0 w-[80vw] sm:w-[360px] md:w-[420px] block"
-                onMouseEnter={handleEnter}
-                onMouseLeave={handleLeave}
+                role="button"
+                tabIndex={idx < featuredItems.length ? 0 : -1}
+                aria-hidden={idx >= featuredItems.length}
+                aria-label={`${item.title}: view details`}
+                onClick={() => openCard(item)}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter" || e.key === " ") {
+                    e.preventDefault();
+                    setSelected(item);
+                  }
+                }}
+                className="group cursor-pointer flex-shrink-0 w-[80vw] sm:w-[360px] md:w-[420px] block focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white"
               >
-                <div
-                  className={`${item.bg} flex items-center justify-center h-[320px] sm:h-[380px] md:h-[460px] mb-5 overflow-hidden transition-transform duration-300 group-hover:scale-[1.02]`}
-                >
+                <div className="relative h-[320px] sm:h-[380px] md:h-[460px] mb-5 overflow-hidden bg-neutral-900">
                   <Image
                     src={item.image}
                     alt={item.title}
-                    width={500}
-                    height={460}
-                    className="object-cover w-full h-full"
+                    fill
+                    sizes="(min-width: 768px) 420px, (min-width: 640px) 360px, 80vw"
+                    className="object-cover transition-transform duration-500 group-hover:scale-[1.04]"
                   />
                 </div>
                 <div className="flex items-center gap-2">
@@ -229,11 +265,75 @@ export default function FeaturedPage() {
                 <p className="text-base md:text-lg text-gray-400 leading-relaxed font-light antialiased">
                   {item.description}
                 </p>
-              </Link>
+              </div>
             ))}
           </div>
         </div>
       </div>
+
+      {/* Detail view */}
+      <AnimatePresence>
+        {selected && (
+          <motion.div
+            className="fixed inset-0 z-[9999] flex items-center justify-center bg-black/80 backdrop-blur-sm p-4 sm:p-6"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            onClick={() => setSelected(null)}
+            data-lenis-prevent
+          >
+            <motion.div
+              role="dialog"
+              aria-modal="true"
+              aria-labelledby="achievement-title"
+              className="relative w-full max-w-5xl max-h-[90vh] overflow-y-auto bg-neutral-950 border border-white/10 grid grid-cols-1 md:grid-cols-2"
+              initial={{ y: 30, scale: 0.97 }}
+              animate={{ y: 0, scale: 1 }}
+              exit={{ y: 20, scale: 0.98 }}
+              transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
+              onClick={(e) => e.stopPropagation()}
+            >
+              <div className="relative aspect-[9/10] md:aspect-auto md:min-h-[520px]">
+                <Image src={selected.image} alt={selected.title} fill sizes="(min-width: 768px) 512px, 100vw" className="object-cover" />
+              </div>
+              <div className="p-6 sm:p-8 md:p-10 flex flex-col">
+                <button
+                  type="button"
+                  onClick={() => setSelected(null)}
+                  aria-label="Close"
+                  className="self-end -mt-2 -mr-2 mb-4 h-10 w-10 flex items-center justify-center border border-white/20 text-white/70 hover:text-white hover:border-white/50 transition-colors"
+                >
+                  ✕
+                </button>
+                <p className="text-xs uppercase tracking-[0.25em] text-white/40 mb-3">Achievement</p>
+                <h3 id="achievement-title" className="text-3xl sm:text-4xl font-primary leading-tight mb-5">
+                  {selected.title}
+                </h3>
+                <p className="text-base sm:text-lg text-white/70 leading-relaxed font-light">{selected.description}</p>
+                <ul className="mt-8 space-y-3 border-t border-white/10 pt-6">
+                  {selected.highlights.map((h) => (
+                    <li key={h} className="flex gap-3 text-white/85">
+                      <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-white/60" />
+                      <span>{h}</span>
+                    </li>
+                  ))}
+                </ul>
+                {selected.link && (
+                  <a
+                    href={selected.link.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="mt-8 inline-flex items-center gap-2 self-start border-b border-white/30 pb-0.5 text-white/80 hover:text-white transition-colors"
+                  >
+                    {selected.link.label}
+                    <ArrowUpRight className="h-4 w-4" />
+                  </a>
+                )}
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </main>
   );
-}
+}

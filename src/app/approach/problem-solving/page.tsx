@@ -57,7 +57,7 @@ export default function ProblemSolving() {
             {/* Image */}
             <div className="relative w-full h-[400px] sm:h-[500px] md:h-[600px] overflow-hidden">
               <Image
-                src="/images/pimg10.jpg"
+                src="/approach/problem-solving.webp"
                 alt="Problem solving"
                 fill
                 className="object-cover"
